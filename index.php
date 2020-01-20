@@ -71,7 +71,6 @@ $cachevalue = $db->read($urlz);
 			?>
 			<div id="theContent" class="col-md-8">
 <?php
-                            echo "Looks like we couldn't find the content ¯\_(ツ)_/¯";
                             // User agent switcheroo
                             $UAnum = Rand (0,3) ;
 
@@ -103,87 +102,84 @@ $cachevalue = $db->read($urlz);
                             //$UAstring = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)\r\n";
                             //$UAstring = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
 
-                            if ($_GET["u"]) {
+                            $url = urldecode($urlz); // TODO not needed
 
+                            if (!preg_match('!^https?://!i', $url)) $url = 'http://'.$url;
 
-                                $url = urldecode($urlz); // TODO not needed
+                            // Create a stream
+                            $opts = array(
+                                'http'=>array(
+                                    'method'=>"GET",
+                                    'header'=>$UAstring
+                                )
+                            );
 
-                                if (!preg_match('!^https?://!i', $url)) $url = 'http://'.$url;
+                            $context = stream_context_create($opts);
+                            $html = @file_get_contents($url, false, $context); // TODO handle errors here
 
-                                // Create a stream
-                                $opts = array(
-                                    'http'=>array(
-                                        'method'=>"GET",
-                                        'header'=>$UAstring
-                                    )
-                                );
+                            if ($html) {
+                                // PHP Readability works with UTF-8 encoded content.
+                                // If $html is not UTF-8 encoded, use iconv() or
+                                // mb_convert_encoding() to convert to UTF-8.
 
-                                $context = stream_context_create($opts);
-                                // var_dump($UAstring);
-                                // var_dump($context);
-                                // var_dump($url);
-                                $html = file_get_contents($url, false, $context); // TODO handle errors here
-                            }
-
-                            // PHP Readability works with UTF-8 encoded content.
-                            // If $html is not UTF-8 encoded, use iconv() or
-                            // mb_convert_encoding() to convert to UTF-8.
-
-                            // If we've got Tidy, let's clean up input.
-                            // This step is highly recommended - PHP's default HTML parser
-                            // often does a terrible job and results in strange output.
-                            if (function_exists('tidy_parse_string')) {
-                                $tidy = tidy_parse_string($html, array(), 'UTF8');
-                                $tidy->cleanRepair();
-                                $html = $tidy->value;
-                            }
-
-                            // give it to Readability
-                            $readability = new Readability($html, $url);
-
-                            // print debug output?
-                            // useful to compare against Arc90's original JS version -
-                            // simply click the bookmarklet with FireBug's
-                            // console window open
-                            $readability->debug = false;
-
-                            // convert links to footnotes?
-                            $readability->convertLinksToFootnotes = true;
-
-                            // process it
-                            $result = $readability->init();
-
-                            // does it look like we found what we wanted?
-                            if ($result) {
-                                $header = "<h1>";
-                                $header .= $readability->getTitle()->textContent;
-                                $header .= "</h1><a href='http://unvis.it/". $urlz."' class='perma'>". $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."</a>";
-                                $header .=  "<hr>";
-                                echo $header;
-                                $content = $readability->getContent()->innerHTML;
-
-                                // if we've got Tidy, let's clean it up for output
+                                // If we've got Tidy, let's clean up input.
+                                // This step is highly recommended - PHP's default HTML parser
+                                // often does a terrible job and results in strange output.
                                 if (function_exists('tidy_parse_string')) {
-                                    $tidy = tidy_parse_string($content,
-                                                              array('indent'=>true, 'show-body-only'=>true),
-                                                              'UTF8');
+                                    $tidy = tidy_parse_string($html, array(), 'UTF8');
                                     $tidy->cleanRepair();
-                                    $content = $tidy->value;
-                                    $content = trim(preg_replace('/\s\s+/', ' ', $content));
+                                    $html = $tidy->value;
                                 }
 
+                                // give it to Readability
+                                $readability = new Readability($html, $url);
 
-                                echo $content;
-                                $toCache = "<div id=\"theContent\" class=\"col-md-8\">";
-                                $toCache .= $header.$content;
-                                $toCache .= "</div>";
-                                $db->cache($urlz,$toCache);
+                                // print debug output?
+                                // useful to compare against Arc90's original JS version -
+                                // simply click the bookmarklet with FireBug's
+                                // console window open
+                                $readability->debug = false;
+
+                                // convert links to footnotes?
+                                $readability->convertLinksToFootnotes = true;
+
+                                // process it
+                                $result = $readability->init();
+
+                                // does it look like we found what we wanted?
+                                if ($result) {
+                                    $header = "<h1>";
+                                    $header .= $readability->getTitle()->textContent;
+                                    $header .= "</h1><a href='http://unvis.it/". $urlz."' class='perma'>". $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."</a>";
+                                    $header .=  "<hr>";
+                                    echo $header;
+                                    $content = $readability->getContent()->innerHTML;
+
+                                    // if we've got Tidy, let's clean it up for output
+                                    if (function_exists('tidy_parse_string')) {
+                                        $tidy = tidy_parse_string($content,
+                                                                  array('indent'=>true, 'show-body-only'=>true),
+                                                                  'UTF8');
+                                        $tidy->cleanRepair();
+                                        $content = $tidy->value;
+                                        $content = trim(preg_replace('/\s\s+/', ' ', $content));
+                                    }
+
+
+                                    echo $content;
+                                    $toCache = "<div id=\"theContent\" class=\"col-md-8\">";
+                                    $toCache .= $header.$content;
+                                    $toCache .= "</div>";
+                                    $db->cache($urlz,$toCache);
+                                }
+                            } else {
+                                echo "Looks like we couldn't find the content ¯\_(ツ)_/¯";
                             }
-                        }else{
+                        } else {
                             //var_dump("From cache:");
                             echo $cachevalue;
 			}
-$fourohfour = False;
+$fourohfour = false; //TODO not used
 ?>
 			</div>
 
