@@ -179,7 +179,6 @@ $cachevalue = $db->read($urlz);
                             //var_dump("From cache:");
                             echo $cachevalue;
 			}
-$fourohfour = false; //TODO not used
 ?>
 			</div>
 
