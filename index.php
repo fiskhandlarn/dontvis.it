@@ -114,7 +114,7 @@ $cachevalue = $db->read($url);
                             );
 
                             $context = stream_context_create($opts);
-                            $html = @file_get_contents($url, false, $context); // TODO handle errors here
+                            $html = @file_get_contents($url, false, $context);
 
                             if ($html) {
                                 // PHP Readability works with UTF-8 encoded content.
