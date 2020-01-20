@@ -1,13 +1,14 @@
 <?php
 if(!ob_start("ob_gzhandler")) ob_start(); //gzip-e-di-doo-da
 
+$url = $_GET['u'];
+
+// don't crawl yourself
+if (strpos($url, "unvis.") !== false) {header("Location: http://unvis.it", true, 303);}
+
 // Try to remove http:// from bookmarklet and direct links.
-$urlz = $_GET['u'];
-//$urlz = $_SERVER['REQUEST_URI'];
-//$urlz = substr($urlz, 1);
-if (strpos($urlz, "unvis.") !== false) {header("Location: http://unvis.it", true, 303);}
-if(strpos($urlz, "http:") !== false) {
-	$str = $urlz;
+if(strpos($url, "http:") !== false) {
+    $str = $url;
 	$str = preg_replace('#^https?:/#', '', $str);
 	header("Location: http://".$_SERVER['HTTP_HOST'].$str, true, 303);
 }
@@ -20,7 +21,7 @@ require_once 'uv/JSLikeHTMLElement.php';
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title><?php if ($urlz) { echo 'UV : '.$urlz;} else { echo "unvis.it – avoid endorsing idiots";} ?></title>
+	<title><?php if ($url) { echo 'UV : '.$url;} else { echo "unvis.it – avoid endorsing idiots";} ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<link rel="stylesheet" type="text/css" media="screen" href="/uv/css/bootstrap.min.css" />
@@ -49,7 +50,7 @@ require_once 'uv/JSLikeHTMLElement.php';
 					    <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
 					    <div class="input-group">
 					      <div class="input-group-addon"><a href="http://unvis.it" id="logo" ><strong>unvis.it/</strong></a> </div>
-					      <input class="form-control" type="text" name="u" id="uv" placeholder="Url you want to read without giving a pageview" value="<?php if ($urlz) { echo $urlz;} ?>" >
+					      <input class="form-control" type="text" name="u" id="uv" placeholder="Url you want to read without giving a pageview" value="<?php if ($url) { echo $url;} ?>" >
 					    </div>
 					  </div>
 
@@ -61,13 +62,13 @@ require_once 'uv/JSLikeHTMLElement.php';
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-2"><?php if ($urlz) { ?><a href="javascript:(function(){sq=window.sq=window.sq||{};if(sq.script){sq.again();}else{sq.bookmarkletVersion='0.3.0';sq.iframeQueryParams={host:'//squirt.io',userId:'8a94e519-7e9a-4939-a023-593b24c64a2f',};sq.script=document.createElement('script');sq.script.src=sq.iframeQueryParams.host+'/bookmarklet/frame.outer.js';document.body.appendChild(sq.script);}})();" class="btn btn-default btn-mini hidden-phone" style="position: relative;top: 20px;" id="squirt">Speed read this</a><?php } ?></div>
+			<div class="col-md-2"><?php if ($url) { ?><a href="javascript:(function(){sq=window.sq=window.sq||{};if(sq.script){sq.again();}else{sq.bookmarkletVersion='0.3.0';sq.iframeQueryParams={host:'//squirt.io',userId:'8a94e519-7e9a-4939-a023-593b24c64a2f',};sq.script=document.createElement('script');sq.script.src=sq.iframeQueryParams.host+'/bookmarklet/frame.outer.js';document.body.appendChild(sq.script);}})();" class="btn btn-default btn-mini hidden-phone" style="position: relative;top: 20px;" id="squirt">Speed read this</a><?php } ?></div>
 <?php
 
 include_once("dbhandler.php");
 $db = new DBHandler();
-$cachevalue = $db->read($urlz);
-			if (!$cachevalue && $urlz){
+$cachevalue = $db->read($url);
+			if (!$cachevalue && $url){
 			?>
 			<div id="theContent" class="col-md-8">
 <?php
@@ -101,8 +102,6 @@ $cachevalue = $db->read($urlz);
                             //$UAstring = "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
                             //$UAstring = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)\r\n";
                             //$UAstring = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
-
-                            $url = urldecode($urlz); // TODO not needed
 
                             if (!preg_match('!^https?://!i', $url)) $url = 'http://'.$url;
 
@@ -150,7 +149,7 @@ $cachevalue = $db->read($urlz);
                                 if ($result) {
                                     $header = "<h1>";
                                     $header .= $readability->getTitle()->textContent;
-                                    $header .= "</h1><a href='http://unvis.it/". $urlz."' class='perma'>". $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."</a>";
+                                    $header .= "</h1><a href='http://unvis.it/". $url."' class='perma'>". $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."</a>";
                                     $header .=  "<hr>";
                                     echo $header;
                                     $content = $readability->getContent()->innerHTML;
@@ -170,7 +169,7 @@ $cachevalue = $db->read($urlz);
                                     $toCache = "<div id=\"theContent\" class=\"col-md-8\">";
                                     $toCache .= $header.$content;
                                     $toCache .= "</div>";
-                                    $db->cache($urlz,$toCache);
+                                    $db->cache($url,$toCache);
                                 }
                             } else {
                                 echo "Looks like we couldn't find the content ¯\_(ツ)_/¯";
@@ -195,8 +194,8 @@ $cachevalue = $db->read($urlz);
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2"></div>
-				<div class="col-md-8"><?php if ($urlz) {?><hr><?php }?><?php if ( $urlz) {?>
-					<small><em><b>Source:</b> <a href="https://linkonym.appspot.com/?http://<?php echo $urlz; ?>"><?php echo $urlz; ?></a></em></small>
+				<div class="col-md-8"><?php if ($url) {?><hr><?php }?><?php if ( $url) {?>
+					<small><em><b>Source:</b> <a href="https://linkonym.appspot.com/?http://<?php echo $url; ?>"><?php echo $url; ?></a></em></small>
 					<hr>
 
 					<p style="text-align:center"><a href="/" class="btn btn-default" >What is unvis.it?</a></p>
