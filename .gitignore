@@ -1,0 +1,13 @@
+.docker
+!.docker/nginx.conf
+.DS_Store
+.env
+.idea
+.vagrant
+backstop_data
+Homestead.json
+Homestead.yaml
+node_modules
+npm-debug.log
+Vagrantfile
+vendor
