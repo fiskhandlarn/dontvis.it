@@ -258,7 +258,7 @@ class Readability
         if ($this->bodyCache == null) {
             $this->bodyCache = '';
             foreach ($bodyElems as $bodyNode) {
-                $this->bodyCache += $bodyNode->innerHTML;
+                $this->bodyCache .= $bodyNode->innerHTML;
             }
         }
         if ($bodyElems->length > 0 && $this->body == null) {
