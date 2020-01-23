@@ -5,12 +5,15 @@ declare(strict_types=1);
 require __DIR__ . '/vendor/autoload.php';
 
 class DBHandler {
+
 	protected $pdo;
 
-	function __construct(){
-
+	function __construct() {
 		$this->pdo = new PDO('mysql:host=' . env('DB_HOST') . ';dbname=' . env('DB_NAME') . ';charset=utf8', env('DB_USER'), env('DB_PASSWORD'));
 
+        if (!$this->tableExists()) {
+            $this->createTable();
+        }
 	}
 
 	function read($hash){
@@ -29,4 +32,19 @@ class DBHandler {
 		$stmt->execute();
 	}
 
+    private function createTable()
+    {
+        $stmt = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `cached` (
+  `hash` text COLLATE utf8_unicode_ci NOT NULL,
+  `body` longtext COLLATE utf8_unicode_ci NOT NULL
+)");
+        $stmt->execute();
+    }
+
+    private function tableExists():bool
+    {
+        $stmt = $this->pdo->prepare("SHOW TABLES LIKE 'cached'");
+        $stmt->execute();
+        return $stmt->rowCount() >= 1;
+    }
 }
