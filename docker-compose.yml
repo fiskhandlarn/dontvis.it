@@ -27,7 +27,7 @@ mysql:
   ports:
     - "3306:3306"
   environment:
-    - MYSQL_ROOT_PASSWORD=password
+    - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
   volumes:
     - ./.docker/.mysql-data:/var/lib/mysql
 
@@ -39,6 +39,6 @@ phpmyadmin:
   ports:
     - "8082:80"
   environment:
-    - PMA_USER=root
-    - PMA_PASSWORD=password
+    - PMA_USER=${DB_USER}
+    - PMA_PASSWORD=${DB_PASSWORD}
     - PHP_UPLOAD_MAX_FILESIZE=100MB

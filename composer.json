@@ -1,0 +1,15 @@
+{
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "name": "fiskhandlarn/unvis.it",
+  "description": "Unvis.it, the idiot circumventor tool",
+  "license": "MIT",
+  "require": {
+    "vlucas/phpdotenv": "^4.1"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ]
+  }
+}
