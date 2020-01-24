@@ -7,14 +7,17 @@ $url = ltrim($_GET['u'], '/');
 $hasURL = !empty($url);
 
 if ($hasURL) {
+    // don't crawl yourself
+    if (strpos($url, $_SERVER['HTTP_HOST']) !== false) {
+        header("Location: " . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . '/', true, 301);
+        die();
+    }
+
     // prepend with scheme if not present
     if (!preg_match('!^https?://!i', $url)) {
         //  assume non ssl
         $url = 'http://'.$url;
     }
-
-    // don't crawl yourself
-    if (strpos($url, "unvis.") !== false) {header("Location: http://unvis.it", true, 303);}
 
     // Remove scheme from bookmarklet and direct links.
     $permalinkURL = preg_replace('#^https?://#', '', $url);
