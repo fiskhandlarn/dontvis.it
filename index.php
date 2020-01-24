@@ -19,7 +19,8 @@ if ($hasURL) {
     // Remove scheme from bookmarklet and direct links.
     $permalinkURL = preg_replace('#^https?://#', '', $url);
 
-    $permalink = $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . '/' . $permalinkURL;
+    $permalinkWithoutScheme = $_SERVER['HTTP_HOST'] . '/' . $permalinkURL;
+    $permalink = $_SERVER['REQUEST_SCHEME'] . "://" . $permalinkWithoutScheme;
 
     // redirect to permalink if current address isn't the same as the wanted permalink
     if (ltrim($_SERVER['REQUEST_URI'], '/') !== $permalinkURL) {
@@ -162,7 +163,7 @@ $cachevalue = $db->read($url);
                                 if ($result) {
                                     $header = "<h1>";
                                     $header .= $readability->getTitle()->textContent;
-                                    $header .= "</h1><a href='http://unvis.it/". $url."' class='perma'>". $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."</a>";
+                                    $header .= '</h1><a href="' . $permalink . '" class="perma" rel="bookmark">' . $permalinkWithoutScheme . '</a>';
                                     $header .=  "<hr>";
                                     echo $header;
                                     $content = $readability->getContent()->innerHTML;
