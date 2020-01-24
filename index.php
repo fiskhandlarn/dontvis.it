@@ -30,6 +30,11 @@ if ($hasURL) {
         header("Location: " . $permalink, true, 303);
         die();
     }
+} else {
+    // default to homepage
+    $permalinkURL = false;
+    $permalinkWithoutScheme = $_SERVER['HTTP_HOST'] . '/';
+    $permalink = $_SERVER['REQUEST_SCHEME'] . "://" . $permalinkWithoutScheme;
 }
 
 use Readability\Readability;
@@ -85,124 +90,138 @@ require_once 'uv/JSLikeHTMLElement.php';
     <main id="main" role="main">
 	    <div class="container">
 		    <div class="row">
-			    <div class="col-md-2"><?php if ($url) { ?><a href="javascript:(function(){sq=window.sq=window.sq||{};if(sq.script){sq.again();}else{sq.bookmarkletVersion='0.3.0';sq.iframeQueryParams={host:'//squirt.io',userId:'8a94e519-7e9a-4939-a023-593b24c64a2f',};sq.script=document.createElement('script');sq.script.src=sq.iframeQueryParams.host+'/bookmarklet/frame.outer.js';document.body.appendChild(sq.script);}})();" class="btn btn-default btn-mini hidden-phone" style="position: relative;top: 20px;" id="squirt">Speed read this</a><?php } ?></div>
+<?php
+if ($hasURL) {
+?>
+			    <div class="col-md-2"><a href="javascript:(function(){sq=window.sq=window.sq||{};if(sq.script){sq.again();}else{sq.bookmarkletVersion='0.3.0';sq.iframeQueryParams={host:'//squirt.io',userId:'8a94e519-7e9a-4939-a023-593b24c64a2f',};sq.script=document.createElement('script');sq.script.src=sq.iframeQueryParams.host+'/bookmarklet/frame.outer.js';document.body.appendChild(sq.script);}})();" class="btn btn-default btn-mini hidden-phone" style="position: relative;top: 20px;" id="squirt">Speed read this</a></div>
                 <article id="theContent" class="article col-md-8">
 <?php
 
-include_once("dbhandler.php");
-$db = new DBHandler();
-$cachevalue = $db->read($url);
+    include_once("dbhandler.php");
+    $db = new DBHandler();
+    list($title, $body) = $db->read($permalinkURL);
 
-if (!$cachevalue && $url){
-    ?>
-<?php
-    // User agent switcheroo
-    $UAnum = Rand (0,3) ;
+    if (!$title){
+        // no cache, let's fetch the article
 
-                            switch ($UAnum)
-                            {
-                                case 0:
-                                    // TODO DN seems to restrict content if crawled from Google
-                                    $UAstring = "User-Agent: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\r\n";
-                                    break;
+        //var_dump("Fetching article ...");
 
-                                case 1:
-                                    $UAstring = "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
-                                    break;
+        // User agent switcheroo
+        $UAnum = Rand (0,3) ;
 
-                                case 2:
-                                    $UAstring = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)\r\n";
-                                    break;
+        switch ($UAnum) {
+            case 0:
+                // TODO DN seems to restrict content if crawled from Google
+                $UAstring = "User-Agent: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\r\n";
+                break;
 
-                                case 3:
-                                    $UAstring = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
-                                    break;
+            case 1:
+                $UAstring = "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
+                break;
 
-                                    // If this works, many lolz acquired.
+            case 2:
+                $UAstring = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)\r\n";
+                break;
 
-                            }
+            case 3:
+                $UAstring = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
+                break;
 
-                            //$UAstring = "User-Agent: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\r\n";
-                            //$UAstring = "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
-                            //$UAstring = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)\r\n";
-                            //$UAstring = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
+                // If this works, many lolz acquired.
+        }
 
-                            // Create a stream
-                            $opts = array(
-                                'http'=>array(
-                                    'method'=>"GET",
-                                    'header'=>$UAstring
-                                )
-                            );
+        //$UAstring = "User-Agent: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\r\n";
+        //$UAstring = "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
+        //$UAstring = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)\r\n";
+        //$UAstring = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
 
-                            $context = stream_context_create($opts);
-                            $html = @file_get_contents($url, false, $context);
+        // Create a stream
+        $opts = array(
+            'http'=>array(
+                'method'=>"GET",
+                'header'=>$UAstring
+            )
+        );
 
-                            if ($html) {
-                                // PHP Readability works with UTF-8 encoded content.
-                                // If $html is not UTF-8 encoded, use iconv() or
-                                // mb_convert_encoding() to convert to UTF-8.
+        $context = stream_context_create($opts);
+        $html = @file_get_contents($url, false, $context);
 
-                                // If we've got Tidy, let's clean up input.
-                                // This step is highly recommended - PHP's default HTML parser
-                                // often does a terrible job and results in strange output.
-                                if (function_exists('tidy_parse_string')) {
-                                    $tidy = tidy_parse_string($html, array(), 'UTF8');
-                                    $tidy->cleanRepair();
-                                    $html = $tidy->value;
-                                }
+        if ($html) {
+            // PHP Readability works with UTF-8 encoded content.
+            // If $html is not UTF-8 encoded, use iconv() or
+            // mb_convert_encoding() to convert to UTF-8.
 
-                                // give it to Readability
-                                $readability = new Readability($html, $url);
+            // If we've got Tidy, let's clean up input.
+            // This step is highly recommended - PHP's default HTML parser
+            // often does a terrible job and results in strange output.
+            if (function_exists('tidy_parse_string')) {
+                $tidy = tidy_parse_string($html, array(), 'UTF8');
+                $tidy->cleanRepair();
+                $html = $tidy->value;
+            }
 
-                                // print debug output?
-                                // useful to compare against Arc90's original JS version -
-                                // simply click the bookmarklet with FireBug's
-                                // console window open
-                                $readability->debug = false;
+            // give it to Readability
+            $readability = new Readability($html, $url);
 
-                                // convert links to footnotes?
-                                $readability->convertLinksToFootnotes = true;
+            // print debug output?
+            // useful to compare against Arc90's original JS version -
+            // simply click the bookmarklet with FireBug's
+            // console window open
+            $readability->debug = false;
 
-                                // process it
-                                $result = $readability->init();
+            // convert links to footnotes?
+            $readability->convertLinksToFootnotes = true;
 
-                                // does it look like we found what we wanted?
-                                if ($result) {
-                                    $header = "<h1>";
-                                    $header .= $readability->getTitle()->textContent;
-                                    $header .= '</h1><a href="' . $permalink . '" class="perma" rel="bookmark">' . $permalinkWithoutScheme . '</a>';
-                                    $header .=  "<hr>";
-                                    echo $header;
-                                    $content = $readability->getContent()->innerHTML;
+            // process it
+            $result = $readability->init();
 
-                                    // if we've got Tidy, let's clean it up for output
-                                    if (function_exists('tidy_parse_string')) {
-                                        $tidy = tidy_parse_string($content,
-                                                                  array('indent'=>true, 'show-body-only'=>true),
-                                                                  'UTF8');
-                                        $tidy->cleanRepair();
-                                        $content = $tidy->value;
-                                        $content = trim(preg_replace('/\s\s+/', ' ', $content));
-                                    }
+            // does it look like we found what we wanted?
+            if ($result) {
+                $title = $readability->getTitle()->textContent;
 
+                $content = $readability->getContent()->innerHTML;
 
-                                    echo $content;
-                                    $toCache = "<div id=\"theContent\" class=\"col-md-8\">";
-                                    $toCache .= $header.$content;
-                                    $toCache .= "</div>";
-                                    $db->cache($url,$toCache);
-                                }
-                            } else {
-                                echo "Looks like we couldn't find the content ¯\_(ツ)_/¯";
-                            }
-                        } else {
-                            //var_dump("From cache:");
-                            echo $cachevalue;
-			}
+                // if we've got Tidy, let's clean it up for output
+                if (function_exists('tidy_parse_string')) {
+                    $tidy = tidy_parse_string($content,
+                                              array('indent'=>true, 'show-body-only'=>true),
+                                              'UTF8');
+                    $tidy->cleanRepair();
+                    $content = $tidy->value;
+                    $content = trim(preg_replace('/\s\s+/', ' ', $content));
+                }
+
+                $body = $content;
+
+                /* $toCache = "<div id=\"theContent\" class=\"col-md-8\">";
+                 * $toCache .= $header.$content;
+                 * $toCache .= "</div>";*/
+
+                // save to db
+                $db->cache($permalinkURL, $title, $body);
+            }
+        } else {
+        }
+    }
+    // else {
+    //     var_dump("From cache:");
+	// }
+
+    if ($title && $body) {
+        $header = "<h1>";
+        $header .= $title;
+        $header .= '</h1><a href="' . $permalink . '" class="perma" rel="bookmark">' . $permalinkWithoutScheme . '</a>';
+        $header .=  "<hr>";
+        echo $header;
+        echo $body;
+    } else {
+        echo "<p>Looks like we couldn't find the content ¯\_(ツ)_/¯</p>";
+    }
 ?>
+
 			    </article>
 			    <div class="col-md-2"></div>
+<?php } ?>
 	        </div> <!-- .row -->
 	    </div> <!-- .container -->
 	</main>

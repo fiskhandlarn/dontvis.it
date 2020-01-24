@@ -5,6 +5,7 @@
   "description": "Unvis.it, the idiot circumventor tool",
   "license": "MIT",
   "require": {
+    "php": "^7.2",
     "vlucas/phpdotenv": "^4.1"
   },
   "autoload": {
