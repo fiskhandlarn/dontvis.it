@@ -1,16 +1,31 @@
 <?php
 if(!ob_start("ob_gzhandler")) ob_start(); //gzip-e-di-doo-da
 
-$url = $_GET['u'];
+// remove beginning slash added by nginx(?)
+$url = ltrim($_GET['u'], '/');
 
-// don't crawl yourself
-if (strpos($url, "unvis.") !== false) {header("Location: http://unvis.it", true, 303);}
+$hasURL = !empty($url);
 
-// Try to remove http:// from bookmarklet and direct links.
-if(strpos($url, "http:") !== false) {
-    $str = $url;
-	$str = preg_replace('#^https?:/#', '', $str);
-	header("Location: http://".$_SERVER['HTTP_HOST'].$str, true, 303);
+if ($hasURL) {
+    // prepend with scheme if not present
+    if (!preg_match('!^https?://!i', $url)) {
+        //  assume non ssl
+        $url = 'http://'.$url;
+    }
+
+    // don't crawl yourself
+    if (strpos($url, "unvis.") !== false) {header("Location: http://unvis.it", true, 303);}
+
+    // Remove scheme from bookmarklet and direct links.
+    $permalinkURL = preg_replace('#^https?://#', '', $url);
+
+    $permalink = $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . '/' . $permalinkURL;
+
+    // redirect to permalink if current address isn't the same as the wanted permalink
+    if (ltrim($_SERVER['REQUEST_URI'], '/') !== $permalinkURL) {
+        header("Location: " . $permalink, true, 303);
+        die();
+    }
 }
 
 use Readability\Readability;
@@ -102,8 +117,6 @@ $cachevalue = $db->read($url);
                             //$UAstring = "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
                             //$UAstring = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)\r\n";
                             //$UAstring = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
-
-                            if (!preg_match('!^https?://!i', $url)) $url = 'http://'.$url;
 
                             // Create a stream
                             $opts = array(
