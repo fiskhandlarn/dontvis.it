@@ -58,20 +58,20 @@ require_once 'uv/JSLikeHTMLElement.php';
 	</script>
 </head>
 <body>
-	<div class="container">
-		<div id="head">
+    <header id="head">
+	    <div class="container">
 			<div class="row">
 				<br>
 				<div class="col-md-2"></div>
 				<div class="col-md-8" id="theInputForm">
 					<form class="form-inline">
-					  <div class="form-group">
-					    <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-					    <div class="input-group">
-					      <div class="input-group-addon"><a href="http://unvis.it" id="logo" ><strong>unvis.it/</strong></a> </div>
-					      <input class="form-control" type="text" name="u" id="uv" placeholder="Url you want to read without giving a pageview" value="<?php if ($url) { echo $url;} ?>" >
+					    <div class="form-group">
+					        <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+					        <div class="input-group">
+					            <div class="input-group-addon"><a href="http://unvis.it" id="logo" ><strong>unvis.it/</strong></a> </div>
+					            <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="<?php if ($url) { echo $url;} ?>" >
+					        </div>
 					    </div>
-					  </div>
 
 					</form>
 
@@ -79,20 +79,25 @@ require_once 'uv/JSLikeHTMLElement.php';
 				</div>
 				<div class="col-md-2"></div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-2"><?php if ($url) { ?><a href="javascript:(function(){sq=window.sq=window.sq||{};if(sq.script){sq.again();}else{sq.bookmarkletVersion='0.3.0';sq.iframeQueryParams={host:'//squirt.io',userId:'8a94e519-7e9a-4939-a023-593b24c64a2f',};sq.script=document.createElement('script');sq.script.src=sq.iframeQueryParams.host+'/bookmarklet/frame.outer.js';document.body.appendChild(sq.script);}})();" class="btn btn-default btn-mini hidden-phone" style="position: relative;top: 20px;" id="squirt">Speed read this</a><?php } ?></div>
+		</div> <!-- .container -->
+    </header>
+
+    <main id="main" role="main">
+	    <div class="container">
+		    <div class="row">
+			    <div class="col-md-2"><?php if ($url) { ?><a href="javascript:(function(){sq=window.sq=window.sq||{};if(sq.script){sq.again();}else{sq.bookmarkletVersion='0.3.0';sq.iframeQueryParams={host:'//squirt.io',userId:'8a94e519-7e9a-4939-a023-593b24c64a2f',};sq.script=document.createElement('script');sq.script.src=sq.iframeQueryParams.host+'/bookmarklet/frame.outer.js';document.body.appendChild(sq.script);}})();" class="btn btn-default btn-mini hidden-phone" style="position: relative;top: 20px;" id="squirt">Speed read this</a><?php } ?></div>
+                <article id="theContent" class="article col-md-8">
 <?php
 
 include_once("dbhandler.php");
 $db = new DBHandler();
 $cachevalue = $db->read($url);
-			if (!$cachevalue && $url){
-			?>
-			<div id="theContent" class="col-md-8">
+
+if (!$cachevalue && $url){
+    ?>
 <?php
-                            // User agent switcheroo
-                            $UAnum = Rand (0,3) ;
+    // User agent switcheroo
+    $UAnum = Rand (0,3) ;
 
                             switch ($UAnum)
                             {
@@ -196,28 +201,26 @@ $cachevalue = $db->read($url);
                             echo $cachevalue;
 			}
 ?>
-			</div>
+			    </article>
+			    <div class="col-md-2"></div>
+	        </div> <!-- .row -->
+	    </div> <!-- .container -->
+	</main>
 
-			<div class="col-md-2"></div>
-	</div>
-
-
-	</div>
-
-
-	</div>
-
-	<div id="footer">
+    <footer id="footer" class="site-footer" role="contentinfo">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2"></div>
-				<div class="col-md-8"><?php if ($url) {?><hr><?php }?><?php if ( $url) {?>
-					<small><em><b>Source:</b> <a href="https://linkonym.appspot.com/?http://<?php echo $url; ?>"><?php echo $url; ?></a></em></small>
+				<div class="col-md-8">
+<?php if ($url) {?><hr><?php }?>
+<?php if ( $url) {?>
+	                <small><em><b>Source:</b> <a href="https://linkonym.appspot.com/?http://<?php echo $url; ?>"><?php echo $url; ?></a></em></small>
 					<hr>
 
 					<p style="text-align:center"><a href="/" class="btn btn-default" >What is unvis.it?</a></p>
-					<br><br><?php } else {?>
-					<?php //require_once('uv/ga/toplist.php');?>
+					<br><br>
+<?php } else {?>
+	<?php //require_once('uv/ga/toplist.php');?>
 
 					<h1 id="about">What is unvis.it?</h1>
 					<p>Unvis.it is a tool to escape linkbaits, trolls, idiots and asshats. </p>
@@ -233,26 +236,26 @@ $cachevalue = $db->read($url);
 							<li><b>I heard someone made a Firefox add-on?</b> <a href="https://addons.mozilla.org/en-US/firefox/addon/unvisit/">Indeed!</a></li>
 							<li><b>I need anonymous file hosting?</b> Check out <a href="http://minfil.org">Minfil.org</a></li>
 						</ul>
-					<p>Enjoy literally not feeding the trolls!</p>
-					<br>
-					<p style="text-align:center"> <a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27http://unvis.it/%27%2Borig)%3B" class="btn btn-sm btn-info">Drag <b>this</b> to your bookmarks bar to unvis.it any page</a></p>
-					<hr>
-					<h2>Now: the same info in infographics</h2>
-					<p style="text-align:center;"><img src="/uv/img/unvisit-xplaind.png" alt="What's this, I don't even…" title="What's this, I don't even…" ></p>
-					<hr>
-					<p style="text-align:center">
-						<img src="/uv/img/icon_large.png" alt="OMG LOGOTYPE" title="OMG LOGOTYPE" style="width:150px;height:150px">
-						<br><br><br>
-						<?php //<a href="http://www.lolontai.re"><img src="/uv/img/lulz.png" id="lulz" alt="Sir Lulz-a-Lot approves" title="Sir Lulz-a-Lot approves"></a>?>
-						<br><br><br><br><br><br><br><br>
-					</p>
-					<?php } ?>
-					</div>
-				</div>
+					    <p>Enjoy literally not feeding the trolls!</p>
+					    <br>
+					    <p style="text-align:center"> <a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27http://unvis.it/%27%2Borig)%3B" class="btn btn-sm btn-info">Drag <b>this</b> to your bookmarks bar to unvis.it any page</a></p>
+					    <hr>
+					    <h2>Now: the same info in infographics</h2>
+					    <p style="text-align:center;"><img src="/uv/img/unvisit-xplaind.png" alt="What's this, I don't even…" title="What's this, I don't even…" ></p>
+					    <hr>
+					    <p style="text-align:center">
+						    <img src="/uv/img/icon_large.png" alt="OMG LOGOTYPE" title="OMG LOGOTYPE" style="width:150px;height:150px">
+						    <br><br><br>
+						    <?php //<a href="http://www.lolontai.re"><img src="/uv/img/lulz.png" id="lulz" alt="Sir Lulz-a-Lot approves" title="Sir Lulz-a-Lot approves"></a>?>
+						    <br><br><br><br><br><br><br><br>
+					    </p>
+<?php } ?>
+				</div> <!-- .col-md-8 -->
 				<div class="col-md-2"></div>
-			</div>
-		</div>
-	</div>
+			</div> <!-- .row -->
+		</div> <!-- .container -->
+	</footer>
+
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 	<script type="text/javascript" src="/uv/js/bootstrap.min.js"></script>
 <script type="text/javascript" >
