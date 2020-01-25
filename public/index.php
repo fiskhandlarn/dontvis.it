@@ -169,8 +169,8 @@ if ($hasURL) {
     if ($title && $body) {
         echo $blade->run("article",compact("title", "body", "url", "articlePermalinkURL", "permalink", "permalinkWithoutScheme"));
     } else {
-        echo $blade->run("notfound",compact("url", "articlePermalinkURL", "permalink", "permalinkWithoutScheme"));
+        echo $blade->run("notfound",["title" => $url] + compact("articlePermalinkURL"));
     }
 } else {
-    echo $blade->run("index"); //, compact("url"));
+    echo $blade->run("index");
 }

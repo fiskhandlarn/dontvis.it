@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title><?php if ($url) { echo env('SITE_SHORT_NAME') . ' : '.$url;} else { echo env('SITE_NAME') . " &ndash; avoid endorsing idiots";} ?></title>
+    <title><?php if ($title) { echo env('SITE_SHORT_NAME') . ' : '.$title;} else { echo env('SITE_NAME') . " &ndash; avoid endorsing idiots";} ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{ ROOT_URL }}/assets/css/bootstrap.min.css" />
