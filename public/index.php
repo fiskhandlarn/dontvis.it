@@ -249,7 +249,7 @@ if ($hasURL) {
 					        <p style="text-align:center"> <a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27<?php echo env('SITE_URL'); ?>%27%2Borig)%3B" class="btn btn-sm btn-info">Drag <b>this</b> to your bookmarks bar to <?php echo env('SITE_NAME'); ?> any page</a></p>
 					        <hr>
 					        <h2>Now: the same info in infographics</h2>
-					        <p style="text-align:center;"><img src="<?php echo ROOT_URL; ?>/assets/images/unvisit-xplaind.png" alt="What's this, I don't even ..." title="What's this, I don't even ..." ></p>
+					        <p style="text-align:center;"><img src="<?php echo ROOT_URL; ?>/assets/images/site-xplaind.png" alt="What's this, I don't even ..." title="What's this, I don't even ..." ></p>
 					        <hr>
 					        <p style="text-align:center">
 						        <img src="<?php echo ROOT_URL; ?>/assets/images/icon_large.png" alt="OMG LOGOTYPE" title="OMG LOGOTYPE" style="width:150px;height:150px">
