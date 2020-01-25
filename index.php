@@ -290,11 +290,6 @@ if ($hasURL) {
             stripScheme();
 		});
 
-        // TODO is this wanted?
-		$("#uv").click(function() {
-			$(this).select();
-		});
-
 		$("#uv-form").on('submit', function(event) {
             stripScheme();
 
