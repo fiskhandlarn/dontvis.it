@@ -1,6 +1,8 @@
 <?php
 if(!ob_start("ob_gzhandler")) ob_start(); //gzip-e-di-doo-da
 
+define('ROOT_URL', $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST']);
+
 // remove beginning slash added by nginx(?)
 $url = ltrim($_GET['u'], '/');
 
@@ -9,7 +11,7 @@ $hasURL = !empty($url);
 if ($hasURL) {
     // don't crawl yourself
     if (strpos($url, $_SERVER['HTTP_HOST']) !== false) {
-        header("Location: " . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . '/', true, 301);
+        header("Location: " . ROOT_URL . '/', true, 301);
         die();
     }
 
@@ -46,15 +48,15 @@ use Readability\Readability;
 	<title><?php if ($url) { echo 'UV : '.$url;} else { echo "unvis.it – avoid endorsing idiots";} ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<link rel="stylesheet" type="text/css" media="screen" href="/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo ROOT_URL; ?>/assets/css/bootstrap.min.css" />
 	<!--[if IE]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/images/favicons/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/images/favicons/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/images/favicons/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="/assets/images/favicons/apple-touch-icon-57-precomposed.png">
-	<link rel="shortcut icon" href="/assets/images/favicons/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-57-precomposed.png">
+	<link rel="shortcut icon" href="<?php echo ROOT_URL; ?>/assets/images/favicons/favicon.png">
 	<script type="text/javascript">
 	window.google_analytics_uacct = "UA";
 	</script>
@@ -236,7 +238,7 @@ if ($hasURL) {
 	                <small><em><b>Source:</b> <a href="http://nullrefer.com/?<?php echo $url; ?>"><?php echo $url; ?></a></em></small>
 					<hr>
 
-					<p style="text-align:center"><a href="/" class="btn btn-default" >What is unvis.it?</a></p>
+					<p style="text-align:center"><a href="<?php echo ROOT_URL; ?>/" class="btn btn-default" >What is unvis.it?</a></p>
 					<br><br>
 <?php } else {?>
 					<h1 id="about">What is unvis.it?</h1>
@@ -258,12 +260,12 @@ if ($hasURL) {
 					    <p style="text-align:center"> <a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27http://unvis.it/%27%2Borig)%3B" class="btn btn-sm btn-info">Drag <b>this</b> to your bookmarks bar to unvis.it any page</a></p>
 					    <hr>
 					    <h2>Now: the same info in infographics</h2>
-					    <p style="text-align:center;"><img src="/assets/images/unvisit-xplaind.png" alt="What's this, I don't even…" title="What's this, I don't even…" ></p>
+					    <p style="text-align:center;"><img src="<?php echo ROOT_URL; ?>/assets/images/unvisit-xplaind.png" alt="What's this, I don't even…" title="What's this, I don't even…" ></p>
 					    <hr>
 					    <p style="text-align:center">
-						    <img src="/assets/images/icon_large.png" alt="OMG LOGOTYPE" title="OMG LOGOTYPE" style="width:150px;height:150px">
+						    <img src="<?php echo ROOT_URL; ?>/assets/images/icon_large.png" alt="OMG LOGOTYPE" title="OMG LOGOTYPE" style="width:150px;height:150px">
 						    <br><br><br>
-						    <?php //<a href="http://www.lolontai.re"><img src="/assets/images/lulz.png" id="lulz" alt="Sir Lulz-a-Lot approves" title="Sir Lulz-a-Lot approves"></a>?>
+						    <?php //<a href="http://www.lolontai.re"><img src="<?php echo ROOT_URL; ?>/assets/images/lulz.png" id="lulz" alt="Sir Lulz-a-Lot approves" title="Sir Lulz-a-Lot approves"></a>?>
 						    <br><br><br><br><br><br><br><br>
 					    </p>
 <?php } ?>
@@ -274,7 +276,7 @@ if ($hasURL) {
 	</footer>
 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-	<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<?php echo ROOT_URL; ?>/assets/js/bootstrap.min.js"></script>
 <script type="text/javascript" >
 	$(document).ready(function() {
         function stripScheme() {
