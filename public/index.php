@@ -239,8 +239,6 @@ if ($hasURL) {
 					<p style="text-align:center"><a href="/" class="btn btn-default" >What is unvis.it?</a></p>
 					<br><br>
 <?php } else {?>
-	<?php //require_once('uv/ga/toplist.php');?>
-
 					<h1 id="about">What is unvis.it?</h1>
 					<p>Unvis.it is a tool to escape linkbaits, trolls, idiots and asshats. </p>
 					<p>What the tool does is to try to capture the content of an article or blog post without passing on your visit as a pageview. Effectively this means that you're not paying with your attention, so you can <strong>read and share</strong> the idiocy that it contains.</p>
