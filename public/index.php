@@ -190,14 +190,9 @@ if ($hasURL) {
 
                 $body = $content;
 
-                /* $toCache = "<div id=\"theContent\" class=\"col-md-8\">";
-                 * $toCache .= $header.$content;
-                 * $toCache .= "</div>";*/
-
                 // save to db
                 $db->cache($articlePermalinkURL, $title, $body);
             }
-        } else {
         }
     }
     // else {
