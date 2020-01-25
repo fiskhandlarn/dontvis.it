@@ -2,7 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title><?php if ($title) { echo env('SITE_SHORT_NAME') . ' : '.$title;} else { echo env('SITE_NAME') . " &ndash; avoid endorsing idiots";} ?></title>
+    <title>
+      @if ($title)
+        {{ env('SITE_SHORT_NAME') }} : {{ $title}}
+      @else
+        {{ env('SITE_NAME') }} &ndash; avoid endorsing idiots
+      @endif
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{ ROOT_URL }}/assets/css/bootstrap.min.css" />
@@ -26,7 +32,7 @@
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-addon"><a href="{{ ROOT_URL }}/" id="logo" ><strong>{{ env('SITE_NAME') }}/</strong></a> </div>
-                  <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="<?php if ($articlePermalinkURL) { echo $articlePermalinkURL;} ?>" >
+                  <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="{{ $articlePermalinkURL }}" />
                 </div>
               </div>
             </form>
