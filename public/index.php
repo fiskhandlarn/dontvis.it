@@ -45,7 +45,7 @@ use Readability\Readability;
 <html>
     <head>
 	    <meta charset="UTF-8">
-	    <title><?php if ($url) { echo 'UV : '.$url;} else { echo "unvis.it – avoid endorsing idiots";} ?></title>
+	    <title><?php if ($url) { echo 'UV : '.$url;} else { echo "unvis.it &ndash; avoid endorsing idiots";} ?></title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 	    <meta name="apple-mobile-web-app-capable" content="yes" />
 	    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo ROOT_URL; ?>/assets/css/bootstrap.min.css" />
