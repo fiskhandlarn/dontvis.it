@@ -22,6 +22,6 @@
         <small><em><b>Source:</b> <a href="http://nullrefer.com/?{{ $url }}">{{ $url }}</a></em></small>
         <hr>
 
-        <p style="text-align:center"><a href="{{ $ROOT_URL }}/" class="btn btn-default" >What is {{ env('SITE_NAME') }}?</a></p>
+        <p style="text-align:center"><a href="{{ ROOT_URL }}/" class="btn btn-default" >What is {{ env('SITE_NAME') }}?</a></p>
         <br><br>
 @stop
