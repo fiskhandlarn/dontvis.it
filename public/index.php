@@ -38,8 +38,6 @@ if ($hasURL) {
 }
 
 use Readability\Readability;
-require_once 'includes/Readability.php';
-require_once 'includes/JSLikeHTMLElement.php';
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -146,6 +144,9 @@ if ($hasURL) {
         $html = @file_get_contents($url, false, $context);
 
         if ($html) {
+            require_once 'includes/Readability.php';
+            require_once 'includes/JSLikeHTMLElement.php';
+
             // PHP Readability works with UTF-8 encoded content.
             // If $html is not UTF-8 encoded, use iconv() or
             // mb_convert_encoding() to convert to UTF-8.
