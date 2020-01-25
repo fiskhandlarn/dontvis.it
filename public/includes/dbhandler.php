@@ -16,10 +16,10 @@ class DBHandler {
         }
 	}
 
-	public function read($hash): ?array
+	public function read($url): ?array
     {
-		$stmt = $this->pdo->prepare('SELECT title, body FROM cached WHERE hash = :hash LIMIT 1');
-		$stmt->execute(array('hash' => $hash));
+		$stmt = $this->pdo->prepare('SELECT title, body FROM cache WHERE url = :url LIMIT 1');
+		$stmt->execute(array('url' => $url));
 		foreach ($stmt as $row) {
             return [$row['title'], $row['body']];
 		}
@@ -27,9 +27,9 @@ class DBHandler {
         return null;
 	}
 
-	function cache($hash, $title, $body){
-		$stmt = $this->pdo->prepare("INSERT INTO cached (hash, title, body) VALUES (:hash, :title, :body)");
-		$stmt->bindParam(':hash', $hash);
+	function cache($url, $title, $body){
+		$stmt = $this->pdo->prepare("INSERT INTO cache (url, title, body) VALUES (:url, :title, :body)");
+		$stmt->bindParam(':url', $url);
 		$stmt->bindParam(':title', $title);
 		$stmt->bindParam(':body', $body);
 		$stmt->execute();
@@ -37,17 +37,20 @@ class DBHandler {
 
     private function createTable()
     {
-        $stmt = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `cached` (
-  `hash` text COLLATE utf8_unicode_ci NOT NULL,
+        $stmt = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `cache` (
+  `id` BIGINT(20) unsigned NOT NULL AUTO_INCREMENT,
+  `url` text COLLATE utf8_unicode_ci NOT NULL,
   `title` text COLLATE utf8_unicode_ci NOT NULL,
-  `body` longtext COLLATE utf8_unicode_ci NOT NULL
+  `body` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  PRIMARY KEY (`id`)
 )");
         $stmt->execute();
     }
 
     private function tableExists():bool
     {
-        $stmt = $this->pdo->prepare("SHOW TABLES LIKE 'cached'");
+        $stmt = $this->pdo->prepare("SHOW TABLES LIKE 'cache'");
         $stmt->execute();
         return $stmt->rowCount() >= 1;
     }
