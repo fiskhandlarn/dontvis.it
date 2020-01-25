@@ -40,12 +40,13 @@ if ($hasURL) {
 }
 
 use Readability\Readability;
+require __DIR__ . '/../vendor/autoload.php';
 ?>
 <!DOCTYPE HTML>
 <html>
     <head>
 	    <meta charset="UTF-8">
-	    <title><?php if ($url) { echo 'UV : '.$url;} else { echo "unvis.it &ndash; avoid endorsing idiots";} ?></title>
+        <title><?php if ($url) { echo env('SITE_SHORT_NAME') . ' : '.$url;} else { echo env('SITE_NAME') . " &ndash; avoid endorsing idiots";} ?></title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 	    <meta name="apple-mobile-web-app-capable" content="yes" />
 	    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo ROOT_URL; ?>/assets/css/bootstrap.min.css" />
@@ -69,7 +70,7 @@ use Readability\Readability;
 					        <div class="form-group">
 					            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
 					            <div class="input-group">
-					                <div class="input-group-addon"><a href="<?php echo ROOT_URL; ?>/" id="logo" ><strong>unvis.it/</strong></a> </div>
+					                <div class="input-group-addon"><a href="<?php echo ROOT_URL; ?>/" id="logo" ><strong><?php echo env('SITE_NAME'); ?>/</strong></a> </div>
 					                <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="<?php if ($articlePermalinkURL) { echo $articlePermalinkURL;} ?>" >
 					            </div>
 					        </div>
@@ -228,11 +229,11 @@ if ($hasURL) {
 	                    <small><em><b>Source:</b> <a href="http://nullrefer.com/?<?php echo $url; ?>"><?php echo $url; ?></a></em></small>
 					    <hr>
 
-					    <p style="text-align:center"><a href="<?php echo ROOT_URL; ?>/" class="btn btn-default" >What is unvis.it?</a></p>
+					    <p style="text-align:center"><a href="<?php echo ROOT_URL; ?>/" class="btn btn-default" >What is <?php echo env('SITE_NAME'); ?>?</a></p>
 					    <br><br>
 <?php } else {?>
-  	                    <h1 id="about">What is unvis.it?</h1>
-					    <p>Unvis.it is a tool to escape linkbaits, trolls, idiots and asshats. </p>
+  	                    <h1 id="about">What is <?php echo env('SITE_NAME'); ?>?</h1>
+					    <p><?php echo env('SITE_NAME'); ?> is a tool to escape linkbaits, trolls, idiots and asshats. </p>
 					    <p>What the tool does is to try to capture the content of an article or blog post without passing on your visit as a pageview. Effectively this means that you're not paying with your attention, so you can <strong>read and share</strong> the idiocy that it contains.</p>
 					    <p><small>Now with a speed reading options from <a href="http://www.squirt.io/">Squirt</a>, so you can get dumbfounded quicker!</small></p>
 					    <br>
@@ -241,11 +242,11 @@ if ($hasURL) {
 							    <li><b>Is this legal?</b> Probably not. </li>
 							    <li><b>Does it work with any website?</b> Certainly not. </li>
 							    <li><b>Do we track you?</b> Only through Google <del>Echelon</del> Analytics.</li>
-							    <li><b>Is it open source?</b> <a href="https://github.com/phixofor/unvis.it">Sure, why not?</a></li>
+							    <li><b>Is it open source?</b> <a href="<?php echo env('GITHUB_URL'); ?>">Sure, why not?</a></li>
 						    </ul>
 					        <p>Enjoy literally not feeding the trolls!</p>
 					        <br>
-					        <p style="text-align:center"> <a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27http://unvis.it/%27%2Borig)%3B" class="btn btn-sm btn-info">Drag <b>this</b> to your bookmarks bar to unvis.it any page</a></p>
+					        <p style="text-align:center"> <a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27<?php echo env('SITE_URL'); ?>%27%2Borig)%3B" class="btn btn-sm btn-info">Drag <b>this</b> to your bookmarks bar to <?php echo env('SITE_NAME'); ?> any page</a></p>
 					        <hr>
 					        <h2>Now: the same info in infographics</h2>
 					        <p style="text-align:center;"><img src="<?php echo ROOT_URL; ?>/assets/images/unvisit-xplaind.png" alt="What's this, I don't even ..." title="What's this, I don't even ..." ></p>
@@ -301,7 +302,7 @@ if ($hasURL) {
 	                                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	        ga('create', 'UA', 'unvis.it');
+	        ga('create', 'UA', '<?php echo env('SITE_NAME'); ?>');
 	        ga('require', 'linkid', 'linkid.js');
 	        ga('send', 'pageview');
 	    </script>
