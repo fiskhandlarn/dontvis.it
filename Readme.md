@@ -36,7 +36,6 @@ Things I would like to do, but have very little knowledge in how to achieve. If 
 
 ## Built with:
 - PHP-Readability 1.7.2	: https://github.com/j0k3r/php-readability
-- SimpleCache		: http://devgrow.com/simple-cache-class/
 - Bootstrap 2.2.2	: https://github.com/twbs/bootstrap/releases/tag/v2.2.2
-- GAPI				: http://code.google.com/p/gapi-google-analytics-php-interface/
+
 
