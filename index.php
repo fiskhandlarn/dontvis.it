@@ -49,7 +49,6 @@ require_once 'uv/JSLikeHTMLElement.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<link rel="stylesheet" type="text/css" media="screen" href="/uv/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="/uv/css/bootstrap-theme.min.css" type="text/css" media="screen">
 	<!--[if IE]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
