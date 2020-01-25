@@ -27,7 +27,7 @@ A user will paste a link, or type unvis.it before the url in the address bar and
 ## TODO
 Things I would like to do, but have very little knowledge in how to achieve. If anyone feels that they can and want to contribute, I would appreciate it a lot.
 
-* Use memcache to speed things up
+* Use [memcache](https://www.php.net/manual/en/book.memcached.php) to speed things up
 * Use MySQL instead of files
 * Consolidate URL-caching so that www. and trailing slashes don't create separate cache files
 * Rehost images on Imgur
