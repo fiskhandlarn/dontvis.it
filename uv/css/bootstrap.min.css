@@ -402,3 +402,7 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 
 .toplistLink {text-overflow:ellipsis;max-width:590px;min-width:350px;overflow:hidden;white-space:nowrap;width:100%}
 .toplistNo {width:10px;}
+
+input {
+  width: 100%;
+}

@@ -20,19 +20,19 @@ if ($hasURL) {
     }
 
     // Remove scheme from bookmarklet and direct links.
-    $permalinkURL = preg_replace('#^https?://#', '', $url);
+    $articlePermalinkURL = preg_replace('#^https?://#', '', $url);
 
-    $permalinkWithoutScheme = $_SERVER['HTTP_HOST'] . '/' . $permalinkURL;
+    $permalinkWithoutScheme = $_SERVER['HTTP_HOST'] . '/' . $articlePermalinkURL;
     $permalink = $_SERVER['REQUEST_SCHEME'] . "://" . $permalinkWithoutScheme;
 
     // redirect to permalink if current address isn't the same as the wanted permalink
-    if (ltrim($_SERVER['REQUEST_URI'], '/') !== $permalinkURL) {
+    if (ltrim($_SERVER['REQUEST_URI'], '/') !== $articlePermalinkURL) {
         header("Location: " . $permalink, true, 303);
         die();
     }
 } else {
     // default to homepage
-    $permalinkURL = false;
+    $articlePermalinkURL = false;
     $permalinkWithoutScheme = $_SERVER['HTTP_HOST'] . '/';
     $permalink = $_SERVER['REQUEST_SCHEME'] . "://" . $permalinkWithoutScheme;
 }
@@ -69,12 +69,12 @@ require_once 'uv/JSLikeHTMLElement.php';
 				<br>
 				<div class="col-md-2"></div>
 				<div class="col-md-8" id="theInputForm">
-					<form class="form-inline">
+					<form class="form-inline" id="uv-form">
 					    <div class="form-group">
 					        <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
 					        <div class="input-group">
 					            <div class="input-group-addon"><a href="http://unvis.it" id="logo" ><strong>unvis.it/</strong></a> </div>
-					            <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="<?php if ($url) { echo $url;} ?>" >
+					            <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="<?php if ($articlePermalinkURL) { echo $articlePermalinkURL;} ?>" >
 					        </div>
 					    </div>
 
@@ -99,7 +99,7 @@ if ($hasURL) {
 
     include_once("dbhandler.php");
     $db = new DBHandler();
-    list($title, $body) = $db->read($permalinkURL);
+    list($title, $body) = $db->read($articlePermalinkURL);
 
     if (!$title){
         // no cache, let's fetch the article
@@ -198,7 +198,7 @@ if ($hasURL) {
                  * $toCache .= "</div>";*/
 
                 // save to db
-                $db->cache($permalinkURL, $title, $body);
+                $db->cache($articlePermalinkURL, $title, $body);
             }
         } else {
         }
@@ -279,30 +279,32 @@ if ($hasURL) {
 	<script type="text/javascript" src="/uv/js/bootstrap.min.js"></script>
 <script type="text/javascript" >
 	$(document).ready(function() {
-		$("#uv").change(function() {
-console.log('change');
+        function stripScheme() {
 			theURL = $("#uv").val();
 			theURL = theURL.replace(/.*?:\/\//g, "");
 			theURL = decodeURIComponent(theURL);
 			$("#uv").val(theURL);
+        }
+
+		$("#uv").change(function() {
+            stripScheme();
 		});
 
+        // TODO is this wanted?
 		$("#uv").click(function() {
 			$(this).select();
 		});
 
-		function leSwitcheroo(){
-			var orig=$("#uv").val();
-			var urlz=location.host;
-			location.replace("http://"+urlz+"/"+orig);
-		};
+		$("#uv-form").on('submit', function(event) {
+            stripScheme();
 
-		$("#uv").keyup(function(event){
-		    if(event.keyCode == 13){
-  				leSwitcheroo()
-		    }
+            // redirect directly to permalink instead of submitting form (thus circumvent going through ?u=)
+			location.replace(location.protocol + '//' + location.host + '/' + $("#uv").val());
+            event.preventDefault();
+            return false;
 		});
 
+        // Google Analytics (TODO is this needed?)
 		$('.toplistLink a').on('click', function() {
 			var a_href = $(this).attr('href');
 			ga('send', 'event', 'toplist', 'click', a_href);
