@@ -4,8 +4,66 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92eaaa62617bbe357fe95d7335fafb8c",
+    "content-hash": "1c7579e8fc0e70e35ae4a6901b0d4103",
     "packages": [
+        {
+            "name": "eftec/bladeone",
+            "version": "3.33",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EFTEC/BladeOne.git",
+                "reference": "9f58d25858850dd64164a7486c2fe45e2b652867"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/9f58d25858850dd64164a7486c2fe45e2b652867",
+                "reference": "9f58d25858850dd64164a7486c2fe45e2b652867",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16.1",
+                "phpunit/phpunit": "^5.7",
+                "squizlabs/php_codesniffer": "~3.3.2"
+            },
+            "suggest": {
+                "ext-mbstring": "This extension is used if it's active"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.33-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "eftec\\bladeone\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jorge Patricio Castro Castillo",
+                    "email": "jcastro@eftec.cl"
+                }
+            ],
+            "description": "The standalone version Blade Template Engine from Laravel in a single php file",
+            "homepage": "https://github.com/EFTEC/BladeOne",
+            "keywords": [
+                "blade",
+                "php",
+                "template",
+                "templating",
+                "view"
+            ],
+            "time": "2019-12-21T12:33:13+00:00"
+        },
         {
             "name": "phpoption/phpoption",
             "version": "1.7.2",
