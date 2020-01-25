@@ -43,57 +43,55 @@ use Readability\Readability;
 ?>
 <!DOCTYPE HTML>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title><?php if ($url) { echo 'UV : '.$url;} else { echo "unvis.it – avoid endorsing idiots";} ?></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo ROOT_URL; ?>/assets/css/bootstrap.min.css" />
-	<!--[if IE]>
-		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-57-precomposed.png">
-	<link rel="shortcut icon" href="<?php echo ROOT_URL; ?>/assets/images/favicons/favicon.png">
-	<script type="text/javascript">
-	window.google_analytics_uacct = "UA";
-	</script>
-</head>
-<body>
-    <header id="head">
-	    <div class="container">
-			<div class="row">
-				<br>
-				<div class="col-md-2"></div>
-				<div class="col-md-8" id="theInputForm">
-					<form class="form-inline" id="uv-form">
-					    <div class="form-group">
-					        <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-					        <div class="input-group">
-					            <div class="input-group-addon"><a href="<?php echo ROOT_URL; ?>/" id="logo" ><strong>unvis.it/</strong></a> </div>
-					            <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="<?php if ($articlePermalinkURL) { echo $articlePermalinkURL;} ?>" >
+    <head>
+	    <meta charset="UTF-8">
+	    <title><?php if ($url) { echo 'UV : '.$url;} else { echo "unvis.it – avoid endorsing idiots";} ?></title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+	    <meta name="apple-mobile-web-app-capable" content="yes" />
+	    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo ROOT_URL; ?>/assets/css/bootstrap.min.css" />
+	    <!--[if IE]>
+		    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	    <![endif]-->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-144-precomposed.png">
+	    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-114-precomposed.png">
+	    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-72-precomposed.png">
+	    <link rel="apple-touch-icon-precomposed" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-57-precomposed.png">
+	    <link rel="shortcut icon" href="<?php echo ROOT_URL; ?>/assets/images/favicons/favicon.png">
+	    <script type="text/javascript">
+	        window.google_analytics_uacct = "UA";
+	    </script>
+    </head>
+    <body>
+        <header id="head">
+	        <div class="container">
+			    <div class="row">
+				    <br>
+				    <div class="col-md-2"></div>
+				    <div class="col-md-8" id="theInputForm">
+					    <form class="form-inline" id="uv-form">
+					        <div class="form-group">
+					            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+					            <div class="input-group">
+					                <div class="input-group-addon"><a href="<?php echo ROOT_URL; ?>/" id="logo" ><strong>unvis.it/</strong></a> </div>
+					                <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="<?php if ($articlePermalinkURL) { echo $articlePermalinkURL;} ?>" >
+					            </div>
 					        </div>
-					    </div>
+					    </form>
+					    <hr>
+				    </div>
+				    <div class="col-md-2"></div>
+			    </div>
+		    </div> <!-- .container -->
+        </header>
 
-					</form>
-
-					<hr>
-				</div>
-				<div class="col-md-2"></div>
-			</div>
-		</div> <!-- .container -->
-    </header>
-
-    <main id="main" role="main">
-	    <div class="container">
-		    <div class="row">
+        <main id="main" role="main">
+	        <div class="container">
+		        <div class="row">
 <?php
 if ($hasURL) {
 ?>
-			    <div class="col-md-2"><a href="javascript:(function(){sq=window.sq=window.sq||{};if(sq.script){sq.again();}else{sq.bookmarkletVersion='0.3.0';sq.iframeQueryParams={host:'//squirt.io',userId:'8a94e519-7e9a-4939-a023-593b24c64a2f',};sq.script=document.createElement('script');sq.script.src=sq.iframeQueryParams.host+'/bookmarklet/frame.outer.js';document.body.appendChild(sq.script);}})();" class="btn btn-default btn-mini hidden-phone" style="position: relative;top: 20px;" id="squirt">Speed read this</a></div>
-                <article id="theContent" class="article col-md-8">
+			        <div class="col-md-2"><a href="javascript:(function(){sq=window.sq=window.sq||{};if(sq.script){sq.again();}else{sq.bookmarkletVersion='0.3.0';sq.iframeQueryParams={host:'//squirt.io',userId:'8a94e519-7e9a-4939-a023-593b24c64a2f',};sq.script=document.createElement('script');sq.script.src=sq.iframeQueryParams.host+'/bookmarklet/frame.outer.js';document.body.appendChild(sq.script);}})();" class="btn btn-default btn-mini hidden-phone" style="position: relative;top: 20px;" id="squirt">Speed read this</a></div>
+                    <article id="theContent" class="article col-md-8">
 <?php
 
     require_once "includes/dbhandler.php";
@@ -221,109 +219,105 @@ if ($hasURL) {
     }
 ?>
 
-			    </article>
-			    <div class="col-md-2"></div>
+			        </article>
+			        <div class="col-md-2"></div>
 <?php } ?>
-	        </div> <!-- .row -->
-	    </div> <!-- .container -->
-	</main>
+	            </div> <!-- .row -->
+	        </div> <!-- .container -->
+	    </main>
 
-    <footer id="footer" class="site-footer" role="contentinfo">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-2"></div>
-				<div class="col-md-8">
+        <footer id="footer" class="site-footer" role="contentinfo">
+		    <div class="container">
+			    <div class="row">
+				    <div class="col-md-2"></div>
+				    <div class="col-md-8">
 <?php if ($url) {?><hr><?php }?>
 <?php if ( $url) {?>
-	                <small><em><b>Source:</b> <a href="http://nullrefer.com/?<?php echo $url; ?>"><?php echo $url; ?></a></em></small>
-					<hr>
+	                    <small><em><b>Source:</b> <a href="http://nullrefer.com/?<?php echo $url; ?>"><?php echo $url; ?></a></em></small>
+					    <hr>
 
-					<p style="text-align:center"><a href="<?php echo ROOT_URL; ?>/" class="btn btn-default" >What is unvis.it?</a></p>
-					<br><br>
+					    <p style="text-align:center"><a href="<?php echo ROOT_URL; ?>/" class="btn btn-default" >What is unvis.it?</a></p>
+					    <br><br>
 <?php } else {?>
-					<h1 id="about">What is unvis.it?</h1>
-					<p>Unvis.it is a tool to escape linkbaits, trolls, idiots and asshats. </p>
-					<p>What the tool does is to try to capture the content of an article or blog post without passing on your visit as a pageview. Effectively this means that you're not paying with your attention, so you can <strong>read and share</strong> the idiocy that it contains.</p>
-					<p><small>Now with a speed reading options from <a href="http://www.squirt.io/">Squirt</a>, so you can get dumbfounded quicker!</small></p>
-					<br>
-					<p><b>FAQ:</b>
-						<ul>
-							<li><b>Is this legal?</b> Probably not. </li>
-							<li><b>Does it work with any website?</b> Certainly not. </li>
-							<li><b>Do we track you?</b> Only through Google <del>Echelon</del> Analytics.</li>
-							<li><b>Is it open source?</b> <a href="https://github.com/phixofor/unvis.it">Sure, why not?</a></li>
-						</ul>
-					    <p>Enjoy literally not feeding the trolls!</p>
+  	                    <h1 id="about">What is unvis.it?</h1>
+					    <p>Unvis.it is a tool to escape linkbaits, trolls, idiots and asshats. </p>
+					    <p>What the tool does is to try to capture the content of an article or blog post without passing on your visit as a pageview. Effectively this means that you're not paying with your attention, so you can <strong>read and share</strong> the idiocy that it contains.</p>
+					    <p><small>Now with a speed reading options from <a href="http://www.squirt.io/">Squirt</a>, so you can get dumbfounded quicker!</small></p>
 					    <br>
-					    <p style="text-align:center"> <a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27http://unvis.it/%27%2Borig)%3B" class="btn btn-sm btn-info">Drag <b>this</b> to your bookmarks bar to unvis.it any page</a></p>
-					    <hr>
-					    <h2>Now: the same info in infographics</h2>
-					    <p style="text-align:center;"><img src="<?php echo ROOT_URL; ?>/assets/images/unvisit-xplaind.png" alt="What's this, I don't even…" title="What's this, I don't even…" ></p>
-					    <hr>
-					    <p style="text-align:center">
-						    <img src="<?php echo ROOT_URL; ?>/assets/images/icon_large.png" alt="OMG LOGOTYPE" title="OMG LOGOTYPE" style="width:150px;height:150px">
-						    <br><br><br>
-						    <?php //<a href="http://www.lolontai.re"><img src="<?php echo ROOT_URL; ?>/assets/images/lulz.png" id="lulz" alt="Sir Lulz-a-Lot approves" title="Sir Lulz-a-Lot approves"></a>?>
-						    <br><br><br><br><br><br><br><br>
-					    </p>
+					    <p><b>FAQ:</b>
+						    <ul>
+							    <li><b>Is this legal?</b> Probably not. </li>
+							    <li><b>Does it work with any website?</b> Certainly not. </li>
+							    <li><b>Do we track you?</b> Only through Google <del>Echelon</del> Analytics.</li>
+							    <li><b>Is it open source?</b> <a href="https://github.com/phixofor/unvis.it">Sure, why not?</a></li>
+						    </ul>
+					        <p>Enjoy literally not feeding the trolls!</p>
+					        <br>
+					        <p style="text-align:center"> <a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27http://unvis.it/%27%2Borig)%3B" class="btn btn-sm btn-info">Drag <b>this</b> to your bookmarks bar to unvis.it any page</a></p>
+					        <hr>
+					        <h2>Now: the same info in infographics</h2>
+					        <p style="text-align:center;"><img src="<?php echo ROOT_URL; ?>/assets/images/unvisit-xplaind.png" alt="What's this, I don't even…" title="What's this, I don't even…" ></p>
+					        <hr>
+					        <p style="text-align:center">
+						        <img src="<?php echo ROOT_URL; ?>/assets/images/icon_large.png" alt="OMG LOGOTYPE" title="OMG LOGOTYPE" style="width:150px;height:150px">
+						        <br><br><br>
+						        <?php //<a href="http://www.lolontai.re"><img src="<?php echo ROOT_URL; ?>/assets/images/lulz.png" id="lulz" alt="Sir Lulz-a-Lot approves" title="Sir Lulz-a-Lot approves"></a>?>
+						        <br><br><br><br><br><br><br><br>
+					        </p>
 <?php } ?>
-				</div> <!-- .col-md-8 -->
-				<div class="col-md-2"></div>
-			</div> <!-- .row -->
-		</div> <!-- .container -->
-	</footer>
+				    </div> <!-- .col-md-8 -->
+				    <div class="col-md-2"></div>
+			    </div> <!-- .row -->
+		    </div> <!-- .container -->
+	    </footer>
 
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-	<script type="text/javascript" src="<?php echo ROOT_URL; ?>/assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" >
-	$(document).ready(function() {
-        function stripScheme() {
-			theURL = $("#uv").val();
-			theURL = theURL.replace(/.*?:\/\//g, "");
-			theURL = decodeURIComponent(theURL);
-			$("#uv").val(theURL);
-        }
+	    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	    <script type="text/javascript" src="<?php echo ROOT_URL; ?>/assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" >
+	        $(document).ready(function() {
+                function stripScheme() {
+			        theURL = $("#uv").val();
+			        theURL = theURL.replace(/.*?:\/\//g, "");
+			        theURL = decodeURIComponent(theURL);
+			        $("#uv").val(theURL);
+                }
 
-		$("#uv").change(function() {
-            stripScheme();
-		});
+		        $("#uv").change(function() {
+                    stripScheme();
+		        });
 
-		$("#uv-form").on('submit', function(event) {
-            stripScheme();
+		        $("#uv-form").on('submit', function(event) {
+                    stripScheme();
 
-            // redirect directly to permalink instead of submitting form (thus circumvent going through ?u=)
-			location.replace(location.protocol + '//' + location.host + '/' + $("#uv").val());
-            event.preventDefault();
-            return false;
-		});
+                    // redirect directly to permalink instead of submitting form (thus circumvent going through ?u=)
+			        location.replace(location.protocol + '//' + location.host + '/' + $("#uv").val());
+                    event.preventDefault();
+                    return false;
+		        });
 
-        // Google Analytics (TODO is this needed?)
-		$('.toplistLink a').on('click', function() {
-			var a_href = $(this).attr('href');
-			ga('send', 'event', 'toplist', 'click', a_href);
-		});
-		$('a#squirt').on('click', function(){
-			ga('send', 'event', 'article', 'click', "squirt");
-		});
-	});
-	</script>
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                // Google Analytics (TODO is this needed?)
+		        $('.toplistLink a').on('click', function() {
+			        var a_href = $(this).attr('href');
+			        ga('send', 'event', 'toplist', 'click', a_href);
+		        });
+		        $('a#squirt').on('click', function(){
+			        ga('send', 'event', 'article', 'click', "squirt");
+		        });
+	        });
+	    </script>
+	    <script>
+	        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	                                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA', 'unvis.it');
-	  ga('require', 'linkid', 'linkid.js');
-	  ga('send', 'pageview');
-
-
-
-	</script>
-	<noscript><img src="http://nojsstats.appspot.com/UA/<?php echo $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?><?php if($_SERVER['HTTP_REFERER']){echo '?r='.$_SERVER['HTTP_REFERER'];}; ?>&dummy=<?php echo rand(); ?>" /></noscript>
-    <!-- Begin Creeper tracker code -->
-    <a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="https://gnuheter.com/creeper/image" alt="Creeper" width="80" height="15" border="0"/></a>
-    <!-- End Creeper tracker code -->
-
+	        ga('create', 'UA', 'unvis.it');
+	        ga('require', 'linkid', 'linkid.js');
+	        ga('send', 'pageview');
+	    </script>
+	    <noscript><img src="http://nojsstats.appspot.com/UA/<?php echo $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?><?php if($_SERVER['HTTP_REFERER']){echo '?r='.$_SERVER['HTTP_REFERER'];}; ?>&dummy=<?php echo rand(); ?>" /></noscript>
+        <!-- Begin Creeper tracker code -->
+        <a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="https://gnuheter.com/creeper/image" alt="Creeper" width="80" height="15" border="0"/></a>
+        <!-- End Creeper tracker code -->
 </body>
 </html>
