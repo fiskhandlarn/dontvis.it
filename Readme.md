@@ -40,6 +40,3 @@ Things I would like to do, but have very little knowledge in how to achieve. If 
 - Bootstrap 2.2.2	: https://github.com/twbs/bootstrap/releases/tag/v2.2.2
 - GAPI				: http://code.google.com/p/gapi-google-analytics-php-interface/
 
-## Plugins 
-- Firefox : https://addons.mozilla.org/en-US/firefox/addon/unvisit/
-- Chrome  : https://github.com/mindstormer/unvisit_chromeextension 
