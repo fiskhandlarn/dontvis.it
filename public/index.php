@@ -38,8 +38,8 @@ if ($hasURL) {
 }
 
 use Readability\Readability;
-require_once 'uv/Readability.php';
-require_once 'uv/JSLikeHTMLElement.php';
+require_once 'includes/Readability.php';
+require_once 'includes/JSLikeHTMLElement.php';
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -96,7 +96,7 @@ if ($hasURL) {
                 <article id="theContent" class="article col-md-8">
 <?php
 
-    include_once("dbhandler.php");
+    require_once "includes/dbhandler.php";
     $db = new DBHandler();
     list($title, $body) = $db->read($articlePermalinkURL);
 
