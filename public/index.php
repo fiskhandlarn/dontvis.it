@@ -72,7 +72,7 @@ use Readability\Readability;
 					    <div class="form-group">
 					        <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
 					        <div class="input-group">
-					            <div class="input-group-addon"><a href="http://unvis.it" id="logo" ><strong>unvis.it/</strong></a> </div>
+					            <div class="input-group-addon"><a href="<?php echo ROOT_URL; ?>/" id="logo" ><strong>unvis.it/</strong></a> </div>
 					            <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="<?php if ($articlePermalinkURL) { echo $articlePermalinkURL;} ?>" >
 					        </div>
 					    </div>
