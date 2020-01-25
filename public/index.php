@@ -252,8 +252,6 @@ if ($hasURL) {
 					        <hr>
 					        <p style="text-align:center">
 						        <img src="<?php echo ROOT_URL; ?>/assets/images/icon_large.png" alt="OMG LOGOTYPE" title="OMG LOGOTYPE" style="width:150px;height:150px">
-						        <br><br><br>
-						        <?php //<a href="http://www.lolontai.re"><img src="<?php echo ROOT_URL; ?>/assets/images/lulz.png" id="lulz" alt="Sir Lulz-a-Lot approves" title="Sir Lulz-a-Lot approves"></a>?>
 						        <br><br><br><br><br><br><br><br>
 					        </p>
 <?php } ?>
