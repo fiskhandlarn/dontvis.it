@@ -49,9 +49,6 @@ use Readability\Readability;
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 	    <meta name="apple-mobile-web-app-capable" content="yes" />
 	    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo ROOT_URL; ?>/assets/css/bootstrap.min.css" />
-	    <!--[if IE]>
-		    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	    <![endif]-->
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-144-precomposed.png">
 	    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-114-precomposed.png">
 	    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo ROOT_URL; ?>/assets/images/favicons/apple-touch-icon-72-precomposed.png">
