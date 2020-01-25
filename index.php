@@ -275,11 +275,12 @@ if ($hasURL) {
 		</div> <!-- .container -->
 	</footer>
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 	<script type="text/javascript" src="/uv/js/bootstrap.min.js"></script>
 <script type="text/javascript" >
 	$(document).ready(function() {
 		$("#uv").change(function() {
+console.log('change');
 			theURL = $("#uv").val();
 			theURL = theURL.replace(/.*?:\/\//g, "");
 			theURL = decodeURIComponent(theURL);
@@ -325,11 +326,9 @@ if ($hasURL) {
 
 	</script>
 	<noscript><img src="http://nojsstats.appspot.com/UA/<?php echo $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?><?php if($_SERVER['HTTP_REFERER']){echo '?r='.$_SERVER['HTTP_REFERER'];}; ?>&dummy=<?php echo rand(); ?>" /></noscript>
-	<!-- Begin Creeper tracker code -->
-	<a href="http://gnuheter.com/creeper/senaste" title="Creeper"><img src="http://gnuheter.com/creeper/image" alt="Creeper" width="1" height="1" border="0"/></a>
-	<!-- End Creeper tracker code -->
-
-
+    <!-- Begin Creeper tracker code -->
+    <a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="https://gnuheter.com/creeper/image" alt="Creeper" width="80" height="15" border="0"/></a>
+    <!-- End Creeper tracker code -->
 
 </body>
 </html>
