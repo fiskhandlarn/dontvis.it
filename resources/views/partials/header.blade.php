@@ -11,12 +11,7 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ ROOT_URL }}/assets/css/bootstrap.min.css" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ ROOT_URL }}/assets/images/favicons/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ ROOT_URL }}/assets/images/favicons/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ ROOT_URL }}/assets/images/favicons/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="{{ ROOT_URL }}/assets/images/favicons/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="{{ ROOT_URL }}/assets/images/favicons/favicon.png">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ ROOT_URL }}/assets/styles/app.css" />
     <script type="text/javascript">
         window.google_analytics_uacct = "UA";
     </script>

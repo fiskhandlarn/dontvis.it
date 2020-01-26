@@ -11,7 +11,6 @@
     </footer>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ ROOT_URL }}/assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" >
         $(document).ready(function() {
             function stripScheme() {
