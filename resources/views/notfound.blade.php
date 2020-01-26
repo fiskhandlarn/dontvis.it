@@ -4,11 +4,9 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-md-2"></div>
-          <article id="theContent" class="article col-md-8">
+          <article id="theContent" class="article col-md-8 offset-md-2">
             <p>Looks like we couldn't find the content ¯\_(ツ)_/¯</p>
           </article>
-          <div class="col-md-2"></div>
         </div> <!-- .row -->
       </div> <!-- .container -->
 @stop

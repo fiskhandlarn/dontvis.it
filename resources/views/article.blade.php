@@ -11,7 +11,6 @@
             <hr>
             {!! $body !!}
           </article>
-          <div class="col-md-2"></div>
         </div> <!-- .row -->
       </div> <!-- .container -->
 @stop

@@ -20,9 +20,7 @@
     <header id="head">
       <div class="container">
         <div class="row">
-          <br>
-          <div class="col-md-2"></div>
-          <div class="col-md-8" id="theInputForm">
+          <div class="col-md-8 offset-md-2" id="theInputForm">
             <form class="form-inline" id="uv-form">
               <div class="form-group">
                 <div class="input-group">
@@ -33,7 +31,6 @@
             </form>
             <hr>
           </div>
-          <div class="col-md-2"></div>
         </div>
       </div> <!-- .container -->
     </header>

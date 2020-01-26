@@ -1,11 +1,9 @@
     <footer id="footer" class="site-footer" role="contentinfo">
       <div class="container">
         <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
+          <div class="col-md-8 offset-md-2">
             @yield('footer')
           </div> <!-- .col-md-8 -->
-          <div class="col-md-2"></div>
         </div> <!-- .row -->
       </div> <!-- .container -->
     </footer>
