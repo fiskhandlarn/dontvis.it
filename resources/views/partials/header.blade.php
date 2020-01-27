@@ -21,12 +21,12 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 offset-md-2">
-            <form class="form-inline" id="uv-form" action="{{ ROOT_URL }}/">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon"><a href="{{ ROOT_URL }}/"><strong>{{ env('SITE_NAME') }}/</strong></a> </div>
-                  <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="{{ $articlePermalinkURL }}" />
+            <form id="uv-form" action="{{ ROOT_URL }}/">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><a href="{{ ROOT_URL }}/"><strong>{{ env('SITE_NAME') }}/</strong></a></div>
                 </div>
+                <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="{{ $articlePermalinkURL }}" />
               </div>
             </form>
             <hr>
