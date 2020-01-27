@@ -15,6 +15,5 @@
 
         <hr>
 
-        <p style="text-align:center"><a href="{{ $ROOT_URL }}/" class="btn btn-default" >What is {{ env('SITE_NAME') }}?</a></p>
-        <br><br>
+        <p class="home"><a href="{{ ROOT_URL }}/" class="btn btn-primary" >What is {{ env('SITE_NAME') }}?</a></p>
 @stop

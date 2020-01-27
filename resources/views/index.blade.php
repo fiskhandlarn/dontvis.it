@@ -19,7 +19,7 @@
           </ul>
           <p>Enjoy literally not feeding the trolls!</p>
           <br>
-          <p style="text-align:center"> <a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27{{ env('SITE_URL') }}%27%2Borig)%3B" class="btn btn-sm btn-info">Drag <b>this</b> to your bookmarks bar to {{ env('SITE_NAME') }} any page</a></p>
+          <p style="text-align:center"> <a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27{{ env('SITE_URL') }}%27%2Borig)%3B" class="btn btn-primary">Drag <b>this</b> to your bookmarks bar to {{ env('SITE_NAME') }} any page</a></p>
           <hr>
           <h2>Now: the same info in infographics</h2>
           <p style="text-align:center;"><img src="{{ ROOT_URL }}/assets/images/site-xplaind.png" alt="What's this, I don't even ..." title="What's this, I don't even ..." ></p>
