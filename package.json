@@ -12,7 +12,6 @@
   },
   "//": "Use old version of resolve-url-loader for now: https://github.com/bholloway/resolve-url-loader/issues/107",
   "devDependencies": {
-    "@fiskhandlarn/css-bootstrap-like-grid": "^0.2.1",
     "bootstrap": "4.4.1",
     "browserslist": "^4.6.0",
     "copy-webpack-plugin": "^5.0.3",
