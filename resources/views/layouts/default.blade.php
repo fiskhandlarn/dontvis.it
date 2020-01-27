@@ -1,6 +1,6 @@
 @include('partials.header')
 
-<main id="main" role="main">
+<main role="main">
     @yield('main')
 </main>
 

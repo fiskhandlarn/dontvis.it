@@ -17,14 +17,14 @@
     </script>
   </head>
   <body>
-    <header id="head" role="banner">
+    <header role="banner">
       <div class="container">
         <div class="row">
-          <div class="col-md-8 offset-md-2" id="theInputForm">
+          <div class="col-md-8 offset-md-2">
             <form class="form-inline" id="uv-form" action="{{ ROOT_URL }}/">
               <div class="form-group">
                 <div class="input-group">
-                  <div class="input-group-addon"><a href="{{ ROOT_URL }}/" id="logo" ><strong>{{ env('SITE_NAME') }}/</strong></a> </div>
+                  <div class="input-group-addon"><a href="{{ ROOT_URL }}/"><strong>{{ env('SITE_NAME') }}/</strong></a> </div>
                   <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="{{ $articlePermalinkURL }}" />
                 </div>
               </div>

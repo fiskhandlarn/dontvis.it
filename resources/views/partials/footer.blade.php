@@ -1,4 +1,4 @@
-    <footer id="footer" class="site-footer" role="contentinfo">
+    <footer class="site-footer" role="contentinfo">
       <div class="container">
         <div class="row">
           <div class="col-md-8 offset-md-2">

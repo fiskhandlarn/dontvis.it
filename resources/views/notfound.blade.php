@@ -4,7 +4,7 @@
 
       <div class="container">
         <div class="row">
-          <article id="theContent" class="article col-md-8 offset-md-2">
+          <article class="col-md-8 offset-md-2">
             <p>Looks like we couldn't find the content ¯\_(ツ)_/¯</p>
           </article>
         </div> <!-- .row -->
