@@ -21,7 +21,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 offset-md-2" id="theInputForm">
-            <form class="form-inline" id="uv-form">
+            <form class="form-inline" id="uv-form" action="{{ ROOT_URL }}/">
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-addon"><a href="{{ ROOT_URL }}/" id="logo" ><strong>{{ env('SITE_NAME') }}/</strong></a> </div>
