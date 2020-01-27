@@ -1,7 +1,13 @@
 
 // Bootstrap overrides
 
-// TODO: place overridden Bootstrap variables here
+$theme-colors: (
+  'primary': #3b6ea5
+);
+
+// reset
+$link-color: theme-color('primary');
+$link-hover-color: darken(theme-color('primary'), 15%);
 
 $grid-breakpoints: (
   xs: rem(0),
