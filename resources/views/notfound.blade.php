@@ -12,8 +12,5 @@
 @stop
 
 @section('footer')
-
-        <hr>
-
         <p class="home"><a href="{{ ROOT_URL }}/" class="btn btn-primary" >What is {{ env('SITE_NAME') }}?</a></p>
 @stop

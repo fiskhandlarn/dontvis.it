@@ -17,7 +17,7 @@
     </script>
   </head>
   <body>
-    <header role="banner">
+    <header role="banner" class="site-header">
       <div class="container">
         <div class="row">
           <div class="col-md-8 offset-md-2">
@@ -29,7 +29,6 @@
                 <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="{{ $articlePermalinkURL }}" />
               </div>
             </form>
-            <hr>
           </div>
         </div>
       </div> <!-- .container -->

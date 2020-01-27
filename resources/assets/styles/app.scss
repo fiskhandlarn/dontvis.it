@@ -5,11 +5,16 @@
 // Bootstrap: Core functions
 @import 'bootstrap/scss/functions';
 
-// Project: variables (which overrides bootstrap)
-@import 'settings/*';
+// Bootstrap overrides
+$theme-colors: (
+  'primary': #3b6ea5
+);
 
 // Bootstrap: Core variables
 @import 'bootstrap/scss/variables';
+
+// Project: variables (which overrides bootstrap)
+@import 'settings/*';
 
 // Use native CSS grid instead of Bootstrap's grid
 //@import '@fiskhandlarn/css-bootstrap-like-grid';
@@ -125,7 +130,7 @@
 // Project
 @import 'base/*';
 @import 'functions/*';
-//@import 'components/*';
+@import 'components/*';
 
 // body {
 // }
