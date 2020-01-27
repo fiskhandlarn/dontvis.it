@@ -37,10 +37,6 @@
             });
 
             // Google Analytics (TODO is this needed?)
-            $('.toplistLink a').on('click', function() {
-                var a_href = $(this).attr('href');
-                ga('send', 'event', 'toplist', 'click', a_href);
-            });
             $('a#squirt').on('click', function(){
                 ga('send', 'event', 'article', 'click', "squirt");
             });
