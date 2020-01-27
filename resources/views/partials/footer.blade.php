@@ -3,6 +3,11 @@
         <div class="row">
           <div class="col-md-8 offset-md-2">
             @yield('footer')
+              <p class="creeper">
+                  <!-- Begin Creeper tracker code -->
+                  <a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="https://gnuheter.com/creeper/image" alt="Creeper" width="80" height="15" border="0"/></a>
+                  <!-- End Creeper tracker code -->
+              </p>
           </div> <!-- .col-md-8 -->
         </div> <!-- .row -->
       </div> <!-- .container -->
@@ -52,8 +57,5 @@
         ga('send', 'pageview');
     </script>
     <noscript><img src="http://nojsstats.appspot.com/UA/<?php echo $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?><?php if($_SERVER['HTTP_REFERER']){echo '?r='.$_SERVER['HTTP_REFERER'];}; ?>&dummy=<?php echo rand(); ?>" /></noscript>
-    <!-- Begin Creeper tracker code -->
-    <a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="https://gnuheter.com/creeper/image" alt="Creeper" width="80" height="15" border="0"/></a>
-    <!-- End Creeper tracker code -->
   </body>
 </html>
