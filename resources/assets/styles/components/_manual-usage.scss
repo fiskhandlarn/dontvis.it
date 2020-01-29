@@ -1,0 +1,14 @@
+.manual-usage {
+  > .thisurl,
+  > .thaturl {
+    font-family: $font-family-monospace;
+  }
+
+  > .thisurl {
+    color: $green;
+  }
+
+  > .thaturl {
+    color: $red;
+  }
+}

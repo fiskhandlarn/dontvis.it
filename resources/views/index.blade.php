@@ -25,10 +25,12 @@
             <li><b>Is it open source?</b> <a href="{{ env('GITHUB_URL') }}">Yes.</a></li>
           </ul>
           <p>Enjoy literally not feeding the trolls!</p>
-          <p class="bookmarklet"> <a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27{{ env('SITE_URL') }}%27%2Borig)%3B" class="btn btn-primary">Drag <b>this</b> to your bookmarks bar to {{ env('SITE_NAME') }} any page</a></p>
 
-          <h2>Now: the same info in infographics</h2>
-          <p style="text-align:center;"><img src="{{ ROOT_URL }}/assets/images/site-xplaind.png" alt="What's this, I don't even ..." title="What's this, I don't even ..." ></p>
+          <h2>Usage</h2>
+          <p><a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27{{ env('SITE_URL') }}%27%2Borig)%3B" class="btn btn-primary">Drag <strong>this</strong> to your bookmarks bar to {{ env('SITE_NAME') }} any page</a></p>
+
+          <p class="manual-usage">Or just put <span class="thisurl">{{ env('SITE_URL') }}</span> in front of <span class="thaturl">http://</span>, like this:<br />
+            <span class="thisurl">{{ env('SITE_URL') }}</span><span class="thaturl">http://idiot.blog.tro/ll</span></p>
         </div> <!-- .col-md-8 -->
       </div> <!-- .row -->
     </div> <!-- .container -->
