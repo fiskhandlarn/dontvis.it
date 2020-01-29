@@ -2,13 +2,9 @@
 
 @section('main')
 
-      <div class="container">
-        <div class="row">
-          <article class="col-md-8 offset-md-2">
-            <p>Looks like we couldn't find the content ¯\_(ツ)_/¯</p>
-          </article>
-        </div> <!-- .row -->
-      </div> <!-- .container -->
+    <div class="container not-found">
+      <p>Looks like we couldn't find the content ¯\_(ツ)_/¯</p>
+    </div> <!-- .container -->
 @stop
 
 @section('footer')

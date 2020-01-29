@@ -20,7 +20,7 @@
     <header role="banner" class="site-header">
       <div class="container">
         <div class="row">
-          <div class="col-md-8 offset-md-2">
+          <div class="col">
             <form id="uv-form" action="{{ ROOT_URL }}/">
               <div class="input-group">
                 <div class="input-group-prepend">

@@ -1,0 +1,16 @@
+.article-running {
+  padding: $jumbotron-padding 0;
+  margin-bottom: $jumbotron-padding;
+  color: $jumbotron-color;
+  background-color: $jumbotron-bg;
+
+  &.-no-margin {
+    margin-bottom: 0;
+  }
+
+  > .container {
+    > .label {
+      font-weight: $font-weight-bold;
+    }
+  }
+}
