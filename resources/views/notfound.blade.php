@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.default', ['page' => 'not-found'])
 
 @section('main')
 

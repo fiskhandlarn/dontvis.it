@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.default', ['page' => 'home'])
 
 @section('main')
 
