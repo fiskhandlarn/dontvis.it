@@ -37,7 +37,5 @@
 @stop
 
 @section('footer')
-        <p style="text-align:center">
-          <img src="{{ ROOT_URL }}/assets/images/icon_large.png" alt="OMG LOGOTYPE" title="OMG LOGOTYPE" style="width:150px;height:150px">
-        </p>
+        <p class="logo"><img src="{{ ROOT_URL }}/assets/images/icon_large.png" alt="OMG LOGOTYPE" title="OMG LOGOTYPE"></p>
 @stop
