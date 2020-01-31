@@ -64,24 +64,24 @@ mix.webpackConfig({
       from: 'resources/assets/images/',
       to: 'images'
     }]),
-    new ImageminPlugin({
-      test: /\.svg$/i,
-      svgo: {
-        plugins: [
-          {
-            removeTitle: true
-          },
-          {
-            removeStyleElement: true
-          },
-          {
-            removeAttrs : {
-              attrs : [ "class", "style" ]
-            }
-          }
-        ]
-      }
-    }),
+    // new ImageminPlugin({
+    //   test: /\.svg$/i,
+    //   svgo: {
+    //     plugins: [
+    //       {
+    //         removeTitle: true
+    //       },
+    //       {
+    //         removeStyleElement: true
+    //       },
+    //       {
+    //         removeAttrs : {
+    //           attrs : [ "class", "style" ]
+    //         }
+    //       }
+    //     ]
+    //   }
+    // }),
   ],
 });
 

@@ -38,5 +38,5 @@
 @stop
 
 @section('footer')
-        <p class="logo"><img src="{{ ROOT_URL }}/assets/images/icon_large.png" alt="OMG LOGOTYPE" title="OMG LOGOTYPE"></p>
+    <p class="logo">{{ require_image( "assets/images/favicons/favicon.svg" ) }}</p>
 @stop
