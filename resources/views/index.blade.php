@@ -16,7 +16,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8">
-          <p>This tool tries to capture the content of an article or blog post without passing on your visit as a page view. {{ env('SITE_NAME') }} also reads and displays some news articles otherwise only visible to "subscribers". Effectively this means that you're not paying with your attention or money, so you can <strong>read and share</strong> the idiocy that it contains.</p>
+          <p>This tool tries to capture the content of an article or blog post without passing on your visit as a page view. {{ env('SITE_NAME') }} also reads and displays (some) news articles otherwise only visible to "subscribers". Effectively this means that you're not paying with your attention or money, so you can <strong>read and share</strong> the idiocy that it contains.</p>
 
           <h2>FAQ</h2>
           <dl>
