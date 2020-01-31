@@ -2,7 +2,7 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "name": "fiskhandlarn/unvis.it",
-  "description": "Unvis.it, the idiot circumventor tool",
+  "description": "dontvis.it, the idiot circumventor tool",
   "license": "MIT",
   "require": {
     "php": "^7.2",

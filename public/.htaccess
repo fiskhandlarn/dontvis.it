@@ -1,8 +1,8 @@
 RewriteEngine On
 RewriteBase /
 
-RewriteCond %{HTTP_HOST} ^www.unvis.it$ [NC]
-RewriteRule ^(.*)$ http://unvis.it/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^www.dontvis.it$ [NC]
+RewriteRule ^(.*)$ http://dontvis.it/$1 [R=301,L]
 
 
 
