@@ -1,41 +1,32 @@
-# Unvis.it
+# dontvis.it
 
-[Unvis.it](http://unvis.it) is a tool to escape linkbaits, trolls, idiots and asshats.
+[dontvis.it](https://dontvis.it) is a tool to escape linkbaits, trolls, idiots and asshats.
 
-What the tool does is to try to capture the content of an article or blog post without passing on your visit as a pageview. Effectively this means that you're not paying with your attention, so you can read and share the idiocy that it contains.
+This tool tries to capture the content of an article or blog post without passing on your visit as a page view. dontvis.it also reads and displays (some) news articles otherwise only visible to "subscribers". Effectively this means that you're not paying with your attention or money, so you can read and share< the idiocy that it contains. (This is basically a repackaged Instapaper/Pocket/ReadLater/whatever.)
 
-## Explanation
+## How it works
 
-For Unvis.it's 2nd birthday, I've decided to open source it. This will make it blatantly obvious that I am in *no way* a developer, and that the fact that this works is merely a fluke. 
+A user will paste a link, or type `TODO?dontvis.it/` before the URL in the address bar and then the script goes to work:
 
-1. **There is no database** — because I find them hard to visualize and think about.
-2. **This is basically a repackaged Instapaper/Pocket/ReadLater/whatever** — you could say that
-3. **Horrible spaghetti code, awful comments! You're not a programmer** — yes, I know?
-4. **This error/vulnerability/hack can cause this** — please help me fix it!
+* If the URL is found in the database a cached version is served
+* If not:
+ * cURL fetches the URL with a randomized webcrawler user agent, in order to not stand out in server logs
+ * The web page is parsed through PHP Readability (by [fivefilters.org](https://fivefilters.org)) to remove ads and other stuff
+* The user can now share the URL to the contents without providing traffic to stuff the user doesn't want to support and/or pay for
 
+## Build
 
-## The flow
-
-A user will paste a link, or type unvis.it before the url in the address bar and then the script goes to work:
-
-- CURL will fetch the URL with a randomized webcrawler user agent, in order to not stand out in server logs.
-- The web page will then be parsed through PHP Readability (by Fivefilters.org) to remove ads and other stuff.
-- If the base64 sum of the url is NOT found as a .txt-file in the cache-folder, it will save it with that name and serve it.
-- If the base64 sum of the url IS found as a .txt-file in the cache folder: serve that file instead.
-- Now the user can share the link to the contents without providing traffic to stuff the user doesn't want to support.
+TODO
 
 ## TODO
-Things I would like to do, but have very little knowledge in how to achieve. If anyone feels that they can and want to contribute, I would appreciate it a lot.
-
 * Use [memcache](https://www.php.net/manual/en/book.memcached.php) to speed things up
-* Use MySQL instead of files
-* Consolidate URL-caching so that www. and trailing slashes don't create separate cache files
-* Rehost images on Imgur
+* Consolidate URL-caching so that www. and trailing slashes don't create separate caching
+* Rehost images on [Imgur](https://imgur.com/)
 * Log debug output when Readability cannot find the main text
-* Something else you thought of, that I wouldn't in a million years...
 
 ## Built with:
-- PHP-Readability 1.7.2	: https://github.com/j0k3r/php-readability
-- Bootstrap 2.2.2	: https://github.com/twbs/bootstrap/releases/tag/v2.2.2
+- [PHP-Readability](https://bitbucket.org/Dither/php-readability/src/master/) 1.7.2
+- [Bootstrap](https://getbootstrap.com/) 4.4.1
 
-
+## Thanks to
+* [gonedjur](https://github.com/gonedjur/unvis.it) for providing the base of this tool
