@@ -25,7 +25,7 @@
             <form id="uv-form" action="{{ ROOT_URL }}/">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <div class="input-group-text"><a href="{{ ROOT_URL }}/"><strong>{{ env('SITE_NAME') }}/</strong></a></div>
+                  <div class="input-group-text"><a class="form-label" href="{{ ROOT_URL }}/">{{--<span class="logo">{{ require_image( "assets/images/favicons/favicon.svg" ) }}</span>  --}}{{ env('SITE_NAME') }}/</a></div>
                 </div>
                 <input class="form-control" type="text" name="u" id="uv" placeholder="URL you want to read without giving a pageview" value="{{ $articlePermalinkURL }}" />
               </div>
