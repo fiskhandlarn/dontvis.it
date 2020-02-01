@@ -39,7 +39,3 @@
       </div> <!-- .row -->
     </div> <!-- .container -->
 @stop
-
-@section('footer')
-    <p class="logo">{{ require_image( "assets/images/favicons/favicon.svg" ) }}</p>
-@stop
