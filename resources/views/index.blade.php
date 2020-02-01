@@ -23,7 +23,7 @@
 
           <h2>FAQ</h2>
           <dl>
-            <dt>Is this legal?</dt><dd>Probably not.</dd>
+            <dt>Is this legal?</dt><dd>¯\_(ツ)_/¯</dd>
             <dt>Does it work with any website?</dt><dd>Certainly not.</dd>
             <dt>Do we track you?</dt><dd>Only through Google <del>Echelon</del> Analytics.</dd>
             <dt>Is it open source?</dt><dd><a href="{{ env('GITHUB_URL') }}">Yes.</a></dd>
