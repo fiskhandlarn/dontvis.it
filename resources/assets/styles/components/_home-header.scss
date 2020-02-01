@@ -6,6 +6,10 @@
         @include make-col(6);
         @include make-col-offset(3);
         margin-bottom: $spacer * 2;
+
+        > svg {
+          fill: theme-color('primary');
+        }
       }
 
       .text { // stylelint-disable-line rscss/no-descendant-combinator
