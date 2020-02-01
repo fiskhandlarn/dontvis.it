@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{ ROOT_URL }}/assets/styles/app.css" />
+    <meta name="theme-color" content="#3b6ea5">
     @include('partials.favicons')
     <script type="text/javascript">
         window.google_analytics_uacct = "UA";
