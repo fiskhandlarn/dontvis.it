@@ -1,0 +1,37 @@
+.home-header {
+  > .container {
+    > .row {
+      > .logo { // stylelint-disable-line rscss/no-descendant-combinator
+        @include make-col-ready;
+        @include make-col(6);
+        @include make-col-offset(3);
+        margin-bottom: $spacer * 2;
+      }
+
+      .text { // stylelint-disable-line rscss/no-descendant-combinator
+        @include make-col-ready;
+        @include make-col(12);
+        text-align: center;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    > .container {
+      > .row {
+        > .logo { // stylelint-disable-line rscss/no-descendant-combinator
+          @include make-col(2);
+          @include make-col-offset(0);
+          margin-bottom: 0;
+        }
+
+        .text { // stylelint-disable-line rscss/no-descendant-combinator
+          @include make-col(10);
+          text-align: left;
+          margin-top: auto;
+          margin-bottom: auto;
+        }
+      }
+    }
+  }
+}

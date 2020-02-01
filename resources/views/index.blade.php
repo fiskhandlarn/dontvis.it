@@ -2,10 +2,13 @@
 
 @section('main')
 
-    <header class="article-running">
+    <header class="article-running home-header">
       <div class="container">
         <div class="row">
-          <div class="col-md-10">
+          <div class="logo">
+            {{ require_image( "assets/images/favicons/favicon.svg" ) }}
+          </div>
+          <div class="text">
             <h1>What is {{ env('SITE_NAME') }}?</h1>
             <p>{{ env('SITE_NAME') }} is a tool to escape linkbaits, trolls, idiots and asshats.</p>
           </div>
