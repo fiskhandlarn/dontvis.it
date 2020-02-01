@@ -17,21 +17,21 @@
     <script type="text/javascript" >
         $(document).ready(function() {
             function stripScheme() {
-                theURL = $("#uv").val();
+                theURL = $("#url").val();
                 theURL = theURL.replace(/.*?:\/\//g, "");
                 theURL = decodeURIComponent(theURL);
-                $("#uv").val(theURL);
+                $("#url").val(theURL);
             }
 
-            $("#uv").change(function() {
+            $("#url").change(function() {
                 stripScheme();
             });
 
-            $("#uv-form").on('submit', function(event) {
+            $("#url-form").on('submit', function(event) {
                 stripScheme();
 
                 // redirect directly to permalink instead of submitting form (thus circumvent going through ?u=)
-                location.replace(location.protocol + '//' + location.host + '/' + $("#uv").val());
+                location.replace(location.protocol + '//' + location.host + '/' + $("#url").val());
                 event.preventDefault();
                 return false;
             });
