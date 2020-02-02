@@ -1,0 +1,28 @@
+.home-button {
+  @extend .d-flex;
+  @extend .align-items-center;
+
+  //display: block;
+  height: $spacer * 2;
+
+  > .logo {
+    display: inline-block;
+    height: 100%;
+
+    > svg { // stylelint-disable-line rscss/class-format
+      fill: $link-color;
+    }
+
+    @include hover {
+      > svg { // stylelint-disable-line rscss/class-format
+        fill: $link-hover-color;
+      }
+    }
+  }
+
+  > .label {
+    display: inline-block;
+    font-weight: $font-weight-bold;
+    margin-left: $spacer / 2;
+  }
+}

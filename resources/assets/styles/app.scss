@@ -113,9 +113,9 @@ $theme-colors: (
 // @import 'bootstrap/scss/utilities/background';
 // @import 'bootstrap/scss/utilities/borders';
 // @import 'bootstrap/scss/utilities/clearfix';
-// @import 'bootstrap/scss/utilities/display';
+@import 'bootstrap/scss/utilities/display';
 // @import 'bootstrap/scss/utilities/embed';
-// @import 'bootstrap/scss/utilities/flex';
+@import 'bootstrap/scss/utilities/flex';
 // @import 'bootstrap/scss/utilities/float';
 // @import 'bootstrap/scss/utilities/overflow';
 // @import 'bootstrap/scss/utilities/position';
@@ -131,6 +131,26 @@ $theme-colors: (
 @import 'base/*';
 @import 'functions/*';
 @import 'components/*';
+
+// --- sticky footer
+// https://css-tricks.com/couple-takes-sticky-footer/
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-section {
+  flex: 1 0 auto;
+}
+
+.site-footer {
+  flex-shrink: 0;
+}
 
 // --- place terms and definitions on the same line
 

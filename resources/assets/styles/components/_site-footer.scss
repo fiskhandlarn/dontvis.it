@@ -1,3 +1,38 @@
 .site-footer {
   padding: ($spacer * 2) 0;
+
+  > .container {
+    > .row {
+      > .home { // stylelint-disable-line rscss/no-descendant-combinator
+        @include make-col-ready;
+        @include make-col(6);
+
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+
+      .creeper { // stylelint-disable-line rscss/no-descendant-combinator
+        @include make-col-ready;
+        @include make-col(6);
+
+        margin-top: auto;
+        margin-bottom: auto;
+
+        text-align: right;
+
+        // remove top ghost padding
+        line-height: 0;
+
+        > a { // stylelint-disable-line rscss/class-format
+          // remove top ghost padding
+          //line-height: 0;
+          display: inline-block;
+
+          > img {
+            height: rem(15px);
+          }
+        }
+      }
+    }
+  }
 }

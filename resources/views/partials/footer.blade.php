@@ -1,14 +1,14 @@
     <footer class="site-footer" role="contentinfo">
       <div class="container">
         <div class="row">
-          <div class="col">
-            @yield('footer')
-              <p class="creeper">
-                  <!-- Begin Creeper tracker code -->
-                  <a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="https://gnuheter.com/creeper/image" alt="Creeper" width="80" height="15" border="0"/></a>
-                  <!-- End Creeper tracker code -->
-              </p>
-          </div> <!-- .col-md-8 -->
+          <div class="home">
+            <a href="{{ ROOT_URL }}/" class="home-button"><span class="logo">{{ require_image( "assets/images/favicons/favicon.svg" ) }}</span> <span class="label">{{ env('SITE_NAME') }}</span></a>
+          </div>
+          <div class="creeper">
+            <!-- Begin Creeper tracker code -->
+            <a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="https://gnuheter.com/creeper/image" /></a>
+            <!-- End Creeper tracker code -->
+          </div>
         </div> <!-- .row -->
       </div> <!-- .container -->
     </footer>
