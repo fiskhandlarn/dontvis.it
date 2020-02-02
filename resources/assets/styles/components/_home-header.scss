@@ -7,7 +7,7 @@
         @include make-col-offset(3);
         margin-bottom: $spacer * 2;
 
-        > svg {
+        > svg { // stylelint-disable-line rscss/class-format
           fill: theme-color('primary');
         }
       }
