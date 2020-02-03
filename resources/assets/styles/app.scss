@@ -127,6 +127,8 @@ $theme-colors: (
 // @import 'bootstrap/scss/utilities/text';
 // @import 'bootstrap/scss/utilities/visibility';
 
+@import '../../../node_modules/@beyonk/gdpr-cookie-consent-banner/dist/style.css';
+
 // Project
 @import 'base/*';
 @import 'functions/*';

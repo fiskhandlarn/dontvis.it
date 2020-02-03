@@ -13,29 +13,53 @@
       </div> <!-- .container -->
     </footer>
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GOOGLE_ANALYTICS_ID') }}"></script>
+    <script src="//unpkg.com/@beyonk/gdpr-cookie-consent-banner/dist/browser/bundle.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script type="text/javascript" >
         $(document).ready(function() {
-            function stripScheme() {
-                theURL = $("#url").val();
-                theURL = theURL.replace(/.*?:\/\//g, "");
-                theURL = decodeURIComponent(theURL);
-                $("#url").val(theURL);
-            }
+          function stripScheme() {
+            theURL = $("#url").val();
+            theURL = theURL.replace(/.*?:\/\//g, "");
+            theURL = decodeURIComponent(theURL);
+            $("#url").val(theURL);
+          }
 
-            $("#url").change(function() {
-                stripScheme();
-            });
+          $("#url").change(function() {
+            stripScheme();
+          });
 
-            $("#url-form").on('submit', function(event) {
-                stripScheme();
+          $("#url-form").on('submit', function(event) {
+            stripScheme();
 
-                // redirect directly to permalink instead of submitting form (thus circumvent going through ?u=)
-                window.location.href = location.protocol + '//' + location.host + '/' + $("#url").val();
-                event.preventDefault();
-                return false;
-            });
+            // redirect directly to permalink instead of submitting form (thus circumvent going through ?u=)
+            window.location.href = location.protocol + '//' + location.host + '/' + $("#url").val();
+            event.preventDefault();
+            return false;
+          });
         });
+    </script>
+    <script>
+        var options = {
+          cookieName: '{{ env('SITE_NAME')}}_gdpr',
+          acceptLabel: 'Confirm all',
+          settingsLabel: 'Settings',
+          choices: {
+            tracking: false,
+            marketing: false
+          },
+          showEditIcon: false,
+          categories: {
+            analytics: function() {
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '{{ env('GOOGLE_ANALYTICS_ID') }}', {'cookie_expires': 31536000});
+            },
+            necessary: function() {}
+          }
+        }
+        GdprConsent.attachBanner(document.body, options)
     </script>
   </body>
 </html>

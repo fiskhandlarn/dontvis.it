@@ -8,14 +8,6 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{ ROOT_URL }}/assets/styles/app.css" />
     <meta name="theme-color" content="#3b6ea5">
     @include('partials.favicons')
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GOOGLE_ANALYTICS_ID') }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', '{{ env('GOOGLE_ANALYTICS_ID') }}', {'cookie_expires': 0});
-    </script>
   </head>
   <body>
     <header role="banner" class="site-header">

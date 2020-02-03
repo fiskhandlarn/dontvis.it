@@ -12,6 +12,7 @@
   },
   "//": "Use old version of resolve-url-loader for now: https://github.com/bholloway/resolve-url-loader/issues/107",
   "devDependencies": {
+    "@beyonk/gdpr-cookie-consent-banner": "^6.2.1",
     "bootstrap": "4.4.1",
     "browserslist": "^4.6.0",
     "copy-webpack-plugin": "^5.0.3",
