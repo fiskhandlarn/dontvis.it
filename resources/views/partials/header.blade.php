@@ -14,9 +14,6 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{ ROOT_URL }}/assets/styles/app.css" />
     <meta name="theme-color" content="#3b6ea5">
     @include('partials.favicons')
-    <script type="text/javascript">
-        window.google_analytics_uacct = "UA";
-    </script>
   </head>
   <body>
     <header role="banner" class="site-header">
