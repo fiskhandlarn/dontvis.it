@@ -10,7 +10,6 @@
             <h1>{{ $title }}</h1>
             <p><a href="{{ $permalink }}" rel="bookmark">{{ $permalinkWithoutScheme }}</a></p>
           </div>
-          <div class="col-md-2"><button onclick="javascript:(function(){sq=window.sq=window.sq||{};if(sq.script){sq.again();}else{sq.bookmarkletVersion='0.3.0';sq.iframeQueryParams={host:'//squirt.io',userId:'8a94e519-7e9a-4939-a023-593b24c64a2f',};sq.script=document.createElement('script');sq.script.src=sq.iframeQueryParams.host+'/bookmarklet/frame.outer.js';document.body.appendChild(sq.script);}})();" class="btn btn-sm btn-primary" id="squirt">Speed read this</button></div>
         </div>
       </div>
     </header>

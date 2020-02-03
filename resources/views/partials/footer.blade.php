@@ -35,11 +35,6 @@
                 event.preventDefault();
                 return false;
             });
-
-            // Google Analytics (TODO is this needed?)
-            $('a#squirt').on('click', function(){
-                ga('send', 'event', 'article', 'click', "squirt");
-            });
         });
     </script>
   </body>
