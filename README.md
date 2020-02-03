@@ -14,9 +14,91 @@ A user will paste a link, or type `TODO?dontvis.it/` before the URL in the addre
  * The web page is parsed through PHP Readability (by [fivefilters.org](https://fivefilters.org)) to remove ads and other stuff
 * The user can now share the URL to the contents without providing traffic to stuff the user doesn't want to support and/or pay for
 
-## Build
+## Install
 
-TODO
+Install the composer dependencies:
+
+```bash
+$ composer install
+```
+
+Install the node dependencies and build the resources:
+
+```bash
+$ npm install && npm run dev
+```
+
+(Or use `make install && make build:dev` instead of the above.)
+
+Configure your web server setting the web root to the `public/` folder or use [Docker](#docker).
+
+Edit the `.env` file with your database credentials.
+
+## Develop
+
+Build CSS & JS files one time:
+
+```bash
+$ npm run dev
+```
+
+```bash
+$ make build:dev
+```
+
+Build CSS & JS files and watch for file changes:
+
+```bash
+$ npm run watch
+```
+
+```bash
+$ make watch
+```
+
+Build minified CSS & JS files one time:
+
+```bash
+$ npm run prod
+```
+
+```bash
+$ make build
+```
+
+## Docker
+
+Use this database host:
+```env
+DB_HOST=mysql
+```
+
+Create SSL certificate:
+```bash
+$ mkdir -p .docker/.ssl
+$ cd .docker/.ssl
+$ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout server.key -out server.pem
+```
+
+Start Docker:
+```bash
+$ docker-compose up -d
+```
+
+```bash
+$ make up
+```
+
+Access the site via https://localhost:3000/ and phpMyAdmin via http://localhost:8082/.
+
+Stop Docker:
+```bash
+$ docker-compose down
+```
+
+```bash
+$ make down
+```
 
 ## TODO
 * Use [memcache](https://www.php.net/manual/en/book.memcached.php) to speed things up
