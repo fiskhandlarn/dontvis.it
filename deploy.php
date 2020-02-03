@@ -83,11 +83,17 @@ task('link:storage', function () {
     run('ln -s {{deploy_path}}/shared/storage {{release_path}}/storage');
 });
 
+task('restart:phpfpm', function () {
+    run('sudo /usr/sbin/service php7.2-fpm restart');
+});
+
 after('deploy:update_code', 'git:save_info');
 after('deploy:update_code', 'copy:env');
 after('deploy:update_code', 'build:composer');
 after('deploy:update_code', 'build:npm');
 after('deploy:update_code', 'link:storage');
+
+after('success', 'restart:phpfpm');
 
 // [Optional] If deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
