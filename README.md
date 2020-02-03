@@ -42,6 +42,8 @@ Build CSS & JS files one time:
 $ npm run dev
 ```
 
+or
+
 ```bash
 $ make build:dev
 ```
@@ -52,6 +54,8 @@ Build CSS & JS files and watch for file changes:
 $ npm run watch
 ```
 
+or
+
 ```bash
 $ make watch
 ```
@@ -61,6 +65,8 @@ Build minified CSS & JS files one time:
 ```bash
 $ npm run prod
 ```
+
+or
 
 ```bash
 $ make build
@@ -85,6 +91,8 @@ Start Docker:
 $ docker-compose up -d
 ```
 
+or
+
 ```bash
 $ make up
 ```
@@ -95,6 +103,8 @@ Stop Docker:
 ```bash
 $ docker-compose down
 ```
+
+or
 
 ```bash
 $ make down
