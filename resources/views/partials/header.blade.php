@@ -2,13 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>
-      @if ($title)
-        {{ env('SITE_SHORT_NAME') }} : {{ $title}}
-      @else
-        {{ env('SITE_NAME') }} &ndash; avoid endorsing idiots
-      @endif
-    </title>
+    <title>@if ($title){{ $title }} &ndash; @endif{{ env('SITE_NAME') }}@if (!$title) &ndash; avoid endorsing idiots @endif</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{ ROOT_URL }}/assets/styles/app.css" />
