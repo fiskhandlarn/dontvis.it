@@ -31,7 +31,8 @@
           <p>Enjoy literally not feeding the trolls!</p>
 
           <h2>Usage</h2>
-          <p><a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27{{ env('SITE_URL') }}%27%2Borig)%3B" class="btn btn-primary">Drag <strong>this</strong> to your bookmarks bar to {{ env('SITE_NAME') }} any page</a></p>
+          <p>Drag this button to your bookmarks bar to {{ env('SITE_NAME') }}ify any page:</p>
+          <p><a href="javascript:var orig%3Dlocation.href%3Blocation.replace(%27{{ env('SITE_URL') }}%27%2Borig)%3B" class="btn btn-primary">{{ env('SITE_NAME') }}ify</a></p>
 
           <p class="manual-usage">Or just put <span class="thisurl">{{ env('SITE_URL') }}</span> in front of <span class="thaturl">http://</span>, like this:<br />
             <span class="thisurl">{{ env('SITE_URL') }}</span><span class="thaturl">http://idiot.blog.tro/ll</span></p>
