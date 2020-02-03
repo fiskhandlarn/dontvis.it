@@ -2,7 +2,7 @@ const mix = require('laravel-mix');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const WebappWebpackPlugin = require('webapp-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 require('dotenv').config();
 
@@ -17,7 +17,7 @@ require('dotenv').config();
  |
  */
 
-const publicPath = `public//assets`;
+const publicPath = `public/assets`;
 
 mix.setResourceRoot('../');
 mix.setPublicPath(publicPath);
@@ -32,12 +32,17 @@ mix.webpackConfig({
     ],
   },
   plugins: [
-    new WebappWebpackPlugin({
+    new FaviconsWebpackPlugin({
       logo: './resources/assets/images/favicons/favicon.svg',
-      outputPath: 'images/favicons',
+      publicPath: '/assets',
+      prefix: 'images/favicons',
+      mode: 'webapp',
+      devMode: 'webapp',
       inject: true,
       favicons: {
         background: '#000000',
+        appName: 'dontvis.it',
+        appDescription: 'dontvis.it, the idiot circumventor tool',
         icons: {
           android: true,
           appleIcon: true,
