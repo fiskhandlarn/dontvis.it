@@ -1,12 +1,13 @@
 {
   "minimum-stability": "dev",
   "prefer-stable": true,
-  "name": "fiskhandlarn/unvis.it",
+  "name": "fiskhandlarn/dontvis.it",
   "description": "dontvis.it, the idiot circumventor tool",
   "license": "MIT",
   "require": {
     "php": "^7.2",
     "ext-tidy": "*",
+    "ext-dom": "*",
     "vlucas/phpdotenv": "^4.1",
     "eftec/bladeone": "^3.33"
   },
