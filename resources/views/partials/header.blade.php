@@ -14,7 +14,7 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', '{{ env('GOOGLE_ANALYTICS_ID') }}');
+        gtag('config', '{{ env('GOOGLE_ANALYTICS_ID') }}', {'cookie_expires': 0});
     </script>
   </head>
   <body>
