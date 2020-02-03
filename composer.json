@@ -4,6 +4,16 @@
   "name": "fiskhandlarn/dontvis.it",
   "description": "dontvis.it, the idiot circumventor tool",
   "license": "MIT",
+  "authors": [
+    {
+      "name": "Oskar Joelson",
+      "email": "oskar@joelson.org"
+    }
+  ],
+  "homepage": "https://github.com/fiskhandlarn/dontvis.it#readme"
+  "support": {
+    "issues": "https://github.com/fiskhandlarn/dontvis.it/issues"
+  },
   "require": {
     "php": "^7.2",
     "ext-tidy": "*",
