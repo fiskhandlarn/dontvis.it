@@ -31,7 +31,7 @@
                 stripScheme();
 
                 // redirect directly to permalink instead of submitting form (thus circumvent going through ?u=)
-                location.replace(location.protocol + '//' + location.host + '/' + $("#url").val());
+                window.location.href = location.protocol + '//' + location.host + '/' + $("#url").val();
                 event.preventDefault();
                 return false;
             });
