@@ -51,6 +51,5 @@
 
         gtag('config', '{{ env('GOOGLE_ANALYTICS_ID') }}');
     </script>
-    <noscript><img src="http://nojsstats.appspot.com/UA/<?php echo $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?><?php if($_SERVER['HTTP_REFERER']){echo '?r='.$_SERVER['HTTP_REFERER'];}; ?>&dummy=<?php echo rand(); ?>" /></noscript>
   </body>
 </html>
