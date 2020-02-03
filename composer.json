@@ -20,5 +20,8 @@
     "post-install-cmd": [
       "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
     ]
+  },
+  "require-dev": {
+    "deployer/deployer": "^6.7"
   }
 }
