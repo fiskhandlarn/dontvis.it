@@ -122,7 +122,7 @@
 // @import 'bootstrap/scss/utilities/text';
 // @import 'bootstrap/scss/utilities/visibility';
 
-@import '../../../node_modules/@beyonk/gdpr-cookie-consent-banner/dist/style.css';
+@import 'plugins/gdpr-cookie-consent-banner.scss';
 
 // Project
 @import 'base/*';

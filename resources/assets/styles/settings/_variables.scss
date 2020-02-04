@@ -3,7 +3,8 @@ $divider-color: $input-border-color;
 // Bootstrap overrides
 
 $theme-colors: (
-  'primary': #3b6ea5
+  'primary': #3b6ea5,
+  'secondary': $light
 );
 
 // reset
