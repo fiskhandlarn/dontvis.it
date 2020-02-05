@@ -19,8 +19,8 @@
         margin-right: rem(40px);
 
         > .cookieConsent__Title {
+          @extend .h5;
           margin: 0;
-          font-weight: $font-weight-bold;
         }
 
         > .cookieConsent__Description {
@@ -84,9 +84,8 @@
       }
 
       > label {
+        @extend .h5;
         align-items: center;
-        font-size: (22px);
-        font-weight: $font-weight-bold;
         display: block;
         position: relative;
 
