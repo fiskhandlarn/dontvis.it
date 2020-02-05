@@ -79,10 +79,6 @@
       margin-bottom: rem(20px);
       text-align: left;
 
-      > input {
-        display: none;
-      }
-
       > label {
         @extend .h5;
         align-items: center;
@@ -115,8 +111,12 @@
           left: rem(-58px);
           transition: 200ms;
         }
+      }
 
-        input:checked + label::after { // stylelint-disable-line rscss/no-descendant-combinator
+      > input {
+        display: none;
+
+        &:checked + label::after {
           transform: translate(rem(20px), -50%);
         }
       }
