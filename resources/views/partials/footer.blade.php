@@ -42,10 +42,15 @@
     <script>
         var options = {
           cookieName: '{{ env('SITE_NAME')}}_gdpr',
-          description: 'We use cookies to offer a better browsing experience and analyze site traffic. By clicking <strong>Confirm all</strong>, you consent to that and the use of cookies.',
-          acceptLabel: 'Confirm all',
+          description: 'We use cookies to offer a better browsing experience and analyze site traffic. By clicking <strong>accept</strong> you consent to the use of cookies.',
+          acceptLabel: 'Accept',
           settingsLabel: 'Settings',
           choices: {
+            necessary: {
+              label: 'Necessary cookies',
+              description: "Used for cookie control. Can't be turned off.",
+              value: true
+            },
             tracking: false,
             marketing: false
           },
