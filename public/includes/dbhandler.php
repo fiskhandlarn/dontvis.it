@@ -8,11 +8,15 @@ class DBHandler {
 
     protected $pdo;
 
-    function __construct() {
+    public function __construct() {
         $this->pdo = new PDO('mysql:host=' . env('DB_HOST') . ';dbname=' . env('DB_NAME') . ';charset=utf8', env('DB_USER'), env('DB_PASSWORD'));
 
-        if (!$this->tableExists()) {
-            $this->createTable();
+        if (!$this->cacheTableExists()) {
+            $this->createCacheTable();
+        }
+
+        if (!$this->logTableExists()) {
+            $this->createLogTable();
         }
     }
 
@@ -27,7 +31,8 @@ class DBHandler {
         return null;
     }
 
-    function cache($url, $title, $body){
+    public function cache($url, $title, $body)
+    {
         $stmt = $this->pdo->prepare("INSERT INTO cache (url, title, body) VALUES (:url, :title, :body)");
         $stmt->bindParam(':url', $url);
         $stmt->bindParam(':title', $title);
@@ -35,7 +40,16 @@ class DBHandler {
         $stmt->execute();
     }
 
-    private function createTable()
+    public function log($url, $file_get_contents_error, $userAgent)
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO log (url, file_get_contents_error, user_agent) VALUES (:url, :file_get_contents_error, :user_agent)");
+        $stmt->bindParam(':url', $url);
+        $stmt->bindParam(':file_get_contents_error', $file_get_contents_error);
+        $stmt->bindParam(':user_agent', $userAgent);
+        $stmt->execute();
+    }
+
+    private function createCacheTable()
     {
         $stmt = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `cache` (
   `id` BIGINT(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -47,9 +61,28 @@ class DBHandler {
         $stmt->execute();
     }
 
-    private function tableExists():bool
+    private function cacheTableExists():bool
     {
         $stmt = $this->pdo->prepare("SHOW TABLES LIKE 'cache'");
+        $stmt->execute();
+        return $stmt->rowCount() >= 1;
+    }
+
+    private function createLogTable()
+    {
+        $stmt = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `log` (
+  `id` BIGINT(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `url` text COLLATE utf8_unicode_ci NOT NULL,
+  `file_get_contents_error` text COLLATE utf8_unicode_ci NOT NULL,
+  `user_agent` tinytext COLLATE utf8_unicode_ci NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)");
+        $stmt->execute();
+    }
+
+    private function logTableExists():bool
+    {
+        $stmt = $this->pdo->prepare("SHOW TABLES LIKE 'log'");
         $stmt->execute();
         return $stmt->rowCount() >= 1;
     }

@@ -77,14 +77,17 @@ if ($hasURL) {
                 break;
 
             case 1:
+                // TODO doesn't work with www.nytimes.com/interactive/2020/02/04/us/elections/results-iowa-caucus.html
                 $UAstring = "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
                 break;
 
             case 2:
+                // TODO doesn't work with www.nytimes.com/interactive/2020/02/04/us/elections/results-iowa-caucus.html
                 $UAstring = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)\r\n";
                 break;
 
             case 3:
+                // TODO doesn't work with www.nytimes.com/interactive/2020/02/04/us/elections/results-iowa-caucus.html
                 $UAstring = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
                 break;
 
@@ -159,6 +162,11 @@ if ($hasURL) {
 
                 // save to db
                 $db->cache($articlePermalinkURL, $title, $body);
+            }
+        } else {
+            $lastError = error_get_last();
+            if ($lastError && isset($lastError['message'])) {
+                $db->log($url, $lastError['message'], $UAstring);
             }
         }
     }
