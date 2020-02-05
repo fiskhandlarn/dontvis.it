@@ -42,6 +42,7 @@
     <script>
         var options = {
           cookieName: '{{ env('SITE_NAME')}}_gdpr',
+          description: 'We use cookies to offer a better browsing experience and analyze site traffic. By clicking <strong>Confirm all</strong>, you consent to that and the use of cookies.',
           acceptLabel: 'Confirm all',
           settingsLabel: 'Settings',
           choices: {
