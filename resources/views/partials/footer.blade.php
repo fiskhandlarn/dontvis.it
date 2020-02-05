@@ -6,7 +6,7 @@
           </div>
           <div class="creeper">
             <!-- Begin Creeper tracker code -->
-            <a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="https://gnuheter.com/creeper/image" /></a>
+            <a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="{{ ROOT_URL }}/assets/images/creeper.png" /></a>
             <!-- End Creeper tracker code -->
           </div>
         </div> <!-- .row -->
