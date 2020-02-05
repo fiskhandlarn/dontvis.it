@@ -11,6 +11,8 @@ $theme-colors: (
 $link-color: theme-color('primary');
 $link-hover-color: darken(theme-color('primary'), 15%);
 
+$headings-font-weight: $font-weight-bold;
+
 $grid-breakpoints: (
   xs: rem(0),
   sm: rem(576px),
