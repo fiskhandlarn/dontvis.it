@@ -6,7 +6,7 @@
   bottom: 0;
   background: #000;
   color: #fff;
-  padding: 20px;
+  padding: rem(20px);
   transition: 200ms;
 
   > .cookieConsent {
@@ -16,7 +16,7 @@
 
     > .cookieConsent__Left {
       > .cookieConsent__Content {
-        margin-right: 40px;
+        margin-right: rem(40px);
 
         > .cookieConsent__Title {
           margin: 0;
@@ -24,7 +24,7 @@
         }
 
         > .cookieConsent__Description {
-          margin: 10px 0 0;
+          margin: rem(10px) 0 0;
 
           > a {
             color: #fff;
@@ -39,7 +39,7 @@
     }
 
     > .cookieConsent__Right {
-      margin-top: 20px;
+      margin-top: rem(20px);
       display: flex;
       align-items: flex-end;
     }
@@ -62,8 +62,8 @@
     //transform: scale(1);
     background: #fff;
     color: #000;
-    max-width: 500px;
-    padding: 20px;
+    max-width: rem(500px);
+    padding: rem(20px);
     margin: auto;
     overflow-y: auto;
     box-sizing: border-box;
@@ -75,8 +75,8 @@
 
     > .cookieConsentOperations__Item {
       display: block;
-      padding-left: 60px;
-      margin-bottom: 20px;
+      padding-left: rem(60px);
+      margin-bottom: rem(20px);
       text-align: left;
 
       > input {
@@ -85,7 +85,7 @@
 
       > label {
         align-items: center;
-        font-size: 22px;
+        font-size: (22px);
         font-weight: $font-weight-bold;
         display: block;
         position: relative;
@@ -93,11 +93,11 @@
         &::before {
           content: '';
           display: block;
-          left: -60px;
+          left: rem(-60px);
           background: #dedede;
-          height: 20px;
-          border-radius: 20px;
-          width: 40px;
+          height: rem(20px);
+          border-radius: rem(20px);
+          width: rem(40px);
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
@@ -106,19 +106,19 @@
         &::after {
           content: '';
           display: block;
-          width: 16px;
-          height: 16px;
+          width: rem(16px);
+          height: rem(16px);
           border-radius: 50%;
           background: #000;
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          left: -58px;
+          left: rem(-58px);
           transition: 200ms;
         }
 
         input:checked + label::after { // stylelint-disable-line rscss/no-descendant-combinator
-          transform: translate(20px, -50%);
+          transform: translate(rem(20px), -50%);
         }
       }
 
@@ -140,11 +140,11 @@
 
   &[type='button'] {
     @extend .btn-secondary;
-    margin-right: 10px;
+    margin-right: rem(10px);
   }
 
   &--Close {
-    margin-top: 20px;
+    margin-top: rem(20px);
   }
 }
 
@@ -161,7 +161,7 @@
 
   .cookieConsentOperations { // stylelint-disable-line rscss/class-format
     > .cookieConsentOperations__List {
-      padding: 40px;
+      padding: rem(40px);
     }
   }
 }
