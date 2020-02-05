@@ -53,9 +53,9 @@ class DBHandler {
     {
         $stmt = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `cache` (
   `id` BIGINT(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `url` text COLLATE utf8_unicode_ci NOT NULL,
-  `title` text COLLATE utf8_unicode_ci NOT NULL,
-  `body` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `url` text COLLATE utf8_general_ci NOT NULL,
+  `title` text COLLATE utf8_general_ci NOT NULL,
+  `body` longtext COLLATE utf8_general_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )");
         $stmt->execute();
@@ -72,9 +72,9 @@ class DBHandler {
     {
         $stmt = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `log` (
   `id` BIGINT(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `url` text COLLATE utf8_unicode_ci NOT NULL,
-  `file_get_contents_error` text COLLATE utf8_unicode_ci NOT NULL,
-  `user_agent` tinytext COLLATE utf8_unicode_ci NOT NULL,
+  `url` text COLLATE utf8_general_ci NOT NULL,
+  `file_get_contents_error` text COLLATE utf8_general_ci NOT NULL,
+  `user_agent` tinytext COLLATE utf8_general_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )");
         $stmt->execute();
