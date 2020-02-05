@@ -158,6 +158,42 @@ if ($hasURL) {
                     $content = trim(preg_replace('/\s\s+/', ' ', $content));
                 }
 
+                // make all relative urls absolute
+                // https://stackoverflow.com/a/48837947/1109380
+                $urlParts = parse_url($url);
+                $domain = $urlParts['scheme'] . '://' . $urlParts['host'];
+                $tagsAndAttributes = [
+                    //'img' => 'src',
+                    'form' => 'action',
+                    'a' => 'href'
+                ];
+
+                $dom = new DOMDocument;
+                libxml_use_internal_errors(true); // https://stackoverflow.com/a/6090728/1109380
+                $dom->loadHTML(
+                    mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'), // https://stackoverflow.com/a/8218649/1109380
+                    LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+                );
+                libxml_clear_errors();
+
+                $xpath = new DOMXPath($dom);
+
+                // first, prepend all urls with source domain
+                foreach ($tagsAndAttributes as $tag => $attr) {
+                    foreach ($xpath->query("//{$tag}[not(starts-with(@{$attr}, '//')) and not(starts-with(@{$attr}, 'http')) and not(starts-with(@{$attr}, '#'))]") as $node) {
+                        $node->setAttribute($attr, $domain . $node->getAttribute($attr));
+                    }
+                }
+
+                // second, prepend all urls with anonymizer
+                foreach ($tagsAndAttributes as $tag => $attr) {
+                    foreach ($xpath->query("//{$tag}[not(starts-with(@{$attr}, '#'))]") as $node) {
+                        $node->setAttribute($attr, 'http://nullrefer.com/?' . $node->getAttribute($attr));
+                    }
+                }
+
+                $content = $dom->saveHTML();
+
                 $body = $content;
 
                 // save to db
