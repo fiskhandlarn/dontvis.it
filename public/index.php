@@ -7,12 +7,12 @@ require __DIR__ . '/../vendor/autoload.php';
 use Dontvisit\Parser;
 use eftec\bladeone\BladeOne;
 
-if (!ob_start("ob_gzhandler")) {
+if (!ob_start('ob_gzhandler')) {
     //gzip-e-di-doo-da
     ob_start();
 }
 
-define('ROOT_URL', $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST']);
+define('ROOT_URL', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']);
 
 // remove beginning slash added by nginx(?)
 $url = ltrim($_GET['u'] ?? '', '/');
@@ -22,7 +22,7 @@ $hasURL = !empty($url);
 if ($hasURL) {
     // don't crawl yourself
     if (strpos($url, $_SERVER['HTTP_HOST']) !== false) {
-        header("Location: " . ROOT_URL . '/', true, 301);
+        header('Location: ' . ROOT_URL . '/', true, 301);
         die();
     }
 
@@ -36,18 +36,18 @@ if ($hasURL) {
     $articlePermalinkURL = preg_replace('#^https?://#', '', $url);
 
     $permalinkWithoutScheme = $_SERVER['HTTP_HOST'] . '/' . $articlePermalinkURL;
-    $permalink = $_SERVER['REQUEST_SCHEME'] . "://" . $permalinkWithoutScheme;
+    $permalink = $_SERVER['REQUEST_SCHEME'] . '://' . $permalinkWithoutScheme;
 
     // redirect to permalink if current address isn't the same as the wanted permalink
     if (ltrim($_SERVER['REQUEST_URI'], '/') !== $articlePermalinkURL) {
-        header("Location: " . $permalink, true, 303);
+        header('Location: ' . $permalink, true, 303);
         die();
     }
 } else {
     // default to homepage
     $articlePermalinkURL = false;
     $permalinkWithoutScheme = $_SERVER['HTTP_HOST'] . '/';
-    $permalink = $_SERVER['REQUEST_SCHEME'] . "://" . $permalinkWithoutScheme;
+    $permalink = $_SERVER['REQUEST_SCHEME'] . '://' . $permalinkWithoutScheme;
 }
 
 $blade = new BladeOne(
@@ -58,7 +58,7 @@ $blade = new BladeOne(
 $blade->setOptimize(false); // keep whitespace
 
 if ($hasURL) {
-    require_once "includes/dbhandler.php";
+    require_once 'includes/dbhandler.php';
     $db = new DBHandler();
     list($title, $body) = $db->read($articlePermalinkURL);
 
@@ -93,7 +93,7 @@ if ($hasURL) {
 
                     break;
                 } else {
-                    $db->log($url, "Unable to parse with Readability", $UA);
+                    $db->log($url, 'Unable to parse with Readability', $UA);
                 }
             } else {
                 $lastError = error_get_last();
@@ -105,10 +105,10 @@ if ($hasURL) {
     }
 
     if ($title && $body) {
-        echo $blade->run("article", compact("title", "body", "url", "articlePermalinkURL", "permalink", "permalinkWithoutScheme"));
+        echo $blade->run('article', compact('title', 'body', 'url', 'articlePermalinkURL', 'permalink', 'permalinkWithoutScheme'));
     } else {
-        echo $blade->run("notfound",["title" => $url] + compact("articlePermalinkURL", "url"));
+        echo $blade->run('notfound',['title' => $url] + compact('articlePermalinkURL', 'url'));
     }
 } else {
-    echo $blade->run("index", compact("articlePermalinkURL"));
+    echo $blade->run('index', compact('articlePermalinkURL'));
 }
