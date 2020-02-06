@@ -114,7 +114,6 @@ $ make down
 * Use [memcache](https://www.php.net/manual/en/book.memcached.php) to speed things up
 * Consolidate URL-caching so that www. and trailing slashes don't create separate caching
 * Rehost images on [Imgur](https://imgur.com/)
-* Log debug output when Readability cannot find the main text
 
 ## Built with:
 - [PHP-Readability](https://bitbucket.org/Dither/php-readability/src/master/) 1.7.2
