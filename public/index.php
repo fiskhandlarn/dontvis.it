@@ -150,7 +150,7 @@ if ($hasURL) {
             $readability->debug = false;
 
             // convert links to footnotes?
-            $readability->convertLinksToFootnotes = true;
+            //$readability->convertLinksToFootnotes = true;
 
             // process it
             $result = $readability->init();
