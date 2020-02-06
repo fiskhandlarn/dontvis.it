@@ -15,7 +15,7 @@ if (!ob_start("ob_gzhandler")) {
 define('ROOT_URL', $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST']);
 
 // remove beginning slash added by nginx(?)
-$url = ltrim($_GET['u'] ?: '', '/');
+$url = ltrim($_GET['u'] ?? '', '/');
 
 $hasURL = !empty($url);
 
