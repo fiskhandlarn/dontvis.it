@@ -110,6 +110,8 @@ if ($hasURL) {
 
                 // save to db
                 $db->cache($articlePermalinkURL, $title, $body);
+            } else {
+                $db->log($url, "Unable to parse with Readability", $UAstring);
             }
         } else {
             $lastError = error_get_last();
