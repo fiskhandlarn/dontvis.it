@@ -168,7 +168,6 @@ if ($hasURL) {
                                               'UTF8');
                     $tidy->cleanRepair();
                     $content = $tidy->value;
-                    $content = trim(preg_replace('/\s\s+/', ' ', $content));
                 }
 
                 // strip potentially harmful tags
