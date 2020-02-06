@@ -65,58 +65,38 @@ if ($hasURL) {
     if (!$title){
         // no cache, let's fetch the article
 
-        //var_dump("Fetching article ...");
+        $p = new Parser($url);
 
         // User agent switcheroo
-        $UAnum = Rand (0,3) ;
+        $userAgents = [
+            // TODO DN seems to restrict content if crawled from Google
+            "User-Agent: Mozilla/5.0 (compatible, Googlebot/2.1, +http://www.google.com/bot.html)\r\n",
+            "Mozilla/5.0 (compatible, Yahoo! Slurp, http://help.yahoo.com/help/us/ysearch/slurp)\r\n",
+            "Mozilla/5.0 (compatible, bingbot/2.0, +http://www.bing.com/bingbot.htm)\r\n",
+            "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n",
+        ];
 
-        switch ($UAnum) {
-            case 0:
-                // TODO DN seems to restrict content if crawled from Google
-                $UAstring = "User-Agent: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\r\n";
-                break;
+        foreach ($userAgents as $UA) {
+            if ($p->fetch($UA)) {
+                $p->parse();
+                if ($p->readabilitify()) {
+                    $p->prettify();
 
-            case 1:
-                // TODO doesn't work with www.nytimes.com/interactive/2020/02/04/us/elections/results-iowa-caucus.html
-                $UAstring = "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
-                break;
+                    $title = $p->title;
+                    $body = $p->body;
 
-            case 2:
-                // TODO doesn't work with www.nytimes.com/interactive/2020/02/04/us/elections/results-iowa-caucus.html
-                $UAstring = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)\r\n";
-                break;
+                    // save to db
+                    $db->cache($articlePermalinkURL, $title, $body);
 
-            case 3:
-                // TODO doesn't work with www.nytimes.com/interactive/2020/02/04/us/elections/results-iowa-caucus.html
-                $UAstring = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
-                break;
-
-                // If this works, many lolz acquired.
-        }
-
-        //$UAstring = "User-Agent: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\r\n";
-        //$UAstring = "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
-        //$UAstring = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)\r\n";
-        //$UAstring = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
-
-        $p = new Parser($url);
-        if ($p->fetch($UAstring)) {
-            $p->parse();
-            if ($p->readabilitify()) {
-                $p->prettify();
-
-                $title = $p->title;
-                $body = $p->body;
-
-                // save to db
-                $db->cache($articlePermalinkURL, $title, $body);
+                    break;
+                } else {
+                    $db->log($url, "Unable to parse with Readability", $UA);
+                }
             } else {
-                $db->log($url, "Unable to parse with Readability", $UAstring);
-            }
-        } else {
-            $lastError = error_get_last();
-            if ($lastError && isset($lastError['message'])) {
-                $db->log($url, $lastError['message'], $UAstring);
+                $lastError = error_get_last();
+                if ($lastError && isset($lastError['message'])) {
+                    $db->log($url, $lastError['message'], $UA);
+                }
             }
         }
     }
