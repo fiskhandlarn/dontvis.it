@@ -68,13 +68,16 @@ if ($hasURL) {
         $p = new Parser($url);
 
         // User agent switcheroo
-        $userAgents = [
-            // TODO DN seems to restrict content if crawled from Google
-            "User-Agent: Mozilla/5.0 (compatible, Googlebot/2.1, +http://www.google.com/bot.html)\r\n",
-            "Mozilla/5.0 (compatible, Yahoo! Slurp, http://help.yahoo.com/help/us/ysearch/slurp)\r\n",
-            "Mozilla/5.0 (compatible, bingbot/2.0, +http://www.bing.com/bingbot.htm)\r\n",
-            "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n",
-        ];
+        $userAgents = [];
+
+        // DN seems to restrict content if crawled from Google
+        if (stripos($url, 'dn.se') === false) {
+            $userAgents []= "User-Agent: Mozilla/5.0 (compatible, Googlebot/2.1, +http://www.google.com/bot.html)\r\n";
+        }
+
+        $userAgents []= "Mozilla/5.0 (compatible, Yahoo! Slurp, http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
+        $userAgents []= "Mozilla/5.0 (compatible, bingbot/2.0, +http://www.bing.com/bingbot.htm)\r\n";
+        $userAgents []= "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
 
         foreach ($userAgents as $UA) {
             if ($p->fetch($UA)) {
