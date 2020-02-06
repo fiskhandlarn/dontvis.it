@@ -105,10 +105,10 @@ if ($hasURL) {
     }
 
     if ($title && $body) {
-        echo $blade->run("article",compact("title", "body", "url", "articlePermalinkURL", "permalink", "permalinkWithoutScheme"));
+        echo $blade->run("article", compact("title", "body", "url", "articlePermalinkURL", "permalink", "permalinkWithoutScheme"));
     } else {
         echo $blade->run("notfound",["title" => $url] + compact("articlePermalinkURL", "url"));
     }
 } else {
-    echo $blade->run("index");
+    echo $blade->run("index", compact("articlePermalinkURL"));
 }
