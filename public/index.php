@@ -122,10 +122,23 @@ if ($hasURL) {
             // This step is highly recommended - PHP's default HTML parser
             // often does a terrible job and results in strange output.
             if (function_exists('tidy_parse_string')) {
-                $tidy = tidy_parse_string($html, array(), 'UTF8');
+                $tidy = tidy_parse_string($html, [], 'UTF8');
                 $tidy->cleanRepair();
                 $html = $tidy->value;
             }
+
+            // remove all attributes except some
+            // https://stackoverflow.com/a/3026411/1109380
+            $dom = new DOMDocument;
+            $dom->loadHTML($html);
+            $xpath = new DOMXPath($dom);
+            $nodes = $xpath->query('//@*');
+            foreach ($nodes as $node) {
+                if (!in_array($node->nodeName, ['xlink:href', 'rel', 'src', 'srcset', 'srcSet', 'sizes', 'href', 'media', 'sizes', 'value', 'content', 'dir', 'lang', 'xml:lang'])) {
+                    $node->parentNode->removeAttribute($node->nodeName);
+                }
+            }
+            $html = $dom->saveHTML();
 
             // give it to Readability
             $readability = new Readability($html, $url);
@@ -151,12 +164,127 @@ if ($hasURL) {
                 // if we've got Tidy, let's clean it up for output
                 if (function_exists('tidy_parse_string')) {
                     $tidy = tidy_parse_string($content,
-                                              array('indent'=>true, 'show-body-only'=>true),
+                                              ['indent'=>true, 'show-body-only'=>true],
                                               'UTF8');
                     $tidy->cleanRepair();
                     $content = $tidy->value;
                     $content = trim(preg_replace('/\s\s+/', ' ', $content));
                 }
+
+                // strip potentially harmful tags
+                $content = strip_tags($content, join('', array(
+                    "<a>",
+                    "<abbr>",
+                    "<address>",
+                    "<area>",
+                    "<article>",
+                    "<aside>",
+                    "<audio>",
+                    "<b>",
+                    "<base>",
+                    "<bdi>",
+                    "<bdo>",
+                    "<blockquote>",
+                    "<body>",
+                    "<br>",
+                    "<button>",
+                    "<canvas>",
+                    "<caption>",
+                    "<cite>",
+                    "<code>",
+                    "<col>",
+                    "<colgroup>",
+                    "<command>",
+                    "<data>",
+                    "<datalist>",
+                    "<dd>",
+                    "<del>",
+                    "<details>",
+                    "<dfn>",
+                    "<div>",
+                    "<dl>",
+                    "<dt>",
+                    "<em>",
+                    "<embed>",
+                    "<fieldset>",
+                    "<figcaption>",
+                    "<figure>",
+                    "<footer>",
+                    "<form>",
+                    "<h1>",
+                    "<h2>",
+                    "<h3>",
+                    "<h4>",
+                    "<h5>",
+                    "<h6>",
+                    "<head>",
+                    "<header>",
+                    "<hgroup>",
+                    "<hr>",
+                    "<html>",
+                    "<i>",
+                    "<iframe>",
+                    "<img>",
+                    "<input>",
+                    "<ins>",
+                    "<kbd>",
+                    "<keygen>",
+                    "<label>",
+                    "<legend>",
+                    "<li>",
+                    "<link>",
+                    "<map>",
+                    "<mark>",
+                    "<math>",
+                    "<menu>",
+                    "<meta>",
+                    "<meter>",
+                    "<nav>",
+                    "<noscript>",
+                    "<object>",
+                    "<ol>",
+                    "<optgroup>",
+                    "<option>",
+                    "<output>",
+                    "<p>",
+                    "<p>",
+                    "<param>",
+                    "<pre>",
+                    "<progress>",
+                    "<q>",
+                    "<rp>",
+                    "<rt>",
+                    "<ruby>",
+                    "<s>",
+                    "<samp>",
+                    "<script>",
+                    "<section>",
+                    "<select>",
+                    "<small>",
+                    "<source>",
+                    "<span>",
+                    "<strong>",
+                    "<style>",
+                    "<sub>",
+                    "<summary>",
+                    "<sup>",
+                    "<table>",
+                    "<tbody>",
+                    "<td>",
+                    "<textarea>",
+                    "<tfoot>",
+                    "<th>",
+                    "<thead>",
+                    "<time>",
+                    "<title>",
+                    "<tr>",
+                    "<track>",
+                    "<u>",
+                    "<ul>",
+                    "<var>",
+                    "<video>",
+                    "<wbr>",
+                )));
 
                 // make all relative urls absolute
                 // https://stackoverflow.com/a/48837947/1109380
