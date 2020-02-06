@@ -22,8 +22,13 @@
     "eftec/bladeone": "^3.33"
   },
   "autoload": {
+    "psr-4": {
+      "Dontvisit\\": "src/Dontvisit/"
+    },
     "files": [
-      "src/helpers.php"
+      "src/helpers.php",
+      "src/JSLikeHTMLElement.php",
+      "src/Readability.php"
     ]
   },
   "scripts": {
