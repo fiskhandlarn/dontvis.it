@@ -24,7 +24,7 @@
 
     <footer class="article-running -no-margin">
       <div class="container">
-        <span class="label">Source:</span> <a href="http://nullrefer.com/?{{ $url }}" class="link">{{ $url }}</a>
+        <span class="label">Source:</span> <a href="{{ env('ANONYMIZER_URL') }}{{ $url }}" class="link">{{ $url }}</a>
       </div>
     </footer>
   </article>

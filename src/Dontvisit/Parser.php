@@ -186,10 +186,12 @@ class Parser
             }
         }
 
-        // second, prepend all urls with anonymizer
-        foreach ($tagsAndAttributes as $tag => $attr) {
-            foreach ($xpath->query("//{$tag}[not(starts-with(@{$attr}, '#'))]") as $node) {
-                $node->setAttribute($attr, 'http://nullrefer.com/?' . $node->getAttribute($attr));
+        if (env('ANONYMIZER_URL', false)) {
+            // second, prepend all urls with anonymizer
+            foreach ($tagsAndAttributes as $tag => $attr) {
+                foreach ($xpath->query("//{$tag}[not(starts-with(@{$attr}, '#'))]") as $node) {
+                    $node->setAttribute($attr, env('ANONYMIZER_URL') . $node->getAttribute($attr));
+                }
             }
         }
 
