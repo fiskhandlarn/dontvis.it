@@ -14,8 +14,14 @@ if (!ob_start('ob_gzhandler')) {
 
 define('ROOT_URL', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']);
 
-// remove beginning slash added by nginx(?)
-$url = ltrim($_GET['u'] ?? '', '/');
+$requestURI = $_SERVER['REQUEST_URI']; // use whole request URI instead of query parameter u to capture ? and & in given URL
+$requestURI = ltrim($requestURI, '/'); // remove beginning slash added by nginx(?)
+$requestURI = ltrimword($requestURI, 'index'); // /index?u=https://aftonbladet.se/bil/a/XwMlbg/rishogen-blev-lyxbil
+$requestURI = ltrimword($requestURI, '.php');
+$requestURI = ltrim($requestURI, '/'); // /index.php/https://aftonbladet.se/bil/a/XwMlbg/rishogen-blev-lyxbil
+$requestURI = ltrimword($requestURI, '?u=');
+
+$url = urldecode($requestURI);
 
 $hasURL = !empty($url);
 
