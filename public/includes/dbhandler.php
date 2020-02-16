@@ -22,9 +22,10 @@ class DBHandler {
 
     public function read($url): ?array
     {
-        $stmt = $this->pdo->prepare('SELECT title, body FROM cache WHERE url = :url LIMIT 1');
-        $stmt->execute(array('url' => $url));
+        $stmt = $this->pdo->prepare('SELECT id, title, body FROM cache WHERE url = :url LIMIT 1');
+        $stmt->execute(['url' => $url]);
         foreach ($stmt as $row) {
+            $this->increaseCacheCount($url);
             return [$row['title'], $row['body']];
         }
 
@@ -53,6 +54,7 @@ class DBHandler {
     {
         $stmt = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `cache` (
   `id` BIGINT(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `nr_readings` BIGINT(20) UNSIGNED NOT NULL DEFAULT '0',
   `url` text COLLATE utf8_general_ci NOT NULL,
   `title` text COLLATE utf8_general_ci NOT NULL,
   `body` longtext COLLATE utf8_general_ci NOT NULL,
@@ -85,5 +87,11 @@ class DBHandler {
         $stmt = $this->pdo->prepare("SHOW TABLES LIKE 'log'");
         $stmt->execute();
         return $stmt->rowCount() >= 1;
+    }
+
+    private function increaseCacheCount($url)
+    {
+        $stmt = $this->pdo->prepare('UPDATE cache SET nr_readings = nr_readings + 1 WHERE url = :url');
+        $stmt->execute(['url' => $url]);
     }
 }
