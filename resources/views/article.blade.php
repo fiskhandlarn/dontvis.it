@@ -19,8 +19,8 @@
         <div class="col-md-10 col-lg-8 article-body">
           {!! $body !!}
         </div>
-      </div> <!-- .row -->
-    </div> <!-- .container -->
+      </div>
+    </div>
 
     <footer class="article-running -no-margin">
       <div class="container">

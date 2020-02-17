@@ -5,12 +5,10 @@
             <a href="{{ ROOT_URL }}/" class="home-button"><span class="logo">{{ require_image( "assets/images/favicons/favicon.svg" ) }}</span> <span class="label">{{ env('SITE_NAME') }}</span></a>
           </div>
           <div class="creeper">
-            <!-- Begin Creeper tracker code -->
             <a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="{{ ROOT_URL }}/assets/images/creeper.png" /></a>
-            <!-- End Creeper tracker code -->
           </div>
-        </div> <!-- .row -->
-      </div> <!-- .container -->
+        </div>
+      </div>
     </footer>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GOOGLE_ANALYTICS_ID') }}"></script>

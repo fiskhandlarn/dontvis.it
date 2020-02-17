@@ -24,5 +24,5 @@
             </form>
           </div>
         </div>
-      </div> <!-- .container -->
+      </div>
     </header>

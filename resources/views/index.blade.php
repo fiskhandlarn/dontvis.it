@@ -36,7 +36,7 @@
 
           <p class="manual-usage">Or just put <span class="thisurl">{{ env('SITE_URL') }}</span> in front of <span class="thaturl">http://</span>, like this:<br />
             <span class="thisurl">{{ env('SITE_URL') }}</span><span class="thaturl">http://idiot.blog.tro/ll</span></p>
-        </div> <!-- .col-md-8 -->
-      </div> <!-- .row -->
-    </div> <!-- .container -->
+        </div>
+      </div>
+    </div>
 @stop
