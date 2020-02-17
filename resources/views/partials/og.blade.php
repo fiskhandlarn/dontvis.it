@@ -1,6 +1,6 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="{{ env('SITE_NAME') }}" />
-    <meta property="og:image" content="{{ ROOT_URL }}/assets/images/favicons/android-chrome-512x512.png" />
+    <meta property="og:image" content="{{ ROOT_URL }}/assets/images/og.png" />
 @if (isset($title))
     <meta property="og:url" content="{{ $permalink }}"/>
     <meta property="og:title" content="{{ $title }} &ndash; {{ env('SITE_NAME') }}" />
