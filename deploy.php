@@ -51,7 +51,8 @@ task('deploy', [
 ]);
 
 task('git:save_info', function () {
-    run('cd {{release_path}} && git log -1 -b {{branch}} > {{release_path}}/.gitlog');
+    run('cd {{release_path}} && git log -1 --oneline -b {{branch}} > {{release_path}}/.gitlog');
+    writeln(run('cat {{release_path}}/.gitlog'));
 });
 
 task('copy:env', function () {
