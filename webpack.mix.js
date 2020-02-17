@@ -69,11 +69,6 @@ mix.webpackConfig({
       from: 'resources/assets/images/',
       to: 'images'
     }]),
-    // Copy favicon.ico to web root
-    new CopyWebpackPlugin([{
-      from: 'public/assets/images/favicons/favicon.ico',
-      to: '../'
-    }]),
     // new ImageminPlugin({
     //   test: /\.svg$/i,
     //   svgo: {
