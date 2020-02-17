@@ -26,6 +26,15 @@ $url = urldecode($requestURI);
 $hasURL = !empty($url);
 
 if ($hasURL) {
+    // url must contain dot(s) and be at least 4 characters
+    if (strpos($url, ".") === false || strlen($url) < 5) {
+        // bail!
+        $url = '';
+        $hasURL = false;
+    }
+}
+
+if ($hasURL) {
     // don't crawl yourself
     if (strpos($url, $_SERVER['HTTP_HOST']) !== false) {
         header('Location: ' . ROOT_URL . '/', true, 301);
