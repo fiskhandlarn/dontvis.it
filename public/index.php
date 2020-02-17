@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 require __DIR__ . '/../vendor/autoload.php';
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 use Dontvisit\Parser;
 use eftec\bladeone\BladeOne;
+use Illuminate\Support\Str;
 
 if (!ob_start('ob_gzhandler')) {
     //gzip-e-di-doo-da
@@ -120,7 +125,9 @@ if ($hasURL) {
     }
 
     if ($title && $body) {
-        echo $blade->run('article', compact('title', 'body', 'url', 'articlePermalinkURL', 'permalink', 'permalinkWithoutScheme'));
+        $excerpt = Str::words(trim(preg_replace('/\s+/', ' ', strip_tags($body))), 100);
+
+        echo $blade->run('article', compact('title', 'body', 'excerpt', 'url', 'articlePermalinkURL', 'permalink', 'permalinkWithoutScheme'));
     } else {
         echo $blade->run('notfound',['title' => $url] + compact('articlePermalinkURL', 'url'));
     }

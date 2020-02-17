@@ -18,8 +18,9 @@
     "php": "^7.2",
     "ext-tidy": "*",
     "ext-dom": "*",
-    "vlucas/phpdotenv": "^4.1",
-    "eftec/bladeone": "^3.33"
+    "eftec/bladeone": "^3.33",
+    "illuminate/support": "^6.15",
+    "vlucas/phpdotenv": "^3.3"
   },
   "autoload": {
     "psr-4": {

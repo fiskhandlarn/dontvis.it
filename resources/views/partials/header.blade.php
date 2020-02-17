@@ -8,7 +8,20 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{ ROOT_URL }}/assets/styles/app.css" />
     <meta name="theme-color" content="#3b6ea5">
     @include('partials.favicons')
-  </head>
+    <meta property="og:site_name" content="{{ env('SITE_NAME') }}" />
+    <meta property="og:image" content="{{ ROOT_URL }}/assets/images/favicons/android-chrome-512x512.png" />
+    @if (isset($title))
+<meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ $permalink }}"/>
+    <meta property="og:title" content="{{ $title }} &ndash; {{ env('SITE_NAME') }}" />
+    <meta property="og:description" content="{{ $excerpt }}" />
+    @else
+<meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ ROOT_URL }}/"/>
+    <meta property="og:title" content="{{ env('SITE_NAME') }} &ndash; avoid endorsing idiots" />
+    <meta property="og:description" content="{{ env('SITE_NAME') }} is a tool to escape linkbaits, trolls, idiots and asshats." />
+    @endif
+</head>
   <body>
     <header role="banner" class="site-header">
       <div class="container">
