@@ -2,7 +2,10 @@
       <div class="container">
         <div class="row">
           <div class="home">
-            <a href="{{ ROOT_URL }}/" class="home-button"><span class="logo">{{ require_image( "assets/images/favicons/favicon.svg" ) }}</span> <span class="label">{{ env('SITE_NAME') }}</span></a>
+            <a href="{{ ROOT_URL }}/" class="footer-button"><span class="logo">{{ require_image( "assets/images/favicons/favicon.svg" ) }}</span> <span class="label">{{ env('SITE_NAME') }}</span></a>
+          </div>
+          <div class="twitter">
+            <a href="{{ env('TWITTER_URL') }}/" class="footer-button -small-logo"><span class="logo">{{ require_image( "assets/images/twitter.svg" ) }}</span> <span class="label">{{ env('TWITTER_NAME') }}</span></a>
           </div>
           <div class="creeper">
             <a href="https://gnuheter.com/creeper/senaste" title="Creeper"><img src="{{ ROOT_URL }}/assets/images/creeper.png" /></a>

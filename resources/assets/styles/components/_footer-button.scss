@@ -1,4 +1,4 @@
-.home-button {
+.footer-button {
   @extend .d-flex;
   @extend .align-items-center;
 
@@ -7,7 +7,7 @@
 
   > .logo {
     display: inline-block;
-    height: 100%;
+    height: spacer(32px);
 
     > svg { // stylelint-disable-line rscss/class-format
       fill: $link-color;
@@ -25,6 +25,12 @@
       > svg { // stylelint-disable-line rscss/class-format
         fill: $link-hover-color;
       }
+    }
+  }
+
+  &.-small-logo {
+    > .logo {
+      height: spacer(16px);
     }
   }
 }

@@ -3,29 +3,44 @@
 
   > .container {
     > .row {
-      > .home { // stylelint-disable-line rscss/no-descendant-combinator
+      > .home,
+      > .twitter,
+      > .creeper {
         @include make-col-ready;
-        @include make-col(6);
 
+        // vertical align
         margin-top: auto;
         margin-bottom: auto;
       }
 
-      .creeper { // stylelint-disable-line rscss/no-descendant-combinator
-        @include make-col-ready;
+      > .home {
+        @extend .d-flex;
+        @extend .justify-content-center;
+        @extend .justify-content-sm-start;
+
+        @include make-col(12);
+
+        margin-bottom: ($spacer * 2);
+      }
+
+      > .twitter {
+        @extend .d-sm-flex;
+        @extend .justify-content-sm-center;
+
         @include make-col(6);
+      }
 
-        margin-top: auto;
-        margin-bottom: auto;
+      > .creeper {
+        @extend .d-flex;
+        @extend .justify-content-end;
 
-        text-align: right;
+        @include make-col(6);
 
         // remove top ghost padding
         line-height: 0;
 
         > a { // stylelint-disable-line rscss/class-format
           // remove top ghost padding
-          //line-height: 0;
           display: inline-block;
 
           > img {
@@ -35,6 +50,23 @@
           @include hover {
             filter: brightness(85%);
           }
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    > .container {
+      > .row {
+        > .home {
+          // reset vertical align
+          margin-bottom: auto;
+        }
+
+        > .home,
+        > .twitter,
+        > .creeper {
+          @include make-col(4);
         }
       }
     }
