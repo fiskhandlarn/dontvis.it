@@ -58,7 +58,7 @@ class DBHandler {
   `url` text COLLATE utf8_general_ci NOT NULL,
   `title` text COLLATE utf8_general_ci NOT NULL,
   `body` longtext COLLATE utf8_general_ci NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 )");
         $stmt->execute();
     }
