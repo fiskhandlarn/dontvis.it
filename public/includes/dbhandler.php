@@ -20,13 +20,15 @@ class DBHandler {
         }
     }
 
-    public function read($url): ?array
+    public function read(string $url, bool $increaseCacheCount = true): ?array
     {
         $stmt = $this->pdo->prepare('SELECT id, title, body FROM cache WHERE url = :url LIMIT 1');
         $stmt->execute(['url' => $url]);
         foreach ($stmt as $row) {
-            $this->increaseCacheCount($url);
-            return [$row['title'], $row['body']];
+            if ($increaseCacheCount) {
+                $this->increaseCacheCount($url);
+            }
+            return [$row['title'], $row['body'], $row['id']];
         }
 
         return null;
@@ -34,7 +36,17 @@ class DBHandler {
 
     public function cache($url, $title, $body)
     {
-        $stmt = $this->pdo->prepare("INSERT INTO cache (url, title, body) VALUES (:url, :title, :body)");
+        list($currentTitle, $currentTitle, $currentID) = $this->read($url, false);
+
+        if ($currentID) {
+            // already has cache, let's update the row
+            $stmt = $this->pdo->prepare("UPDATE cache SET url=:url, title=:title, body=:body WHERE id=:id");
+            $stmt->bindParam(':id', $currentID);
+        } else {
+            // no cache, add it!
+            $stmt = $this->pdo->prepare("INSERT INTO cache (url, title, body) VALUES (:url, :title, :body)");
+        }
+
         $stmt->bindParam(':url', $url);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':body', $body);
