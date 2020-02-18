@@ -160,9 +160,9 @@ class Parser
     {
         // determine the base url
         $urlParts = parse_url($url);
-        $domain = $urlParts['scheme'] . '://' . $urlParts['host'];
+        $domain = $urlParts['scheme'] . '://' . $urlParts['host'] . '/';
         $tagsAndAttributes = [
-            //'img' => 'src',
+            'img' => 'src',
             'form' => 'action',
             'a' => 'href'
         ];
@@ -182,12 +182,13 @@ class Parser
         // first, prepend all urls with source domain
         foreach ($tagsAndAttributes as $tag => $attr) {
             foreach ($xpath->query("//{$tag}[not(starts-with(@{$attr}, '//')) and not(starts-with(@{$attr}, 'http')) and not(starts-with(@{$attr}, '#'))]") as $node) {
-                $node->setAttribute($attr, $domain . $node->getAttribute($attr));
+                $node->setAttribute($attr, $domain . ltrim($node->getAttribute($attr), '/'));
             }
         }
 
         if (env('ANONYMIZER_URL', false)) {
-            // second, prepend all urls with anonymizer
+            // second, prepend all urls (except img's) with anonymizer
+            unset($tagsAndAttributes['img']);
             foreach ($tagsAndAttributes as $tag => $attr) {
                 foreach ($xpath->query("//{$tag}[not(starts-with(@{$attr}, '#'))]") as $node) {
                     $node->setAttribute($attr, env('ANONYMIZER_URL') . $node->getAttribute($attr));
