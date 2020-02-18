@@ -2,6 +2,8 @@
   > .thisurl,
   > .thaturl {
     font-family: $font-family-monospace;
+    font-size: $font-size-sm;
+    word-break: break-word;
   }
 
   > .thisurl {
@@ -10,5 +12,12 @@
 
   > .thaturl {
     color: $red;
+  }
+
+  @include media-breakpoint-up(sm) {
+    > .thisurl,
+    > .thaturl {
+      font-size: $font-size-base;
+    }
   }
 }
