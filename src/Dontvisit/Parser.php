@@ -89,25 +89,13 @@ class Parser
         $this->html = $html;
     }
 
-    public function prettify()
+    public static function prettify(string $content, string $url): string
     {
-        if (!$this->url) {
-            throw new Error('URL not set.');
-            return false;
-        }
+        $content = self::tidyIndent($content);
+        $content = self::stripTags($content);
+        $content = self::makeAbsoluteURLs($content, $url);
 
-        if (!$this->content) {
-            throw new Error('Content not set.');
-            return false;
-        }
-
-        $content = $this->content;
-
-        $content = $this->tidyIndent($content);
-        $content = $this->stripTags($content);
-        $content = $this->makeAbsoluteURLs($content, $this->url);
-
-        $this->content = $content;
+        return $content;
     }
 
     public function readabilitify(): bool
@@ -156,7 +144,7 @@ class Parser
      *
      *********************************************************************************/
 
-    private function makeAbsoluteURLs(string $content, string $url): string
+    private static function makeAbsoluteURLs(string $content, string $url): string
     {
         // determine the base url
         $urlParts = parse_url($url);
@@ -233,7 +221,7 @@ class Parser
         return $html;
     }
 
-    private function stripTags(string $content): string
+    private static function stripTags(string $content): string
     {
         // strip potentially harmful tags
         return strip_tags(
@@ -354,7 +342,7 @@ class Parser
         );
     }
 
-    private function tidyIndent(string $content): string
+    private static function tidyIndent(string $content): string
     {
         // if we've got Tidy, let's clean it up for output
         if (function_exists('tidy_parse_string')) {

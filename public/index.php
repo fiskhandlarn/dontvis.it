@@ -99,12 +99,10 @@ if ($hasURL) {
             if ($p->fetch($UA)) {
                 $p->parse();
                 if ($p->readabilitify()) {
-                    $p->prettify();
-
                     $title = $p->title;
                     $body = $p->body;
 
-                    // save to db
+                    // save to db (non-prettified)
                     $db->cache($articlePermalinkURL, $title, $body);
 
                     break;
@@ -122,6 +120,9 @@ if ($hasURL) {
 
     if ($title && $body) {
         $excerpt = Str::words(trim(preg_replace('/\s+/', ' ', strip_tags($body))), 100);
+
+        // prettify for display
+        $body = Parser::prettify($body, $url);
 
         echo $blade->run('article', compact('title', 'body', 'excerpt', 'url', 'articlePermalinkURL', 'permalink', 'permalinkWithoutScheme'));
     } else {
