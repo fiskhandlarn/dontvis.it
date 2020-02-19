@@ -12,6 +12,7 @@ use \Error;
 class Parser
 {
     private $content = false;
+    private $fetchErrors = [];
     private $html = false;
     private $title = false;
     private $url = false;
@@ -27,6 +28,8 @@ class Parser
                 return $this->title;
             case "body":
                 return $this->content;
+            case "fetchErrors":
+                return $this->fetchErrors;
             default:
                 break;
         }
@@ -56,7 +59,11 @@ class Parser
         ];
 
         $context = stream_context_create($opts);
-        $this->html = @file_get_contents($this->url, false, $context);
+
+        $this->fetchErrors = [];
+        set_error_handler(array(&$this, 'fetchErrorHandler'), E_ALL);
+        $this->html = file_get_contents($this->url, false, $context);
+        restore_error_handler();
 
         return !!$this->html;
     }
@@ -143,6 +150,63 @@ class Parser
      * /_/  /_/ /_/|___/\_,_/\__/\__/  /_/_/_/\__/\__/_//_/\___/\_,_/___/
      *
      *********************************************************************************/
+
+    private function fetchErrorHandler(int $errno , string $errstr, string $errfile = null, int $errline = null): bool
+    {
+        $type = '';
+        switch($errno) {
+            case E_ERROR: // 1 //
+                $type = 'E_ERROR';
+                break;
+            case E_WARNING: // 2 //
+                $type = 'E_WARNING';
+                break;
+            case E_PARSE: // 4 //
+                $type = 'E_PARSE';
+                break;
+            case E_NOTICE: // 8 //
+                $type = 'E_NOTICE';
+                break;
+            case E_CORE_ERROR: // 16 //
+                $type = 'E_CORE_ERROR';
+                break;
+            case E_CORE_WARNING: // 32 //
+                $type = 'E_CORE_WARNING';
+                break;
+            case E_COMPILE_ERROR: // 64 //
+                $type = 'E_COMPILE_ERROR';
+                break;
+            case E_COMPILE_WARNING: // 128 //
+                $type = 'E_COMPILE_WARNING';
+                break;
+            case E_USER_ERROR: // 256 //
+                $type = 'E_USER_ERROR';
+                break;
+            case E_USER_WARNING: // 512 //
+                $type = 'E_USER_WARNING';
+                break;
+            case E_USER_NOTICE: // 1024 //
+                $type = 'E_USER_NOTICE';
+                break;
+            case E_STRICT: // 2048 //
+                $type = 'E_STRICT';
+                break;
+            case E_RECOVERABLE_ERROR: // 4096 //
+                $type = 'E_RECOVERABLE_ERROR';
+                break;
+            case E_DEPRECATED: // 8192 //
+                $type = 'E_DEPRECATED';
+                break;
+            case E_USER_DEPRECATED: // 16384 //
+                $type = 'E_USER_DEPRECATED';
+                break;
+        }
+
+        $this->fetchErrors []= $type . ": " . $errstr;
+
+        /* Don't execute PHP internal error handler */
+        return true;
+    }
 
     private static function makeAbsoluteURLs(string $content, string $url): string
     {

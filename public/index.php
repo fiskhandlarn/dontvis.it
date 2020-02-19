@@ -111,10 +111,8 @@ if ($hasURL) {
                         $db->log($url, 'Unable to parse with Readability', $UA);
                     }
                 } else {
-                    $lastError = error_get_last();
-                    if ($lastError && isset($lastError['message'])) {
-                        $lastErrorMessage = $lastError['message'];
-                        $db->log($url, $lastError['message'], $UA);
+                    if (count($p->fetchErrors) > 0) {
+                        $db->log($url, join("\n", $p->fetchErrors), $UA);
                     }
                 }
             }
@@ -127,7 +125,7 @@ if ($hasURL) {
         }
 
         if(!$fetchSuccessful) {
-            bugsnag_error("unsuccessful_fetch", null, compact('url', 'lastErrorMessage'), 'info');
+            bugsnag_error("unsuccessful_fetch", null, compact('url') + ['last_fetch_errors' => $p->fetchErrors], 'info');
         }
     } else {
         // use the URL that was successful when fetched
