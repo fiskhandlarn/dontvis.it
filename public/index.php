@@ -90,8 +90,8 @@ if ($hasURL) {
         $userAgents []= "Mozilla/5.0 (compatible, bingbot/2.0, +http://www.bing.com/bingbot.htm)\r\n";
         $userAgents []= "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
 
-        // try both non-ssl and ssl
-        foreach (["http://", "https://"] as $scheme) {
+        // try both ssl and non-ssl (ssl first to avoid mixed content)
+        foreach (["https://", "http://"] as $scheme) {
             $url = $scheme . $articlePermalinkURL;
 
             $p = new Parser($url);
