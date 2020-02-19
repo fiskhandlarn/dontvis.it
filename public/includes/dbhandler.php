@@ -22,21 +22,21 @@ class DBHandler {
 
     public function read(string $url, bool $increaseCacheCount = true): ?array
     {
-        $stmt = $this->pdo->prepare('SELECT id, title, body FROM cache WHERE url = :url LIMIT 1');
+        $stmt = $this->pdo->prepare('SELECT id, title, body, full_url FROM cache WHERE url = :url LIMIT 1');
         $stmt->execute(['url' => $url]);
         foreach ($stmt as $row) {
             if ($increaseCacheCount) {
                 $this->increaseCacheCount($url);
             }
-            return [$row['title'], $row['body'], $row['id']];
+            return [$row['title'], $row['body'], $row['full_url'], $row['id']];
         }
 
         return null;
     }
 
-    public function cache($url, $title, $body)
+    public function cache($url, $title, $body, $fullURL, $userAgent)
     {
-        list($currentTitle, $currentTitle, $currentID) = $this->read($url, false);
+        list($currentTitle, $currentTitle, $currentFullURL, $currentID) = $this->read($url, false);
 
         if ($currentID) {
             // already has cache, let's update the row
@@ -44,12 +44,14 @@ class DBHandler {
             $stmt->bindParam(':id', $currentID);
         } else {
             // no cache, add it!
-            $stmt = $this->pdo->prepare("INSERT INTO cache (url, title, body) VALUES (:url, :title, :body)");
+            $stmt = $this->pdo->prepare("INSERT INTO cache (url, title, body, full_url, user_agent) VALUES (:url, :title, :body, :full_url, :user_agent)");
         }
 
         $stmt->bindParam(':url', $url);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':body', $body);
+        $stmt->bindParam(':full_url', $fullURL);
+        $stmt->bindParam(':user_agent', $userAgent);
         $stmt->execute();
     }
 
@@ -70,6 +72,8 @@ class DBHandler {
   `url` text COLLATE utf8_general_ci NOT NULL,
   `title` text COLLATE utf8_general_ci NOT NULL,
   `body` longtext COLLATE utf8_general_ci NOT NULL,
+  `full_url` text COLLATE utf8_general_ci NOT NULL,
+  `user_agent` tinytext COLLATE utf8_general_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 )");
         $stmt->execute();

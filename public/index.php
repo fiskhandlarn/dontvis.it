@@ -70,7 +70,7 @@ $blade->setOptimize(false); // keep whitespace
 if ($hasURL) {
     require_once 'includes/dbhandler.php';
     $db = new DBHandler();
-    list($title, $body) = $db->read($articlePermalinkURL);
+    list($title, $body, $urlFromDB) = $db->read($articlePermalinkURL);
 
     if (!$title){
         // no cache, let's fetch the article
@@ -101,7 +101,7 @@ if ($hasURL) {
                         $body = $p->body;
 
                         // save to db (non-prettified)
-                        $db->cache($articlePermalinkURL, $title, $body);
+                        $db->cache($articlePermalinkURL, $title, $body, $url, $UA);
 
                         break;
                     } else {
@@ -120,6 +120,9 @@ if ($hasURL) {
                 break;
             }
         }
+    } else {
+        // use the URL that was successful when fetched
+        $url = $urlFromDB;
     }
 
     if ($title && $body) {
