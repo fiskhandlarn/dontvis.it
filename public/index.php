@@ -75,6 +75,9 @@ if ($hasURL) {
     if (!$title){
         // no cache, let's fetch the article
 
+        $fetchSuccessful = false;
+        $lastErrorMessage = "";
+
         // User agent switcheroo
         $userAgents = [];
 
@@ -110,6 +113,7 @@ if ($hasURL) {
                 } else {
                     $lastError = error_get_last();
                     if ($lastError && isset($lastError['message'])) {
+                        $lastErrorMessage = $lastError['message'];
                         $db->log($url, $lastError['message'], $UA);
                     }
                 }
@@ -117,8 +121,16 @@ if ($hasURL) {
 
             if ($title && $body) {
                 // content found, bail!
+                $fetchSuccessful = true;
                 break;
             }
+        }
+
+        if(!$fetchSuccessful && isset($__bugsnag)) {
+            $report = \Bugsnag\Report::fromNamedError($__bugsnag->getConfig(), "unsuccessful_fetch");
+            $report->addMetaData(compact('url', 'lastErrorMessage'));
+            $report->setSeverity('info');
+            $__bugsnag->notify($report);
         }
     } else {
         // use the URL that was successful when fetched

@@ -19,6 +19,9 @@ if (env('DEBUG')) {
         $bugsnag = Client::make(env('BUGSNAG_API_KEY'));
         $bugsnag->setErrorReportingLevel(E_ALL);
         Handler::register($bugsnag);
+
+        global $__bugsnag;
+        $__bugsnag = $bugsnag;
     } else {
         // don't show any error messages
         ini_set('display_errors', '0');
