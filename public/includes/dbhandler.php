@@ -40,7 +40,7 @@ class DBHandler {
 
         if ($currentID) {
             // already has cache, let's update the row
-            $stmt = $this->pdo->prepare("UPDATE cache SET url=:url, title=:title, body=:body WHERE id=:id");
+            $stmt = $this->pdo->prepare("UPDATE cache SET url=:url, title=:title, body=:body, full_url=:full_url, user_agent=:user_agent WHERE id=:id");
             $stmt->bindParam(':id', $currentID);
         } else {
             // no cache, add it!
