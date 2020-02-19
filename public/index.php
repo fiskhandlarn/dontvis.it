@@ -42,12 +42,6 @@ if ($hasURL) {
         die();
     }
 
-    // prepend with scheme if not present
-    if (!preg_match('!^https?://!i', $url)) {
-        //  assume non ssl
-        $url = 'http://'.$url;
-    }
-
     // Remove scheme from bookmarklet and direct links.
     $articlePermalinkURL = preg_replace('#^https?://#', '', $url);
 
@@ -81,8 +75,6 @@ if ($hasURL) {
     if (!$title){
         // no cache, let's fetch the article
 
-        $p = new Parser($url);
-
         // User agent switcheroo
         $userAgents = [];
 
@@ -95,25 +87,37 @@ if ($hasURL) {
         $userAgents []= "Mozilla/5.0 (compatible, bingbot/2.0, +http://www.bing.com/bingbot.htm)\r\n";
         $userAgents []= "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
 
-        foreach ($userAgents as $UA) {
-            if ($p->fetch($UA)) {
-                $p->parse();
-                if ($p->readabilitify()) {
-                    $title = $p->title;
-                    $body = $p->body;
+        // try both non-ssl and ssl
+        foreach (["http://", "https://"] as $scheme) {
+            $url = $scheme . $articlePermalinkURL;
 
-                    // save to db (non-prettified)
-                    $db->cache($articlePermalinkURL, $title, $body);
+            $p = new Parser($url);
 
-                    break;
+            foreach ($userAgents as $UA) {
+                if ($p->fetch($UA)) {
+                    $p->parse();
+                    if ($p->readabilitify()) {
+                        $title = $p->title;
+                        $body = $p->body;
+
+                        // save to db (non-prettified)
+                        $db->cache($articlePermalinkURL, $title, $body);
+
+                        break;
+                    } else {
+                        $db->log($url, 'Unable to parse with Readability', $UA);
+                    }
                 } else {
-                    $db->log($url, 'Unable to parse with Readability', $UA);
+                    $lastError = error_get_last();
+                    if ($lastError && isset($lastError['message'])) {
+                        $db->log($url, $lastError['message'], $UA);
+                    }
                 }
-            } else {
-                $lastError = error_get_last();
-                if ($lastError && isset($lastError['message'])) {
-                    $db->log($url, $lastError['message'], $UA);
-                }
+            }
+
+            if ($title && $body) {
+                // content found, bail!
+                break;
             }
         }
     }
