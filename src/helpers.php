@@ -20,12 +20,27 @@ if (env('DEBUG')) {
         $bugsnag->setErrorReportingLevel(E_ALL);
         Handler::register($bugsnag);
 
+        // save for bugsnag_error()
         global $__bugsnag;
         $__bugsnag = $bugsnag;
     } else {
         // don't show any error messages
         ini_set('display_errors', '0');
         ini_set('display_startup_errors', '0');
+    }
+}
+
+if (!function_exists('bugsnag_error')) {
+    function bugsnag_error($name, $message = null, array $metaData = null, $severity = null)
+    {
+        global $__bugsnag;
+
+        if (isset($__bugsnag)) {
+            $report = \Bugsnag\Report::fromNamedError($__bugsnag->getConfig(), $name, $message);
+            $report->addMetaData($metaData);
+            $report->setSeverity($severity);
+            $__bugsnag->notify($report);
+        }
     }
 }
 

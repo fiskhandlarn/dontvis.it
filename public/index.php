@@ -126,11 +126,8 @@ if ($hasURL) {
             }
         }
 
-        if(!$fetchSuccessful && isset($__bugsnag)) {
-            $report = \Bugsnag\Report::fromNamedError($__bugsnag->getConfig(), "unsuccessful_fetch");
-            $report->addMetaData(compact('url', 'lastErrorMessage'));
-            $report->setSeverity('info');
-            $__bugsnag->notify($report);
+        if(!$fetchSuccessful) {
+            bugsnag_error("unsuccessful_fetch", null, compact('url', 'lastErrorMessage'), 'info');
         }
     } else {
         // use the URL that was successful when fetched
