@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2 - 2020-02-19
+
+* Notifying Bugsnag on unsuccessful fetch attempts
+* Trying to fetch URLs both with SSL and non-SSL
+* Improved database (saving non-prettified body to db, caching more debug data, updating current cache if it already exists)
+* Displaying images relative to scraped URL
+
 ## 1.0.1 - 2020-02-18
 
 * Added twitter link
