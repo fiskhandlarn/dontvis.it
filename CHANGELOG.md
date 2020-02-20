@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3 - 2020-02-20
+
+* Improved error logging for unsuccessful fetch attempts
+* Use SSL over non-SSL when fetching
+
 ## 1.0.2 - 2020-02-19
 
 * Notifying Bugsnag on unsuccessful fetch attempts
