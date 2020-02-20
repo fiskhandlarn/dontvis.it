@@ -12,6 +12,9 @@
             <h1>What is {{ env('SITE_NAME') }}?</h1>
             <p>{{ env('SITE_NAME') }} is a tool to escape linkbaits, trolls, idiots and asshats.</p>
           </div>
+          <div class="donate">
+            <a href="https://liberapay.com/dontvis.it/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
+          </div>
         </div>
       </div>
     </header>

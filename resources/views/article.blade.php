@@ -3,12 +3,15 @@
 @section('main')
 
   <article>
-    <header class="article-running">
+    <header class="article-running article-header">
       <div class="container">
         <div class="row">
-          <div class="col-md-10">
+          <div class="text">
             <h1>{{ $title }}</h1>
             <p><a href="{{ $permalink }}" rel="bookmark">{{ $permalinkWithoutScheme }}</a></p>
+          </div>
+          <div class="donate">
+            <a href="https://liberapay.com/dontvis.it/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
           </div>
         </div>
       </div>

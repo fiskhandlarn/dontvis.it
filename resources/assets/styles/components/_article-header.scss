@@ -1,0 +1,26 @@
+.article-header {
+  > .container {
+    > .row {
+      > .text,
+      > .donate {
+        @include make-col-ready;
+        @include make-col(12);
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    > .container {
+      > .row {
+        > .text {
+          @include make-col(10);
+        }
+
+        > .donate {
+          @include make-col(2);
+          text-align: right;
+        }
+      }
+    }
+  }
+}
