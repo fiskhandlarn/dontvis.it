@@ -49,7 +49,7 @@ if ($hasURL) {
     $permalink = $_SERVER['REQUEST_SCHEME'] . '://' . $permalinkWithoutScheme;
 
     // redirect to permalink if current address isn't the same as the wanted permalink
-    if (ltrim($_SERVER['REQUEST_URI'], '/') !== $articlePermalinkURL) {
+    if (urldecode(ltrim($_SERVER['REQUEST_URI'], '/')) !== $articlePermalinkURL) {
         header('Location: ' . $permalink, true, 303);
         die();
     }
