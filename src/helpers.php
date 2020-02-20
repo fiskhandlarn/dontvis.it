@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use Dotenv\Dotenv;
 use Bugsnag\Client;
 use Bugsnag\Handler;
+use Dotenv\Dotenv;
 
-Dotenv::create(realpath(__DIR__ . '/..'))->safeload();
+Dotenv::create(realpath(__DIR__.'/..'))->safeload();
 
 if (env('DEBUG')) {
     // show all error messages
@@ -63,7 +63,7 @@ function require_image($imagePath)
     $image = file_get_contents($imagePath);
 
     $hash = md5($imagePath);
-    $image = str_replace('cls-', 'cls-' . $hash . '-', $image);
+    $image = str_replace('cls-', 'cls-'.$hash.'-', $image);
 
     echo $image;
 }
