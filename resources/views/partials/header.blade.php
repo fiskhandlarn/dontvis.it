@@ -10,20 +10,20 @@
     @include('partials.favicons')
     @include('partials.og')
 </head>
-  <body>
-    <header role="banner" class="site-header">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <form id="url-form" action="{{ ROOT_URL }}/">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text"><a class="form-label" href="{{ ROOT_URL }}/">{{--<span class="logo">{{ require_image( "assets/images/favicons/favicon.svg" ) }}</span>  --}}{{ env('SITE_NAME') }}/</a></div>
-                </div>
-                <input class="form-control" type="text" name="u" id="url" placeholder="URL you don't want to visit" value="{{ $articlePermalinkURL }}" />
+<body>
+  <header role="banner" class="site-header">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <form id="url-form" action="{{ ROOT_URL }}/">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><a class="form-label" href="{{ ROOT_URL }}/">{{--<span class="logo">{{ require_image( "assets/images/favicons/favicon.svg" ) }}</span>  --}}{{ env('SITE_NAME') }}/</a></div>
               </div>
-            </form>
-          </div>
+              <input class="form-control" type="text" name="u" id="url" placeholder="URL you don't want to visit" value="{{ $articlePermalinkURL }}" />
+            </div>
+          </form>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
