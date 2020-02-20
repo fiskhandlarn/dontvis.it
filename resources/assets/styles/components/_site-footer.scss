@@ -4,38 +4,24 @@
   > .container {
     > .row {
       > .home,
+      > .liberapay,
       > .twitter,
       > .creeper {
-        @include make-col-ready;
+        @extend .d-flex;
+        @extend .justify-content-center;
+        //@extend .justify-content-md-start;
 
-        // vertical align
-        margin-top: auto;
-        margin-bottom: auto;
+        @include make-col-ready;
+        @include make-col(12);
+
+        margin-bottom: $spacer;
       }
 
       > .home {
-        @extend .d-flex;
-        @extend .justify-content-center;
-        @extend .justify-content-sm-start;
-
-        @include make-col(12);
-
         margin-bottom: ($spacer * 2);
       }
 
-      > .twitter {
-        @extend .d-sm-flex;
-        @extend .justify-content-sm-center;
-
-        @include make-col(6);
-      }
-
       > .creeper {
-        @extend .d-flex;
-        @extend .justify-content-end;
-
-        @include make-col(6);
-
         // remove top ghost padding
         line-height: 0;
 
@@ -59,14 +45,36 @@
     > .container {
       > .row {
         > .home {
-          // reset vertical align
+          @include make-col(12);
+        }
+
+        > .liberapay,
+        > .twitter,
+        > .creeper {
+          @include make-col(4);
+
+          // vertical align
+          margin-top: auto;
+          margin-bottom: auto;
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    > .container {
+      > .row {
+        > .home {
+          // vertical align
+          margin-top: auto;
           margin-bottom: auto;
         }
 
         > .home,
+        > .liberapay,
         > .twitter,
         > .creeper {
-          @include make-col(4);
+          @include make-col(3);
         }
       }
     }

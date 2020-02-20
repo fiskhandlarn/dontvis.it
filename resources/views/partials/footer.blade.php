@@ -4,6 +4,9 @@
           <div class="home">
             <a href="{{ ROOT_URL }}/" class="footer-button"><span class="logo">{{ require_image( "assets/images/favicons/favicon.svg" ) }}</span> <span class="label">{{ env('SITE_NAME') }}</span></a>
           </div>
+          <div class="liberapay">
+            <a href="https://liberapay.com/dontvis.it/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
+          </div>
           <div class="twitter">
             <a href="{{ env('TWITTER_URL') }}/" class="footer-button -small-logo"><span class="logo">{{ require_image( "assets/images/twitter.svg" ) }}</span> <span class="label">{{ env('TWITTER_NAME') }}</span></a>
           </div>
