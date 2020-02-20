@@ -68,7 +68,7 @@ $blade = new BladeOne(
 $blade->setOptimize(false); // keep whitespace
 
 if ($hasURL) {
-    require_once 'includes/dbhandler.php';
+    require_once 'includes/DBHandler.php';
     $db = new DBHandler();
     list($title, $body, $urlFromDB) = $db->read($articlePermalinkURL);
 
