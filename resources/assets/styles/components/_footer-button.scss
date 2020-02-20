@@ -7,10 +7,11 @@
 
   > .logo {
     display: inline-block;
-    height: spacer(32px);
+    height: 100%;
 
     > svg { // stylelint-disable-line rscss/class-format
       fill: $link-color;
+      height: 100%;
     }
   }
 
@@ -18,6 +19,8 @@
     display: inline-block;
     font-weight: $font-weight-bold;
     margin-left: $spacer / 2;
+    line-height: 1;
+    margin-top: rem(-2px); // compensate for lower case
   }
 
   @include hover {
@@ -29,8 +32,6 @@
   }
 
   &.-small-logo {
-    > .logo {
-      height: spacer(16px);
-    }
+    height: $spacer;
   }
 }
