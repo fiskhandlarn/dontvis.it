@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Dontvisit;
 
+use DOMDocument;
+use DOMXPath;
+use Error;
 use Readability\Readability;
-use \DOMDocument;
-use \DOMXPath;
-use \Error;
 
 class Parser
 {
@@ -22,13 +22,14 @@ class Parser
         $this->url = $url;
     }
 
-    public function __get($property) {
+    public function __get($property)
+    {
         switch ($property) {
-            case "title":
+            case 'title':
                 return $this->title;
-            case "body":
+            case 'body':
                 return $this->content;
-            case "fetchErrors":
+            case 'fetchErrors':
                 return $this->fetchErrors;
             default:
                 break;
@@ -47,6 +48,7 @@ class Parser
     {
         if (!$this->url) {
             throw new Error('URL not set.');
+
             return false;
         }
 
@@ -61,22 +63,24 @@ class Parser
         $context = stream_context_create($opts);
 
         $this->fetchErrors = [];
-        set_error_handler(array(&$this, 'fetchErrorHandler'), E_ALL);
+        set_error_handler([&$this, 'fetchErrorHandler'], E_ALL);
         $this->html = file_get_contents($this->url, false, $context);
         restore_error_handler();
 
-        return !!$this->html;
+        return (bool) $this->html;
     }
 
     public function parse()
     {
         if (!$this->url) {
             throw new Error('URL not set.');
+
             return false;
         }
 
         if (!$this->html) {
             throw new Error('HTML not set.');
+
             return false;
         }
 
@@ -86,7 +90,7 @@ class Parser
         // If $html is not UTF-8 encoded, use iconv() or
         // mb_convert_encoding() to convert to UTF-8.
         if (mb_detect_encoding($html) !== 'UTF-8') {
-            $html = mb_convert_encoding($html, "UTF-8");
+            $html = mb_convert_encoding($html, 'UTF-8');
         }
 
         $html = $this->tidyClean($html);
@@ -109,11 +113,13 @@ class Parser
     {
         if (!$this->url) {
             throw new Error('URL not set.');
+
             return false;
         }
 
         if (!$this->html) {
             throw new Error('HTML not set.');
+
             return false;
         }
 
@@ -151,10 +157,10 @@ class Parser
      *
      *********************************************************************************/
 
-    private function fetchErrorHandler(int $errno , string $errstr, string $errfile = null, int $errline = null): bool
+    private function fetchErrorHandler(int $errno, string $errstr, string $errfile = null, int $errline = null): bool
     {
         $type = '';
-        switch($errno) {
+        switch ($errno) {
             case E_ERROR: // 1 //
                 $type = 'E_ERROR';
                 break;
@@ -202,7 +208,7 @@ class Parser
                 break;
         }
 
-        $this->fetchErrors []= $type . ": " . $errstr;
+        $this->fetchErrors[] = $type.': '.$errstr;
 
         /* Don't execute PHP internal error handler */
         return true;
@@ -212,16 +218,16 @@ class Parser
     {
         // determine the base url
         $urlParts = parse_url($url);
-        $domain = $urlParts['scheme'] . '://' . $urlParts['host'] . '/';
+        $domain = $urlParts['scheme'].'://'.$urlParts['host'].'/';
         $tagsAndAttributes = [
-            'img' => 'src',
+            'img'  => 'src',
             'form' => 'action',
-            'a' => 'href'
+            'a'    => 'href',
         ];
 
         // make all relative urls absolute
         // https://stackoverflow.com/a/48837947/1109380
-        $dom = new DOMDocument;
+        $dom = new DOMDocument();
         libxml_use_internal_errors(true); // https://stackoverflow.com/a/6090728/1109380
         $dom->loadHTML(
             mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'), // https://stackoverflow.com/a/8218649/1109380
@@ -234,7 +240,7 @@ class Parser
         // first, prepend all urls with source domain
         foreach ($tagsAndAttributes as $tag => $attr) {
             foreach ($xpath->query("//{$tag}[not(starts-with(@{$attr}, '//')) and not(starts-with(@{$attr}, 'http')) and not(starts-with(@{$attr}, '#'))]") as $node) {
-                $node->setAttribute($attr, $domain . ltrim($node->getAttribute($attr), '/'));
+                $node->setAttribute($attr, $domain.ltrim($node->getAttribute($attr), '/'));
             }
         }
 
@@ -243,7 +249,7 @@ class Parser
             unset($tagsAndAttributes['img']);
             foreach ($tagsAndAttributes as $tag => $attr) {
                 foreach ($xpath->query("//{$tag}[not(starts-with(@{$attr}, '#'))]") as $node) {
-                    $node->setAttribute($attr, env('ANONYMIZER_URL') . $node->getAttribute($attr));
+                    $node->setAttribute($attr, env('ANONYMIZER_URL').$node->getAttribute($attr));
                 }
             }
         }
@@ -255,7 +261,7 @@ class Parser
     {
         // remove all attributes except some
         // https://stackoverflow.com/a/3026411/1109380
-        $dom = new DOMDocument;
+        $dom = new DOMDocument();
         libxml_use_internal_errors(true); // https://stackoverflow.com/a/6090728/1109380
         $dom->loadHTML($html);
         libxml_clear_errors();
@@ -290,7 +296,7 @@ class Parser
         // strip potentially harmful tags
         return strip_tags(
             $content,
-            join('', [
+            implode('', [
                 '<a>',
                 '<abbr>',
                 '<address>',
@@ -411,7 +417,7 @@ class Parser
         // if we've got Tidy, let's clean it up for output
         if (function_exists('tidy_parse_string')) {
             $tidy = tidy_parse_string($content,
-                                      ['indent'=>true, 'show-body-only'=>true],
+                                      ['indent'=> true, 'show-body-only'=>true],
                                       'UTF8');
             $tidy->cleanRepair();
             $content = $tidy->value;
