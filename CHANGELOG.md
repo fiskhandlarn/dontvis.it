@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.4 - 2020-02-20
+
+* Fixed redirect loop for non-ascii characters
+* Added donation buttons
+* Footer improvements
+
 ## 1.0.3 - 2020-02-20
 
 * Improved error logging for unsuccessful fetch attempts
