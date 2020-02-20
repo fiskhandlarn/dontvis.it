@@ -13,7 +13,7 @@
             <p>{{ env('SITE_NAME') }} is a tool to escape linkbaits, trolls, idiots and asshats.</p>
           </div>
           <div class="donate">
-            <a href="https://liberapay.com/dontvis.it/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
+            @include('partials.liberapay')
           </div>
         </div>
       </div>
