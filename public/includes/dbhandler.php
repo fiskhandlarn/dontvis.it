@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__.'/../../vendor/autoload.php';
 
-class DBHandler {
-
+class dbhandler
+{
     protected $pdo;
 
-    public function __construct() {
-        $this->pdo = new PDO('mysql:host=' . env('DB_HOST') . ';dbname=' . env('DB_NAME') . ';charset=utf8', env('DB_USER'), env('DB_PASSWORD'));
+    public function __construct()
+    {
+        $this->pdo = new PDO('mysql:host='.env('DB_HOST').';dbname='.env('DB_NAME').';charset=utf8', env('DB_USER'), env('DB_PASSWORD'));
 
         if (!$this->cacheTableExists()) {
             $this->createCacheTable();
@@ -28,6 +29,7 @@ class DBHandler {
             if ($increaseCacheCount) {
                 $this->increaseCacheCount($url);
             }
+
             return [$row['title'], $row['body'], $row['full_url'], $row['id']];
         }
 
@@ -40,11 +42,11 @@ class DBHandler {
 
         if ($currentID) {
             // already has cache, let's update the row
-            $stmt = $this->pdo->prepare("UPDATE cache SET url=:url, title=:title, body=:body, full_url=:full_url, user_agent=:user_agent WHERE id=:id");
+            $stmt = $this->pdo->prepare('UPDATE cache SET url=:url, title=:title, body=:body, full_url=:full_url, user_agent=:user_agent WHERE id=:id');
             $stmt->bindParam(':id', $currentID);
         } else {
             // no cache, add it!
-            $stmt = $this->pdo->prepare("INSERT INTO cache (url, title, body, full_url, user_agent) VALUES (:url, :title, :body, :full_url, :user_agent)");
+            $stmt = $this->pdo->prepare('INSERT INTO cache (url, title, body, full_url, user_agent) VALUES (:url, :title, :body, :full_url, :user_agent)');
         }
 
         $stmt->bindParam(':url', $url);
@@ -57,7 +59,7 @@ class DBHandler {
 
     public function log($url, $file_get_contents_error, $userAgent)
     {
-        $stmt = $this->pdo->prepare("INSERT INTO log (url, file_get_contents_error, user_agent) VALUES (:url, :file_get_contents_error, :user_agent)");
+        $stmt = $this->pdo->prepare('INSERT INTO log (url, file_get_contents_error, user_agent) VALUES (:url, :file_get_contents_error, :user_agent)');
         $stmt->bindParam(':url', $url);
         $stmt->bindParam(':file_get_contents_error', $file_get_contents_error);
         $stmt->bindParam(':user_agent', $userAgent);
@@ -79,29 +81,31 @@ class DBHandler {
         $stmt->execute();
     }
 
-    private function cacheTableExists():bool
+    private function cacheTableExists(): bool
     {
         $stmt = $this->pdo->prepare("SHOW TABLES LIKE 'cache'");
         $stmt->execute();
+
         return $stmt->rowCount() >= 1;
     }
 
     private function createLogTable()
     {
-        $stmt = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `log` (
+        $stmt = $this->pdo->prepare('CREATE TABLE IF NOT EXISTS `log` (
   `id` BIGINT(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `url` text COLLATE utf8_general_ci NOT NULL,
   `file_get_contents_error` text COLLATE utf8_general_ci NOT NULL,
   `user_agent` tinytext COLLATE utf8_general_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-)");
+)');
         $stmt->execute();
     }
 
-    private function logTableExists():bool
+    private function logTableExists(): bool
     {
         $stmt = $this->pdo->prepare("SHOW TABLES LIKE 'log'");
         $stmt->execute();
+
         return $stmt->rowCount() >= 1;
     }
 

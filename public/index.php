@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 use Dontvisit\Parser;
 use eftec\bladeone\BladeOne;
@@ -13,7 +13,7 @@ if (!ob_start('ob_gzhandler')) {
     ob_start();
 }
 
-define('ROOT_URL', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']);
+define('ROOT_URL', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']);
 
 $requestURI = $_SERVER['REQUEST_URI']; // use whole request URI instead of query parameter u to capture ? and & in given URL
 $requestURI = ltrim($requestURI, '/'); // remove beginning slash added by nginx(?)
@@ -28,7 +28,7 @@ $hasURL = !empty($url);
 
 if ($hasURL) {
     // url must contain dot(s) and be at least 4 characters
-    if (strpos($url, ".") === false || strlen($url) < 5) {
+    if (strpos($url, '.') === false || strlen($url) < 5) {
         // bail!
         $url = '';
         $hasURL = false;
@@ -38,31 +38,31 @@ if ($hasURL) {
 if ($hasURL) {
     // don't crawl yourself
     if (strpos($url, $_SERVER['HTTP_HOST']) !== false) {
-        header('Location: ' . ROOT_URL . '/', true, 301);
+        header('Location: '.ROOT_URL.'/', true, 301);
         die();
     }
 
     // Remove scheme from bookmarklet and direct links.
     $articlePermalinkURL = preg_replace('#^https?://#', '', $url);
 
-    $permalinkWithoutScheme = $_SERVER['HTTP_HOST'] . '/' . $articlePermalinkURL;
-    $permalink = $_SERVER['REQUEST_SCHEME'] . '://' . $permalinkWithoutScheme;
+    $permalinkWithoutScheme = $_SERVER['HTTP_HOST'].'/'.$articlePermalinkURL;
+    $permalink = $_SERVER['REQUEST_SCHEME'].'://'.$permalinkWithoutScheme;
 
     // redirect to permalink if current address isn't the same as the wanted permalink
     if (ltrim($_SERVER['REQUEST_URI'], '/') !== $articlePermalinkURL) {
-        header('Location: ' . $permalink, true, 303);
+        header('Location: '.$permalink, true, 303);
         die();
     }
 } else {
     // default to homepage
     $articlePermalinkURL = false;
-    $permalinkWithoutScheme = $_SERVER['HTTP_HOST'] . '/';
-    $permalink = $_SERVER['REQUEST_SCHEME'] . '://' . $permalinkWithoutScheme;
+    $permalinkWithoutScheme = $_SERVER['HTTP_HOST'].'/';
+    $permalink = $_SERVER['REQUEST_SCHEME'].'://'.$permalinkWithoutScheme;
 }
 
 $blade = new BladeOne(
-    __DIR__ . '/../resources/views',
-    __DIR__ . '/../storage/views',
+    __DIR__.'/../resources/views',
+    __DIR__.'/../storage/views',
     BladeOne::MODE_AUTO
 );
 $blade->setOptimize(false); // keep whitespace
@@ -72,27 +72,27 @@ if ($hasURL) {
     $db = new DBHandler();
     list($title, $body, $urlFromDB) = $db->read($articlePermalinkURL);
 
-    if (!$title){
+    if (!$title) {
         // no cache, let's fetch the article
 
         $fetchSuccessful = false;
-        $lastErrorMessage = "";
+        $lastErrorMessage = '';
 
         // User agent switcheroo
         $userAgents = [];
 
         // DN seems to restrict content if crawled from Google
         if (stripos($url, 'dn.se') === false) {
-            $userAgents []= "User-Agent: Mozilla/5.0 (compatible, Googlebot/2.1, +http://www.google.com/bot.html)\r\n";
+            $userAgents[] = "User-Agent: Mozilla/5.0 (compatible, Googlebot/2.1, +http://www.google.com/bot.html)\r\n";
         }
 
-        $userAgents []= "Mozilla/5.0 (compatible, Yahoo! Slurp, http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
-        $userAgents []= "Mozilla/5.0 (compatible, bingbot/2.0, +http://www.bing.com/bingbot.htm)\r\n";
-        $userAgents []= "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
+        $userAgents[] = "Mozilla/5.0 (compatible, Yahoo! Slurp, http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
+        $userAgents[] = "Mozilla/5.0 (compatible, bingbot/2.0, +http://www.bing.com/bingbot.htm)\r\n";
+        $userAgents[] = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
 
         // try both ssl and non-ssl (ssl first to avoid mixed content)
-        foreach (["https://", "http://"] as $scheme) {
-            $url = $scheme . $articlePermalinkURL;
+        foreach (['https://', 'http://'] as $scheme) {
+            $url = $scheme.$articlePermalinkURL;
 
             $p = new Parser($url);
 
@@ -112,7 +112,7 @@ if ($hasURL) {
                     }
                 } else {
                     if (count($p->fetchErrors) > 0) {
-                        $db->log($url, join("\n", $p->fetchErrors), $UA);
+                        $db->log($url, implode("\n", $p->fetchErrors), $UA);
                     }
                 }
             }
@@ -124,8 +124,8 @@ if ($hasURL) {
             }
         }
 
-        if(!$fetchSuccessful) {
-            bugsnag_error("unsuccessful_fetch", null, compact('url') + ['last_fetch_errors' => $p->fetchErrors], 'info');
+        if (!$fetchSuccessful) {
+            bugsnag_error('unsuccessful_fetch', null, compact('url') + ['last_fetch_errors' => $p->fetchErrors], 'info');
         }
     } else {
         // use the URL that was successful when fetched
@@ -140,7 +140,7 @@ if ($hasURL) {
 
         echo $blade->run('article', compact('title', 'body', 'excerpt', 'url', 'articlePermalinkURL', 'permalink', 'permalinkWithoutScheme'));
     } else {
-        echo $blade->run('notfound',['title' => $url] + compact('articlePermalinkURL', 'url'));
+        echo $blade->run('notfound', ['title' => $url] + compact('articlePermalinkURL', 'url'));
     }
 } else {
     echo $blade->run('index', compact('articlePermalinkURL'));
