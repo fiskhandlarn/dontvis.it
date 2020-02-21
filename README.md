@@ -2,6 +2,8 @@
 
 [dontvis.it](https://dontvis.it) is a tool to escape linkbaits, trolls, idiots and asshats.
 
+[![StyleCI](https://github.styleci.io/repos/235092767/shield?branch=master)](https://github.styleci.io/repos/235092767)
+
 This tool tries to capture the content of an article or blog post without passing on your visit as a page view. dontvis.it also reads and displays (some) news articles otherwise only visible to "subscribers". Effectively this means that you're not paying with your attention or money, so you can read and share< the idiocy that it contains. (This is basically a repackaged Instapaper/Pocket/ReadLater/whatever.)
 
 ## How it works
