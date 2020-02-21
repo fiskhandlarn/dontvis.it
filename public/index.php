@@ -9,7 +9,7 @@ use Dontvisit\Parser;
 use eftec\bladeone\BladeOne;
 use Illuminate\Support\Str;
 
-if (!isset($_SERVER['REQUEST_SCHEME']) || !isset($_SERVER['HTTP_HOST'])) {
+if (!isset($_SERVER['REQUEST_SCHEME']) || !isset($_SERVER['HTTP_HOST']) || !isset($_SERVER['REQUEST_URI'])) {
     // cli, bail!
     die("This script must be run through a web server\n");
 }
