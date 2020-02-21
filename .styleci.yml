@@ -1,5 +1,5 @@
 preset: psr2
 finder:
-  exclude:
-    - src/JSLikeHTMLElement.php
-    - src/Readability.php
+  not-name:
+    - "src/JSLikeHTMLElement.php"
+    - "src/Readability.php"
