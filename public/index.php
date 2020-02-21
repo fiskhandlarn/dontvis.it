@@ -38,7 +38,8 @@ if ($hasURL) {
     // --- begin URL validation
 
     if (!isValidURL($url)) {
-        die('404');
+        echo $blade->run('404', ['title' => $url, 'articlePermalinkURL' => false]);
+        die();
     }
 
     // don't crawl yourself
@@ -132,13 +133,8 @@ if ($hasURL) {
 
         echo $blade->run('article', compact('title', 'body', 'excerpt', 'url', 'articlePermalinkURL', 'permalink', 'permalinkWithoutScheme'));
     } else {
-        echo $blade->run('notfound', ['title' => $url] + compact('articlePermalinkURL', 'url'));
+        echo $blade->run('article-notfound', ['title' => $url] + compact('articlePermalinkURL', 'url'));
     }
 } else {
-    // default to homepage
-    $articlePermalinkURL = false;
-    $permalinkWithoutScheme = $_SERVER['HTTP_HOST'].'/';
-    $permalink = $_SERVER['REQUEST_SCHEME'].'://'.$permalinkWithoutScheme;
-
-    echo $blade->run('index', compact('articlePermalinkURL'));
+    echo $blade->run('index', ['articlePermalinkURL' => false]);
 }
