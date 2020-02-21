@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.4 - 2020-02-20
+## 1.0.5 - 2020-02-20
 
 * Added more URL validation
 * Showing 404 for invalid URLs
