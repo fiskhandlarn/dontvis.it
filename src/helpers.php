@@ -53,9 +53,9 @@ function isValidURL($url): bool
     }
 
     // don't allow dot files
-   if (strpos($url, '.') === 0) {
-       //var_dump("don't allow dot files");
-       return false;
+    if (strpos($url, '.') === 0) {
+        //var_dump("don't allow dot files");
+        return false;
     }
 
     // check if url starts with a domain name
