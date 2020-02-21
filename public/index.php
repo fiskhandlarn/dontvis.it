@@ -38,6 +38,7 @@ if ($hasURL) {
     // --- begin URL validation
 
     if (!isValidURL($url)) {
+        header("HTTP/1.0 404 Not Found");
         echo $blade->run('404', ['title' => $url, 'articlePermalinkURL' => false]);
         die();
     }
