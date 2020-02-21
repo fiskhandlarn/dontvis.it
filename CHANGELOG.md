@@ -2,6 +2,11 @@
 
 ## 1.0.4 - 2020-02-20
 
+* Added more URL validation
+* Showing 404 for invalid URLs
+
+## 1.0.4 - 2020-02-20
+
 * Fixed redirect loop for non-ascii characters
 * Added donation buttons
 * Footer improvements
