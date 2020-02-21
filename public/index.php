@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require __DIR__.'/../vendor/autoload.php';
 
+use Dontvisit\DBHandler;
 use Dontvisit\Parser;
 use eftec\bladeone\BladeOne;
 use Illuminate\Support\Str;
@@ -68,7 +69,6 @@ $blade = new BladeOne(
 $blade->setOptimize(false); // keep whitespace
 
 if ($hasURL) {
-    require_once 'includes/DBHandler.php';
     $db = new DBHandler();
     list($title, $body, $urlFromDB) = $db->read($articlePermalinkURL);
 
