@@ -8,7 +8,7 @@ This tool tries to capture the content of an article or blog post without passin
 
 ## How it works
 
-A user will paste a link, or type `TODO?dontvis.it/` before the URL in the address bar and then the script goes to work:
+A user will paste a link, or type `dontvis.it/` before the URL in the address bar and then the script goes to work:
 
 * If the URL is found in the database a cached version is served
 * If not:
