@@ -46,7 +46,7 @@ if ($hasURL) {
         $stat = stat(__DIR__);
         header('Content-Type: application/xml');
         echo $blade->run('sitemap', ['lastmod' => date('Y-m-d', $stat['mtime'])]);
-    } else if (isValidURL($url)) {
+    } elseif (isValidURL($url)) {
         // don't crawl yourself
         if (strpos($url, $_SERVER['HTTP_HOST']) !== false) {
             header('Location: '.ROOT_URL.'/', true, 301);
