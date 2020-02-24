@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6 - 2020-02-24
+
+* Added even more URL validation
+
 ## 1.0.5 - 2020-02-20
 
 * Added more URL validation
