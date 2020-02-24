@@ -58,6 +58,12 @@ function isValidURL($url): bool
         return false;
     }
 
+    // don't allow query strings
+    if (strpos($url, '?') === 0) {
+        //var_dump("don't allow query strings");
+        return false;
+    }
+
     // check if url starts with a domain name
     $fullURL = "http://" . preg_replace('#^https?://#', '', $url);
     $parsedURL = parse_url($fullURL);
