@@ -42,7 +42,11 @@ $blade->setOptimize(false); // keep whitespace
 if ($hasURL) {
     // --- begin URL validation
 
-    if (isValidURL($url)) {
+    if ($url === 'sitemap.xml') {
+        $stat = stat(__DIR__);
+        header('Content-Type: application/xml');
+        echo $blade->run('sitemap', ['lastmod' => date('Y-m-d', $stat['mtime'])]);
+    } else if (isValidURL($url)) {
         // don't crawl yourself
         if (strpos($url, $_SERVER['HTTP_HOST']) !== false) {
             header('Location: '.ROOT_URL.'/', true, 301);
