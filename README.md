@@ -84,8 +84,13 @@ DB_HOST=mysql
 Create SSL certificate:
 ```bash
 $ mkdir -p .docker/.ssl
-$ cd .docker/.ssl
-$ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout server.key -out server.pem
+$ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout .docker/.ssl/server.key -out .docker/.ssl/server.pem
+```
+
+or
+
+```bash
+make ssl:create
 ```
 
 Start Docker:
