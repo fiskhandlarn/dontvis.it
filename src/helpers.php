@@ -81,6 +81,7 @@ function isValidURL($url): bool
                     'htm',
                     'php',
                     'php3',
+                    'rar',
                 ])) {
                     //var_dump('tld is file extension');
                     return false;
