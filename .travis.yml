@@ -6,22 +6,24 @@ php:
 
 sudo: false
 
-services:
-  - docker
+# services:
+#   - docker
 
 install:
   - travis_retry composer install --no-interaction
 
 script:
   - mkdir -p .docker/.ssl
-  - openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout .docker/.ssl/server.key -out .docker/.ssl/server.pem -subj "/C=IT/ST=Sicily/L=Ortygia/O=dontvis.it/OU=IT Department/CN=dontvis.it"
-  - docker-compose pull
+  - openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout .docker/.ssl/server.key -out .docker/.ssl/server.pem -subj "/C=IT/ST=Sicily/L=Ortygia/O=dontvis.it/OU=IT Department/CN=localhost"
+  #- docker-compose pull
   - docker-compose up -d
-  - docker-compose ps
+  #- docker-compose ps
   #- ping localhost
-  - wget https://localhost:3000/ --no-check-certificate
-  - docker-compose exec web echo 'up'
-  - while ! docker-compose exec web echo 'up'; do docker-compose up -d; docker-compose logs; sleep 1; done
+  - wget https://localhost:3000/ --no-check-certificate -O index.html
+  - cat index.html
+  #- docker-compose exec web echo 'up'
+  - while ! docker-compose exec web echo 'up'; sleep 1; done
+  #- while ! docker-compose exec web echo 'up'; do docker-compose up -d; docker-compose logs; sleep 1; done
   - docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests"
   #- docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests --coverage-clover /app/clover.xml"
   #  - vendor/bin/phpunit --coverage-clover clover.xml
