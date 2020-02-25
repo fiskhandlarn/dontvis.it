@@ -16,7 +16,8 @@ script:
   - docker-compose pull
   - docker-compose up -d
   - docker-compose ps
-  - ping localhost
+  #- ping localhost
+  - wget https://localhost:3000/ --no-check-certificate
   - docker-compose exec web echo 'up'
   - while ! docker-compose exec web echo 'up'; do sleep 1; done
   - docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests"
