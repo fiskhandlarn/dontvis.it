@@ -23,6 +23,11 @@
     "illuminate/support": "^6.15",
     "vlucas/phpdotenv": "^3.3"
   },
+  "require-dev": {
+    "deployer/deployer": "^6.7",
+    "phpunit/phpunit": "^8",
+    "guzzlehttp/guzzle": "^6.5"
+  },
   "autoload": {
     "psr-4": {
       "Dontvisit\\": "src/Dontvisit/"
@@ -33,12 +38,14 @@
       "src/Readability.php"
     ]
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Dontvisit\\Tests\\": "tests/"
+    }
+  },
   "scripts": {
     "post-install-cmd": [
       "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
     ]
-  },
-  "require-dev": {
-    "deployer/deployer": "^6.7"
   }
 }
