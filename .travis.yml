@@ -14,7 +14,7 @@ install:
 
 script:
   - mkdir -p .docker/.ssl
-	- openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout .docker/.ssl/server.key -out .docker/.ssl/server.pem -subj "/C=IT/ST=Sicily/L=Ortygia/O=dontvis.it/OU=IT Department/CN=dontvis.it"
+  - openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout .docker/.ssl/server.key -out .docker/.ssl/server.pem -subj "/C=IT/ST=Sicily/L=Ortygia/O=dontvis.it/OU=IT Department/CN=dontvis.it"
   - docker-compose pull
   - docker-compose up -d
   - docker-compose ps
