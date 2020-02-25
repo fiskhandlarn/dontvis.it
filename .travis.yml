@@ -19,7 +19,7 @@ script:
   #- ping localhost
   - wget https://localhost:3000/ --no-check-certificate
   - docker-compose exec web echo 'up'
-  - while ! docker-compose exec web echo 'up'; do docker-compose up -d; sleep 1; done
+  - while ! docker-compose exec web echo 'up'; do docker-compose up -d; docker-compose logs; sleep 1; done
   - docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests"
   #- docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests --coverage-clover /app/clover.xml"
   #  - vendor/bin/phpunit --coverage-clover clover.xml
