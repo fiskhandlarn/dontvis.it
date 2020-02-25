@@ -33,3 +33,7 @@ test:
 docker%test:
 	if [ ! `docker-compose exec php echo 'up'` ]; then echo -en "\e[0m"; docker-compose up -d; fi
 	docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests"
+
+docker%test_travis:
+	if [ ! `docker-compose exec php echo 'up'` ]; then echo -en "\e[0m"; docker-compose up -d; fi
+	docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests --coverage-clover /app/clover.xml"
