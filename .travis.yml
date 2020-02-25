@@ -15,7 +15,7 @@ install:
 script:
   - mkdir -p .docker/.ssl
   - openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout .docker/.ssl/server.key -out .docker/.ssl/server.pem -subj "/C=IT/ST=Sicily/L=Ortygia/O=dontvis.it/OU=IT Department/CN=localhost"
-  #- docker-compose pull
+  - docker-compose pull
   - docker-compose up -d
   #- docker-compose ps
   #- ping localhost
@@ -27,10 +27,10 @@ script:
   - while ! docker-compose exec web echo 'up'; do sleep 1; done
   #- while ! docker-compose exec web echo 'up'; do docker-compose up -d; docker-compose logs; sleep 1; done
   #- docker-compose run web sh -c "mkdir -p /app/storage/views && chmod a+w /app/storage/views"
-  - docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests"
-  - cat clover.xml
+  #- docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests"
+  #- cat clover.xml
   #- docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests --coverage-clover /app/clover.xml"
-  #  - vendor/bin/phpunit --coverage-clover clover.xml
+  - vendor/bin/phpunit --coverage-clover clover.xml
 
 after_script:
   - bash <(curl -s https://codecov.io/bash)
