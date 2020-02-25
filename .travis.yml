@@ -6,10 +6,16 @@ php:
 
 sudo: false
 
+services:
+  - docker
+  - docker-compose
+
 install:
   - travis_retry composer install --no-interaction
 
 script:
+  - docker-compose up -d
+  - docker-compose ps
   - make docker:test_travis
   #  - vendor/bin/phpunit --coverage-clover clover.xml
 
