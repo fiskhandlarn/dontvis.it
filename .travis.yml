@@ -15,21 +15,14 @@ install:
 script:
   - mkdir -p .docker/.ssl
   - openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout .docker/.ssl/server.key -out .docker/.ssl/server.pem -subj "/C=IT/ST=Sicily/L=Ortygia/O=dontvis.it/OU=IT Department/CN=localhost"
+  - npm install --silent
+  - npm run prod &> /dev/null
   - docker-compose pull
   - docker-compose up -d
-  #- docker-compose ps
-  #- ping localhost
   - mkdir -p storage/views
   - chmod a+w storage/views
-  - wget https://localhost:3000/ --no-check-certificate -O index.html
-  - cat index.html
-  #- docker-compose exec web echo 'up'
   - while ! docker-compose exec web echo 'up'; do sleep 1; done
-  #- while ! docker-compose exec web echo 'up'; do docker-compose up -d; docker-compose logs; sleep 1; done
-  #- docker-compose run web sh -c "mkdir -p /app/storage/views && chmod a+w /app/storage/views"
-  #- docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests"
-  #- cat clover.xml
-  #- docker-compose run php sh -c "/app/vendor/bin/phpunit /app/tests --coverage-clover /app/clover.xml"
+  - while ! docker-compose run mysql sh -c "mysql -uroot -ppassword -h mysql --execute 'use dontvisit;'"; do sleep 1; done
   - vendor/bin/phpunit --coverage-clover clover.xml
 
 after_script:
