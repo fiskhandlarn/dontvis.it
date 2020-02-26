@@ -102,6 +102,26 @@ class URLTest extends TestCase
         }
     }
 
+    public function test404NumberTLDs()
+    {
+        foreach ([
+            'phpMyAdmin-2.5.5-pl1/',
+            'phpMyAdmin-2.5.5-rc2/',
+            'phpMyAdmin-2.5.6-rc2/',
+            'phpMyAdmin-2.5.7-pl1/',
+            'phpMyAdmin-2.6.0-pl1/',
+            'phpMyAdmin-2.6.0-pl3/',
+            'phpMyAdmin-2.6.1-pl3/',
+            'phpMyAdmin-2.6.2-rc1/',
+            'phpMyAdmin-2.7.0-pl2/',
+            'phpMyAdmin-2.7.0-rc1/',
+            'phpMyAdmin-2.8.0-beta1/',
+        ] as $url) {
+            $response = self::$client->request('GET', $url);
+            $this->assertEquals(404, $response->getStatusCode(), $url);
+        }
+    }
+
     public function test404FileExtensions()
     {
         foreach ([

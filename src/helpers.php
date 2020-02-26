@@ -79,8 +79,13 @@ function isValidURL($url): bool
                 $domainParts = explode('.', $host);
                 $tld = end($domainParts);
 
-                // tld must be at least 2 characters
-                if (strlen($tld) < 2) {
+                if (!ctype_alpha($tld)) {
+                    // tld shouldn't contain numbers
+                    //var_dump('tld contains numbers');
+                    return false;
+                }
+                elseif (strlen($tld) < 2) {
+                    // tld must be at least 2 characters
                     //var_dump('too short tld');
                     return false;
                 } else {
