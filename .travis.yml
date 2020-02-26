@@ -2,12 +2,9 @@ language: php
 
 php:
   - 7.2
-#  - 7.3
+  - 7.3
 
 sudo: false
-
-# services:
-#   - docker
 
 install:
   - travis_retry composer install --no-interaction
