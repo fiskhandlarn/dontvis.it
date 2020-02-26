@@ -129,6 +129,26 @@ function isValidURL($url): bool
                     ])) {
                         //var_dump('tld is file extension');
                         return false;
+                    } elseif ($tld === "py") {
+                        // .py has second level domains (https://en.wikipedia.org/wiki/.py),
+                        // but could also be attempts at accessing python files
+                        if (count($domainParts) >= 2) {
+                            $domain = join('.', array_slice($domainParts, -2, 2));
+                            if (!in_array($domain, [
+                                'com.py',
+                                'coop.py',
+                                'edu.py',
+                                'gov.py',
+                                'mil.py',
+                                'net.py',
+                                'nic.py',
+                                'org.py',
+                                'una.py',
+                            ])) {
+                                //var_dump('tld is file extension');
+                                return false;
+                            }
+                        }
                     }
                 }
             }
