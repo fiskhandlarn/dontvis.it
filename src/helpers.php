@@ -42,7 +42,7 @@ if (!function_exists('bugsnag_error')) {
             $__bugsnag->notify($report);
         }
     }
-}
+        }
 
 function isValidURL($url): bool
 {
@@ -84,11 +84,48 @@ function isValidURL($url): bool
                 } else {
                     // don't allow (common) file extensions as tld
                     if (in_array($tld, [
-                        'html',
+                        'action',
+                        'asp',
+                        'aspx',
+                        'aspx',
+                        'axd',
+                        'back',
+                        'backup',
+                        'cfm',
+                        'cgi',
+                        'css',
+                        'dyn',
+                        'ear',
+                        'fcgi',
                         'htm',
+                        'html',
+                        'icns',
+                        'java', // https://icannwiki.org/.java -> https://ntldstats.com/tld/java
+                        'js',
+                        'json',
+                        'jsp',
+                        'log',
                         'php',
                         'php3',
+                        'php4',
+                        'po',
                         'rar',
+                        'rar',
+                        'rb',
+                        'save', // https://icannwiki.org/.save -> https://ntldstats.com/tld/save
+                        'sitemap',
+                        'sql',
+                        'swf',
+                        'swp',
+                        'tar',
+                        'tgz',
+                        'txt',
+                        'xcconfig',
+                        'xcworkspace',
+                        'xcworkspacedata',
+                        'xml',
+                        'yml',
+                        'zip', // https://icannwiki.org/.zip -> https://ntldstats.com/tld/zip
                     ])) {
                         //var_dump('tld is file extension');
                         return false;
