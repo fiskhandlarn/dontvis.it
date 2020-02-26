@@ -79,6 +79,7 @@ class URLTest extends TestCase
             '?a=fetch&content=%3Cphp%3Edie(@md5(HelloThinkCMF))%3C/php%3E',
             '?s=/Index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=HelloThinkPHP',
             '?XDEBUG_SESSION_START=phpstorm',
+            '?homescreen=1',
         ] as $url) {
             $response = self::$client->request('GET', $url);
             $this->assertEquals(404, $response->getStatusCode(), $url);
@@ -349,6 +350,9 @@ class URLTest extends TestCase
             'WebResource.axd',
             'wp-login.jsp',
             'yonetim.asp',
+            'polycom.cfg',
+            '0000000000000.cfg',
+            'Telerik.Web.UI.WebResource.axd',
         ] as $url) {
             $response = self::$client->request('GET', $url);
             $this->assertEquals(404, $response->getStatusCode(), $url);

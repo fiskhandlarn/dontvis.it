@@ -91,6 +91,7 @@ function isValidURL($url): bool
                         'axd',
                         'back',
                         'backup',
+                        'cfg',
                         'cfm',
                         'cgi',
                         'css',
