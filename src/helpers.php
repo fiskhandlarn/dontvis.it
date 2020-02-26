@@ -58,6 +58,12 @@ function isValidURL($url): bool
         return false;
     }
 
+    // don't allow urls starting with '!'
+    if (strpos($url, '!') === 0) {
+        //var_dump("don't allow exclamation marks");
+        return false;
+    }
+
     // don't allow query strings
     if (strpos($url, '?') === 0) {
         //var_dump("don't allow query strings");

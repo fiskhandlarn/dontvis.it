@@ -81,6 +81,16 @@ class URLTest extends TestCase
         }
     }
 
+    public function test404Exclamation()
+    {
+        foreach ([
+            '!.htpasswd',
+        ] as $url) {
+            $response = self::$client->request('GET', $url);
+            $this->assertEquals(404, $response->getStatusCode(), $url);
+        }
+    }
+
     public function test404QueryStrings()
     {
         foreach ([
