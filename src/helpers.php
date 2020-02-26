@@ -42,7 +42,7 @@ if (!function_exists('bugsnag_error')) {
             $__bugsnag->notify($report);
         }
     }
-        }
+}
 
 function isValidURL($url): bool
 {
