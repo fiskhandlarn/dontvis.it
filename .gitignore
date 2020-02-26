@@ -4,6 +4,7 @@
 .env
 .idea
 .vagrant
+/.phpunit.result.cache
 /storage
 backstop_data
 deployer.log
