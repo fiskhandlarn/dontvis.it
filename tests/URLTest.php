@@ -56,6 +56,14 @@ class URLTest extends TestCase
         $this->assertEquals(303, $response->getStatusCode(), urlencode('https://github.com/fiskhandlarn/dontvis.it'));
     }
 
+    public function test303InternationalizedTLD()
+    {
+        // test that this doesn't result in 404
+        // (use url with scheme to prevent logging unsuccessful scrape)
+        $response = self::$client->request('GET', urlencode('http://dontvis.xn--ygbi2ammx'), ['allow_redirects' => false]);
+        $this->assertEquals(303, $response->getStatusCode(), urlencode('dontvis.xn--ygbi2ammx'));
+    }
+
     public function test404Length()
     {
         $response = self::$client->request('GET', 'abc');

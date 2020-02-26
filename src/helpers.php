@@ -79,8 +79,8 @@ function isValidURL($url): bool
                 $domainParts = explode('.', $host);
                 $tld = end($domainParts);
 
-                if (preg_match('/[0-9]/', $tld) === 1) {
-                    // tld shouldn't contain numbers
+                if (preg_match('/[0-9]/', $tld) === 1 && stripos($tld, 'xn-') === false) {
+                    // tld shouldn't contain numbers (except for internationalized tld's, those are ok)
                     //var_dump('tld contains numbers');
                     return false;
                 }
