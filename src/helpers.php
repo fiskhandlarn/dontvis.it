@@ -100,6 +100,11 @@ function isValidURL($url): bool
                     // tld must be at least 2 characters
                     //var_dump('too short tld');
                     return false;
+                }
+                elseif (preg_match('/~+$/', $tld) === 1) {
+                    // tld shouldn't end with tilde
+                    //var_dump('tld ends with tilde');
+                    return false;
                 } else {
                     // don't allow (common) file extensions as tld
                     if (in_array($tld, [
