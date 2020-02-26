@@ -76,21 +76,23 @@ function isValidURL($url): bool
             $domainParts = explode('.', $parsedURL['host']);
             $tld = end($domainParts);
 
-            // tld must be at least 2 characters
-            if (strlen($tld) < 2) {
-                //var_dump('too short tld');
-                return false;
-            } else {
-                // don't allow (common) file extensions as tld
-                if (in_array($tld, [
-                    'html',
-                    'htm',
-                    'php',
-                    'php3',
-                    'rar',
-                ])) {
-                    //var_dump('tld is file extension');
+            if (!is_numeric($tld)) { // allow ip numbers for local/docker testing
+                // tld must be at least 2 characters
+                if (strlen($tld) < 2) {
+                    //var_dump('too short tld');
                     return false;
+                } else {
+                    // don't allow (common) file extensions as tld
+                    if (in_array($tld, [
+                        'html',
+                        'htm',
+                        'php',
+                        'php3',
+                        'rar',
+                    ])) {
+                        //var_dump('tld is file extension');
+                        return false;
+                    }
                 }
             }
         }
