@@ -30,6 +30,9 @@ $requestURI = ltrimword($requestURI, '?u=');
 
 $url = urldecode($requestURI);
 
+// remove NUL
+$url = str_replace("\0", "", $url);
+
 $hasURL = !empty($url);
 
 $blade = new BladeOne(
