@@ -73,10 +73,12 @@ function isValidURL($url): bool
             //var_dump('no domain');
             return false;
         } else {
-            $domainParts = explode('.', $parsedURL['host']);
-            $tld = end($domainParts);
+            $host = $parsedURL['host'];
 
-            if (!is_numeric($tld)) { // allow ip numbers for local/docker testing
+            if (!is_numeric(str_replace('.', '', $host))) { // allow ip numbers for local/docker testing
+                $domainParts = explode('.', $host);
+                $tld = end($domainParts);
+
                 // tld must be at least 2 characters
                 if (strlen($tld) < 2) {
                     //var_dump('too short tld');

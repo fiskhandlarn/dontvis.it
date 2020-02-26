@@ -353,6 +353,7 @@ class URLTest extends TestCase
             'polycom.cfg',
             '0000000000000.cfg',
             'Telerik.Web.UI.WebResource.axd',
+            'phpMyAdmin-2.2.6/',
         ] as $url) {
             $response = self::$client->request('GET', $url);
             $this->assertEquals(404, $response->getStatusCode(), $url);
