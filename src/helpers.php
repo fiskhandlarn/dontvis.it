@@ -52,27 +52,9 @@ function isValidURL($url): bool
         return false;
     }
 
-    // don't allow dot files
-    if (strpos($url, '.') === 0) {
-        //var_dump("don't allow dot files");
-        return false;
-    }
-
-    // don't allow urls starting with '!'
-    if (strpos($url, '!') === 0) {
-        //var_dump("don't allow exclamation marks");
-        return false;
-    }
-
-    // don't allow urls starting with '#'
-    if (strpos($url, '#') === 0) {
-        //var_dump("don't allow hash");
-        return false;
-    }
-
-    // don't allow query strings
-    if (strpos($url, '?') === 0) {
-        //var_dump("don't allow query strings");
+    // don't allow urls starting with punctuation
+    if (ctype_punct($url[0])) {
+        //var_dump("url starts with punctuation");
         return false;
     }
 

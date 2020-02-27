@@ -83,32 +83,13 @@ class URLTest extends TestCase
         $this->assertEquals(404, $response->getStatusCode(), 'abc');
     }
 
-    public function test404DotFiles()
-    {
-        foreach ([
-            '.htaccess',
-            '.git/HEAD',
-        ] as $url) {
-            $response = self::$client->request('GET', $url);
-            $this->assertEquals(404, $response->getStatusCode(), $url);
-        }
-    }
-
-    public function test404Exclamation()
+    public function test404Punctuation()
     {
         foreach ([
             '!.gitignore',
             '!.htaccess',
             '!.htpasswd',
-        ] as $url) {
-            $response = self::$client->request('GET', $url);
-            $this->assertEquals(404, $response->getStatusCode(), $url);
-        }
-    }
-
-    public function test404Hash()
-    {
-        foreach ([
+            '$RECYCLE.BIN/',
             '%23.configuration.php%23',
             '%23config.inc.php%23',
             '%23config.php%23',
@@ -116,15 +97,8 @@ class URLTest extends TestCase
             '%23localsettings.php%23',
             '%23settings.php%23',
             '%23web.config%23',
-        ] as $url) {
-            $response = self::$client->request('GET', $url);
-            $this->assertEquals(404, $response->getStatusCode(), $url);
-        }
-    }
-
-    public function test404QueryStrings()
-    {
-        foreach ([
+            '.git/HEAD',
+            '.htaccess',
             '?a=fetch&content=%3Cphp%3Edie(@md5(HelloThinkCMF))%3C/php%3E',
             '?homescreen=1',
             '?s=/Index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=HelloThinkPHP',
@@ -572,16 +546,16 @@ class URLTest extends TestCase
             'yonetim.asp',
             //'admin.pl',
             //'administrator.pl',
-            //'basket.pl',
+            // 'basket.pl',
             //'build.properties',
             //'config.ru',
-            //'create_release.sh',
-            //'cron.sh',
-            //'debug.pl',
-            //'DEPLOY.md',
-            //'gruntfile.coffee',
+            // 'create_release.sh',
+            // 'cron.sh',
+            // 'debug.pl',
+            // 'DEPLOY.md',
+            // 'gruntfile.coffee',
             //'History.md',
-            //'install.sh',
+            // 'install.sh',
             //'login.pl',
             //'logout.pl',
             //'logs.pl',
@@ -590,7 +564,7 @@ class URLTest extends TestCase
             //'Makefile.am',
             //'metamod.pl',
             //'mt.pl',
-            //'newsletter.sh',
+            // 'newsletter.sh',
             //'onlogo.pl',
             //'partners.pl',
             //'payment.pl',
