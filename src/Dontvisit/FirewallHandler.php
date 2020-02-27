@@ -96,7 +96,7 @@ class FirewallHandler
 
     private function tablesExist(): bool
     {
-        foreach(self::$tables as $table) {
+        foreach (self::$tables as $table) {
             $stmt = $this->pdo->prepare("SHOW TABLES LIKE '". $table ."'");
             $stmt->execute();
 
@@ -110,7 +110,7 @@ class FirewallHandler
 
     private function createTables()
     {
-        foreach(self::$tables as $table) {
+        foreach (self::$tables as $table) {
             $stmt = $this->pdo->prepare('CREATE TABLE `'. $table .'` (
     `ip` VARCHAR(45),
     `dateTime` DATETIME
