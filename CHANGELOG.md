@@ -1,8 +1,8 @@
 # Changelog
 
-## 1.0.7 - 2020-02-26
+## 1.0.7 - 2020-02-27
 
-* Validate .py URL's
+* Added even more URL validation
 * Added test suite
 * Added sitemap
 
