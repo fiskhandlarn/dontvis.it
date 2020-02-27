@@ -102,7 +102,7 @@ function isValidURL($url): bool
                     return false;
                 }
                 elseif (preg_match('/~+$/', $tld) === 1) {
-                    // tld shouldn't end with tilde
+                    // tld shouldn't end with tilde (i.e. backup files)
                     //var_dump('tld ends with tilde');
                     return false;
                 } else {
