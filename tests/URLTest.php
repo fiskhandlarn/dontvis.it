@@ -77,6 +77,15 @@ class URLTest extends TestCase
         $this->assertEquals(303, $response->getStatusCode(), urlencode('dontvis.xn--ygbi2ammx'));
     }
 
+    public function test403()
+    {
+        $response = self::$client->request('GET', 'assets/images/');
+        $this->assertEquals(403, $response->getStatusCode(), 'assets/images/');
+
+        $response = self::$client->request('GET', 'assets/');
+        $this->assertEquals(403, $response->getStatusCode(), 'assets/');
+    }
+
     public function test404Length()
     {
         $response = self::$client->request('GET', 'abc');
