@@ -139,6 +139,7 @@ class URLTest extends TestCase
     {
         foreach ([
             'index.php?u=%0DSplitting:Detectify',
+            'index.php?u=%0D%0ASplitting:Detectify',
             urlencode('Splitting:Detectify'),
         ] as $url) {
             $response = self::$client->request('GET', $url);
