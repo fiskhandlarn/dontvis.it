@@ -135,6 +135,17 @@ class URLTest extends TestCase
         }
     }
 
+    public function test404Hosts()
+    {
+        foreach ([
+            'index.php?u=%0DSplitting:Detectify',
+            urlencode('Splitting:Detectify'),
+        ] as $url) {
+            $response = self::$client->request('GET', $url);
+            $this->assertEquals(404, $response->getStatusCode(), $url);
+        }
+    }
+
     public function test404Domains()
     {
         foreach ([

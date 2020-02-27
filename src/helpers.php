@@ -42,7 +42,7 @@ if (!function_exists('bugsnag_error')) {
             $__bugsnag->notify($report);
         }
     }
-}
+        }
 
 function isValidURL($url): bool
 {
@@ -79,137 +79,140 @@ function isValidURL($url): bool
     // check if url starts with a domain name
     $fullURL = "http://" . preg_replace('#^https?://#', '', $url);
     $parsedURL = parse_url($fullURL);
-    if (isset($parsedURL['host'])) {
-        // URL must have a tld
-        if (strpos($parsedURL['host'], '.') === false) {
-            //var_dump('no domain');
-            return false;
-        } else {
-            $host = $parsedURL['host'];
+    if (!isset($parsedURL['host'])) {
+        //var_dump('no host found');
+        return false;
+    }
 
-            if (!is_numeric(str_replace('.', '', $host))) { // allow ip numbers for local/docker testing
-                $domainParts = explode('.', $host);
-                $tld = end($domainParts);
+    // URL must have a tld
+    if (strpos($parsedURL['host'], '.') === false) {
+        //var_dump('no domain');
+        return false;
+    } else {
+        $host = $parsedURL['host'];
 
-                if (preg_match('/[0-9]/', $tld) === 1 && stripos($tld, 'xn-') === false) {
-                    // tld shouldn't contain numbers (except for internationalized tld's, those are ok)
-                    //var_dump('tld contains numbers');
+        if (!is_numeric(str_replace('.', '', $host))) { // allow ip numbers for local/docker testing
+            $domainParts = explode('.', $host);
+            $tld = end($domainParts);
+
+            if (preg_match('/[0-9]/', $tld) === 1 && stripos($tld, 'xn-') === false) {
+                // tld shouldn't contain numbers (except for internationalized tld's, those are ok)
+                //var_dump('tld contains numbers');
+                return false;
+            } elseif (strlen($tld) < 2) {
+                // tld must be at least 2 characters
+                //var_dump('too short tld');
+                return false;
+            } elseif (preg_match('/~+$/', $tld) === 1) {
+                // tld shouldn't end with tilde (i.e. backup files)
+                //var_dump('tld ends with tilde');
+                return false;
+            } else {
+                // don't allow (common) file extensions as tld
+                if (in_array(mb_strtolower($tld), [
+                    'act',
+                    'action',
+                    'api',
+                    'asp',
+                    'aspx',
+                    'aspx',
+                    'axd',
+                    'back',
+                    'backup',
+                    'bak',
+                    'boot',
+                    'cellsprint',
+                    'cfg',
+                    'cfm',
+                    'cgi',
+                    'config',
+                    'css',
+                    'dat',
+                    'debug',
+                    'dist',
+                    'dyn',
+                    'ear',
+                    'exe',
+                    'fcgi',
+                    'gradle',
+                    'gz',
+                    'htm',
+                    'html',
+                    'icns',
+                    'inc', // https://icannwiki.org/.inc -> https://ntldstats.com/tld/inc
+                    'java', // https://icannwiki.org/.java -> https://ntldstats.com/tld/java
+                    'jpg',
+                    'js',
+                    'jsa',
+                    'json',
+                    'jsp',
+                    'jws',
+                    'listprint',
+                    'local',
+                    'lock',
+                    'log',
+                    'lproj',
+                    'markdown',
+                    'mf',
+                    'mvc',
+                    'nsf',
+                    'old',
+                    'orig',
+                    'pac',
+                    'pbxproj',
+                    'php',
+                    'php-eb',
+                    'php3',
+                    'php4',
+                    'php5',
+                    'pid', // https://icannwiki.org/.pid -> https://ntldstats.com/tld/pid
+                    'platform',
+                    'plist',
+                    'plx',
+                    'po',
+                    'rar',
+                    'rar',
+                    'rb',
+                    'rdoc',
+                    'save', // https://icannwiki.org/.save -> https://ntldstats.com/tld/save
+                    'shm',
+                    'show_query_columns',
+                    'showsource',
+                    'sitemap',
+                    'sql',
+                    'swf',
+                    'swp',
+                    'tar',
+                    'tgz',
+                    'txt',
+                    'xcconfig',
+                    'xcworkspace',
+                    'xcworkspacedata',
+                    'xml',
+                    'xsql',
+                    'yml',
+                    'zip', // https://icannwiki.org/.zip -> https://ntldstats.com/tld/zip
+                ])) {
+                    //var_dump('tld is file extension');
                     return false;
-                } elseif (strlen($tld) < 2) {
-                    // tld must be at least 2 characters
-                    //var_dump('too short tld');
-                    return false;
-                } elseif (preg_match('/~+$/', $tld) === 1) {
-                    // tld shouldn't end with tilde (i.e. backup files)
-                    //var_dump('tld ends with tilde');
-                    return false;
-                } else {
-                    // don't allow (common) file extensions as tld
-                    if (in_array(mb_strtolower($tld), [
-                        'act',
-                        'action',
-                        'api',
-                        'asp',
-                        'aspx',
-                        'aspx',
-                        'axd',
-                        'back',
-                        'backup',
-                        'bak',
-                        'boot',
-                        'cellsprint',
-                        'cfg',
-                        'cfm',
-                        'cgi',
-                        'config',
-                        'css',
-                        'dat',
-                        'debug',
-                        'dist',
-                        'dyn',
-                        'ear',
-                        'exe',
-                        'fcgi',
-                        'gradle',
-                        'gz',
-                        'htm',
-                        'html',
-                        'icns',
-                        'inc', // https://icannwiki.org/.inc -> https://ntldstats.com/tld/inc
-                        'java', // https://icannwiki.org/.java -> https://ntldstats.com/tld/java
-                        'jpg',
-                        'js',
-                        'jsa',
-                        'json',
-                        'jsp',
-                        'jws',
-                        'listprint',
-                        'local',
-                        'lock',
-                        'log',
-                        'lproj',
-                        'markdown',
-                        'mf',
-                        'mvc',
-                        'nsf',
-                        'old',
-                        'orig',
-                        'pac',
-                        'pbxproj',
-                        'php',
-                        'php-eb',
-                        'php3',
-                        'php4',
-                        'php5',
-                        'pid', // https://icannwiki.org/.pid -> https://ntldstats.com/tld/pid
-                        'platform',
-                        'plist',
-                        'plx',
-                        'po',
-                        'rar',
-                        'rar',
-                        'rb',
-                        'rdoc',
-                        'save', // https://icannwiki.org/.save -> https://ntldstats.com/tld/save
-                        'shm',
-                        'show_query_columns',
-                        'showsource',
-                        'sitemap',
-                        'sql',
-                        'swf',
-                        'swp',
-                        'tar',
-                        'tgz',
-                        'txt',
-                        'xcconfig',
-                        'xcworkspace',
-                        'xcworkspacedata',
-                        'xml',
-                        'xsql',
-                        'yml',
-                        'zip', // https://icannwiki.org/.zip -> https://ntldstats.com/tld/zip
-                    ])) {
-                        //var_dump('tld is file extension');
-                        return false;
-                    } elseif ($tld === "py") {
-                        // .py has second level domains (https://en.wikipedia.org/wiki/.py),
-                        // but could also be attempts at accessing python files
-                        if (count($domainParts) >= 2) {
-                            $domain = join('.', array_slice($domainParts, -2, 2));
-                            if (!in_array($domain, [
-                                'com.py',
-                                'coop.py',
-                                'edu.py',
-                                'gov.py',
-                                'mil.py',
-                                'net.py',
-                                'nic.py',
-                                'org.py',
-                                'una.py',
-                            ])) {
-                                //var_dump('tld is file extension');
-                                return false;
-                            }
+                } elseif ($tld === "py") {
+                    // .py has second level domains (https://en.wikipedia.org/wiki/.py),
+                    // but could also be attempts at accessing python files
+                    if (count($domainParts) >= 2) {
+                        $domain = join('.', array_slice($domainParts, -2, 2));
+                        if (!in_array($domain, [
+                            'com.py',
+                            'coop.py',
+                            'edu.py',
+                            'gov.py',
+                            'mil.py',
+                            'net.py',
+                            'nic.py',
+                            'org.py',
+                            'una.py',
+                        ])) {
+                            //var_dump('tld is file extension');
+                            return false;
                         }
                     }
                 }
