@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.8 - 2020-02-27
+
+* Added brute force protection
+* Added even more URL validation
+
 ## 1.0.7 - 2020-02-27
 
 * Added even more URL validation
