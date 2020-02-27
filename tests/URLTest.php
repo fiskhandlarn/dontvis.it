@@ -604,6 +604,7 @@ class URLTest extends TestCase
             //'basket.pl',
             //'build.properties',
             //'config.ru',
+            //'configure.ac',
             //'create_release.sh',
             //'cron.sh',
             //'debug.pl',
