@@ -112,8 +112,12 @@ class URLTest extends TestCase
     public function test404Hosts()
     {
         foreach ([
-            'index.php?u=%0DSplitting:Detectify',
+            '%0DSplitting:Detectify',
+            '%E5%98%8A%E5%98%8DSplitting:Detectify',
+            '%E5%98%8ASplitting:Detectify',
+            '%E5%98%8DSplitting:Detectify',
             'index.php?u=%0D%0ASplitting:Detectify',
+            'index.php?u=%0DSplitting:Detectify',
             urlencode('Splitting:Detectify'),
         ] as $url) {
             $response = self::$client->request('GET', $url);
