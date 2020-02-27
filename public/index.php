@@ -30,8 +30,8 @@ $requestURI = ltrimword($requestURI, '?u=');
 
 $url = urldecode($requestURI);
 
-// remove NUL
-$url = str_replace("\0", "", $url);
+// remove NUL and newlines
+$url = str_replace(["\r", "\n", "\0"], "", $url);
 
 $hasURL = !empty($url);
 
