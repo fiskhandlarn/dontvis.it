@@ -95,13 +95,11 @@ function isValidURL($url): bool
                     // tld shouldn't contain numbers (except for internationalized tld's, those are ok)
                     //var_dump('tld contains numbers');
                     return false;
-                }
-                elseif (strlen($tld) < 2) {
+                } elseif (strlen($tld) < 2) {
                     // tld must be at least 2 characters
                     //var_dump('too short tld');
                     return false;
-                }
-                elseif (preg_match('/~+$/', $tld) === 1) {
+                } elseif (preg_match('/~+$/', $tld) === 1) {
                     // tld shouldn't end with tilde (i.e. backup files)
                     //var_dump('tld ends with tilde');
                     return false;
