@@ -5,6 +5,7 @@ declare(strict_types=1);
 require __DIR__.'/../vendor/autoload.php';
 
 use Dontvisit\DBHandler;
+use Dontvisit\FirewallHandler;
 use Dontvisit\Parser;
 use eftec\bladeone\BladeOne;
 use Illuminate\Support\Str;
@@ -18,6 +19,9 @@ if (!ob_start('ob_gzhandler')) {
     //gzip-e-di-doo-da
     ob_start();
 }
+
+$fh = new FirewallHandler();
+$fh->begin();
 
 define('ROOT_URL', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']);
 
@@ -144,6 +148,7 @@ if ($hasURL) {
             echo $blade->run('article-notfound', ['title' => $url] + compact('articlePermalinkURL', 'url'));
         }
     } else {
+        $fh->prevent($_SERVER['REMOTE_ADDR']);
         header("HTTP/1.0 404 Not Found");
         echo $blade->run('404', ['title' => $url, 'articlePermalinkURL' => false]);
     }
