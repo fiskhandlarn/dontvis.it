@@ -163,6 +163,7 @@ function isValidURL($url): bool
                         'xcconfig',
                         'xcworkspace',
                         'xcworkspacedata',
+                        'xsql',
                         'xml',
                         'yml',
                         'zip', // https://icannwiki.org/.zip -> https://ntldstats.com/tld/zip

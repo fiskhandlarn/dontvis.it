@@ -457,6 +457,7 @@ class URLTest extends TestCase
             'users.pac',
             'yaml.plx',
             //'zayavka.pl',
+            'file.xsql?name=foobar',
         ] as $url) {
             $response = self::$client->request('GET', $url);
             $this->assertEquals(404, $response->getStatusCode(), $url);
