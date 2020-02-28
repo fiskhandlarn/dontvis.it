@@ -143,13 +143,16 @@ if ($hasURL) {
             // prettify for display
             $body = Parser::prettify($body, $url);
 
+            $url = htmlentities($url, ENT_SUBSTITUTE);
             echo $blade->run('article', compact('title', 'body', 'excerpt', 'url', 'articlePermalinkURL', 'permalink', 'permalinkWithoutScheme'));
         } else {
+            $url = htmlentities($url, ENT_SUBSTITUTE);
             echo $blade->run('article-notfound', ['title' => $url] + compact('articlePermalinkURL', 'url'));
         }
     } else {
         $fh->prevent($_SERVER['REMOTE_ADDR']);
         header("HTTP/1.0 404 Not Found");
+        $url = htmlentities($url, ENT_SUBSTITUTE);
         echo $blade->run('404', ['title' => $url, 'articlePermalinkURL' => false]);
     }
 } else {
