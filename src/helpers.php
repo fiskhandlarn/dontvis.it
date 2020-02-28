@@ -85,9 +85,9 @@ function isValidURL($url): bool
                 // tld must be at least 2 characters
                 //var_dump('too short tld');
                 return false;
-            } elseif (preg_match('/~+$/', $tld) === 1) {
-                // tld shouldn't end with tilde (i.e. backup files)
-                //var_dump('tld ends with tilde');
+            } elseif (ctype_punct(substr($url, -1))) {
+                // don't allow tlds ending with punctuation
+                //var_dump("tld ends with punctuation");
                 return false;
             } else {
                 // don't allow (common) file extensions as tld

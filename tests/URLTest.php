@@ -92,7 +92,7 @@ class URLTest extends TestCase
         $this->assertEquals(404, $response->getStatusCode(), 'abc');
     }
 
-    public function test404Punctuation()
+    public function test404PunctuationStart()
     {
         foreach ([
             '!.gitignore',
@@ -198,11 +198,17 @@ class URLTest extends TestCase
         }
     }
 
-    public function test404Tilde()
+    public function test404TLDPunctuation()
     {
         foreach ([
-            'web.config~',
             'configuration.php~',
+            'History.md\'%27',
+            'mt.pl\'%27',
+            'print.pl\'%27',
+            'README.md\'%27',
+            'technology.pl\'%27',
+            'upload.pl\'%27',
+            'web.config~',
         ] as $url) {
             $response = self::$client->request('GET', $url);
             $this->assertEquals(404, $response->getStatusCode(), $url);
