@@ -215,9 +215,28 @@ class URLTest extends TestCase
         }
     }
 
+    public function test404TLDIllegalCharacters()
+    {
+        foreach ([
+            'favicon.ico%5Cn%5Cnx',
+            'favicon.ico%5Cr%5Cnx',
+            'History.md%22%22',
+            'History.md%5Cn%5Cnx',
+            'History.md%5Cr%5Cnx',
+            'History.md%DE~%C7%1FY',
+        ] as $url) {
+            $response = self::$client->request('GET', $url);
+            $this->assertEquals(404, $response->getStatusCode(), $url);
+        }
+    }
+
     public function test404FileExtensions()
     {
         foreach ([
+            //'History.md/%20cdn',
+            //'History.md/x%2583',
+            //'History.md/xyz%83',
+            //'History.md/xyz@83',
             '0000000000000.cfg',
             '2012.tar.gz',
             '2013.sql',

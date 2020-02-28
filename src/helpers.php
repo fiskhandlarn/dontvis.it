@@ -96,6 +96,13 @@ function isValidURL($url): bool
             return false;
         }
 
+        if (preg_match("#[{}|\\\\^~\\[\\]`]+#", $tld) === 1) {
+            // tld shouldn't contain any of these: { } | \ ^ ~ [ ] `
+            // https://perishablepress.com/stop-using-unsafe-characters-in-urls/
+            //var_dump('tld contains invalid characters');
+            return false;
+        }
+
         // don't allow (common) file extensions as tld
         if (in_array(mb_strtolower($tld), [
             'access',
