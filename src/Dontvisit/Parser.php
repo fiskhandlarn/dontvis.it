@@ -233,6 +233,7 @@ class Parser
             'img'  => 'src',
             'form' => 'action',
             'a'    => 'href',
+            'source' => 'srcset',
         ];
 
         // make all relative urls absolute
@@ -266,6 +267,7 @@ class Parser
         if (env('ANONYMIZER_URL', false)) {
             // second, prepend all urls (except img's) with anonymizer
             unset($tagsAndAttributes['img']);
+            unset($tagsAndAttributes['source']);
             foreach ($tagsAndAttributes as $tag => $attr) {
                 foreach ($xpath->query("//{$tag}[not(starts-with(@{$attr}, '#'))]") as $node) {
                     $node->setAttribute($attr, env('ANONYMIZER_URL').$node->getAttribute($attr));
@@ -316,6 +318,7 @@ class Parser
         return strip_tags(
             $content,
             implode('', [
+                '<picture>',
                 '<a>',
                 '<abbr>',
                 '<address>',
