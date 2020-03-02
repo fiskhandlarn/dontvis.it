@@ -54,7 +54,11 @@ class URLTest extends TestCase
     public function testScrape()
     {
         $response = self::$client->request('GET', urlencode('github.com/fiskhandlarn/dontvis.it'));
-        $this->assertEquals('fiskhandlarn/dontvis.it: dontvis.it, the idiot circumventor tool – dontvis.it', $this->getTitle($response->getBody()->getContents()));
+        $contents = $response->getBody()->getContents();
+        $this->assertEquals('fiskhandlarn/dontvis.it: dontvis.it, the idiot circumventor tool – dontvis.it', $this->getTitle($contents));
+
+        // test that img src's are being kept
+        $this->assertRegExp('#(<img .*githubusercontent.*?>)#', $contents);
     }
 
     public function test301()
