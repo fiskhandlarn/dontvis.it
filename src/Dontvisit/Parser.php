@@ -318,7 +318,6 @@ class Parser
         return strip_tags(
             $content,
             implode('', [
-                '<picture>',
                 '<a>',
                 '<abbr>',
                 '<address>',
@@ -391,6 +390,7 @@ class Parser
                 '<p>',
                 '<p>',
                 '<param>',
+                '<picture>',
                 '<pre>',
                 '<progress>',
                 '<q>',
