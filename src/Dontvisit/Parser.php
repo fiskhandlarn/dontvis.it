@@ -218,7 +218,17 @@ class Parser
     {
         // determine the base url
         $urlParts = parse_url($url);
+
+        $basePath = '';
+        if (isset($urlParts['path'])) {
+            $basePath = ltrim(dirname($urlParts['path']), '/');
+            if (strlen($basePath) > 0) {
+                $basePath .= '/';
+            }
+        }
+
         $domain = $urlParts['scheme'].'://'.$urlParts['host'].'/';
+
         $tagsAndAttributes = [
             'img'  => 'src',
             'form' => 'action',
@@ -240,7 +250,16 @@ class Parser
         // first, prepend all urls with source domain
         foreach ($tagsAndAttributes as $tag => $attr) {
             foreach ($xpath->query("//{$tag}[not(starts-with(@{$attr}, '//')) and not(starts-with(@{$attr}, 'http')) and not(starts-with(@{$attr}, '#'))]") as $node) {
-                $node->setAttribute($attr, $domain.ltrim($node->getAttribute($attr), '/'));
+                $path = $node->getAttribute($attr);
+                if ($path) {
+                    if ($path[0] === '/') {
+                        $path = ltrim($path, '/');
+                    } else {
+                        $path = $basePath . $path;
+                    }
+
+                    $node->setAttribute($attr, $domain . $path);
+                }
             }
         }
 
