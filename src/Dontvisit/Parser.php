@@ -95,6 +95,7 @@ class Parser
 
         $html = $this->tidyClean($html);
 
+        $html = $this->replaceDataAttributes($html);
         $html = $this->removeAttributes($html);
 
         $this->html = $html;
@@ -290,6 +291,28 @@ class Parser
         $nodes = $xpath->query('//@*');
         foreach ($nodes as $node) {
             if (!in_array($node->nodeName, ['xlink:href', 'rel', 'src', 'srcset', 'srcSet', 'sizes', 'href', 'media', 'sizes', 'value', 'content', 'dir', 'lang', 'xml:lang'])) {
+                $node->parentNode->removeAttribute($node->nodeName);
+            }
+        }
+        $html = $dom->saveHTML();
+
+        return $html;
+    }
+
+    private function replaceDataAttributes(string $html): string
+    {
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true); // https://stackoverflow.com/a/6090728/1109380
+        $dom->loadHTML($html);
+        libxml_clear_errors();
+        $xpath = new DOMXPath($dom);
+        $nodes = $xpath->query('//@*');
+        foreach ($nodes as $node) {
+            if (in_array($node->nodeName, ['data-src', 'data-srcset'])) {
+                // create new attribute without data- prefix
+                $node->parentNode->setAttribute(ltrim($node->nodeName, 'data-'), ($node->nodeValue));
+
+                // remove data attribute
                 $node->parentNode->removeAttribute($node->nodeName);
             }
         }
