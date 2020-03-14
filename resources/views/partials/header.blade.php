@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>@if (isset($title)){{ $title }} &ndash; @endif{{ env('SITE_NAME') }}@if (!isset($title)) &ndash; avoid endorsing idiots @endif</title>
+@if ($currentVersion)    <!-- Version: {{ $currentVersion }} -->
+@endif
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{ ROOT_URL }}/assets/styles/app.css" />

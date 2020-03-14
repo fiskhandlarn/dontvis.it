@@ -23,6 +23,8 @@ if (!ob_start('ob_gzhandler')) {
 $fh = new FirewallHandler();
 $fh->begin();
 
+$currentVersion = trim(file(__DIR__ . '/../CHANGELOG.md')[2] ?? '', "#\n ");
+
 define('ROOT_URL', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']);
 
 $requestURI = $_SERVER['REQUEST_URI']; // use whole request URI instead of query parameter u to capture ? and & in given URL
@@ -151,17 +153,17 @@ if ($hasURL) {
             $body = Parser::prettify($body, $url);
 
             $url = htmlentities($url, ENT_SUBSTITUTE);
-            echo $blade->run('article', compact('title', 'body', 'excerpt', 'url', 'articlePermalinkURL', 'permalink', 'permalinkWithoutScheme'));
+            echo $blade->run('article', compact('title', 'body', 'excerpt', 'url', 'articlePermalinkURL', 'permalink', 'permalinkWithoutScheme', 'currentVersion'));
         } else {
             $url = htmlentities($url, ENT_SUBSTITUTE);
-            echo $blade->run('article-notfound', ['title' => $url] + compact('articlePermalinkURL', 'url'));
+            echo $blade->run('article-notfound', ['title' => $url] + compact('articlePermalinkURL', 'url', 'currentVersion'));
         }
     } else {
         $fh->prevent($_SERVER['REMOTE_ADDR']);
         header("HTTP/1.0 404 Not Found");
         $url = htmlentities($url, ENT_SUBSTITUTE);
-        echo $blade->run('404', ['title' => $url, 'articlePermalinkURL' => false]);
+        echo $blade->run('404', ['title' => $url, 'articlePermalinkURL' => false] + compact('currentVersion'));
     }
 } else {
-    echo $blade->run('index', ['articlePermalinkURL' => false]);
+    echo $blade->run('index', ['articlePermalinkURL' => false] + compact('currentVersion'));
 }
