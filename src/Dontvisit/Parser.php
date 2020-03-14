@@ -44,7 +44,7 @@ class Parser
      *
      *********************************************************************************/
 
-    public function fetch(string $UAString): bool
+    public function fetch(string $UAString, int $timeout = -1): bool
     {
         if (!$this->url) {
             throw new Error('URL not set.');
@@ -63,6 +63,9 @@ class Parser
         $context = stream_context_create($opts);
 
         $this->fetchErrors = [];
+        if ($timeout !== -1 ) {
+            ini_set('default_socket_timeout', (string)$timeout); // 900 Seconds = 15 Minutes
+        }
         set_error_handler([&$this, 'fetchErrorHandler'], E_ALL);
         $this->html = file_get_contents($this->url, false, $context);
         restore_error_handler();

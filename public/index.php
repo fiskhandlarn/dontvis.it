@@ -95,6 +95,10 @@ if ($hasURL) {
             $userAgents[] = "Mozilla/5.0 (compatible, bingbot/2.0, +http://www.bing.com/bingbot.htm)\r\n";
             $userAgents[] = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
 
+            // divide the timeout so that we can make all the requests
+            $timeout = ini_get('default_socket_timeout');
+            $timeoutPerFetch = (int)floor($timeout / count($userAgents) / 2);
+
             // try both ssl and non-ssl (ssl first to avoid mixed content)
             foreach (['https://', 'http://'] as $scheme) {
                 $url = $scheme.$articlePermalinkURL;
@@ -102,7 +106,7 @@ if ($hasURL) {
                 $p = new Parser($url);
 
                 foreach ($userAgents as $UA) {
-                    if ($p->fetch($UA)) {
+                    if ($p->fetch($UA, $timeoutPerFetch)) {
                         $p->parse();
                         if ($p->readabilitify()) {
                             $title = $p->title;
@@ -128,6 +132,9 @@ if ($hasURL) {
                     break;
                 }
             }
+
+            // restore timeout
+            ini_set('default_socket_timeout', (string)$timeout);
 
             if (!$fetchSuccessful) {
                 bugsnag_error('unsuccessful_fetch', null, compact('url') + ['last_fetch_errors' => $p->fetchErrors], 'info');
