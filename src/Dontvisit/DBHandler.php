@@ -23,21 +23,6 @@ class DBHandler
         }
     }
 
-    public function read(string $url, bool $increaseCacheCount = true): ?array
-    {
-        $stmt = $this->pdo->prepare('SELECT id, title, body, full_url FROM cache WHERE url = :url LIMIT 1');
-        $stmt->execute(['url' => $url]);
-        foreach ($stmt as $row) {
-            if ($increaseCacheCount) {
-                $this->increaseCacheCount($url);
-            }
-
-            return [$row['title'], $row['body'], $row['full_url'], $row['id']];
-        }
-
-        return null;
-    }
-
     public function cache($url, $title, $body, $fullURL, $userAgent)
     {
         list($currentTitle, $currentTitle, $currentFullURL, $currentID) = $this->read($url, false);
@@ -68,6 +53,29 @@ class DBHandler
         $stmt->execute();
     }
 
+    public function read(string $url, bool $increaseCacheCount = true): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT id, title, body, full_url FROM cache WHERE url = :url LIMIT 1');
+        $stmt->execute(['url' => $url]);
+        foreach ($stmt as $row) {
+            if ($increaseCacheCount) {
+                $this->increaseCacheCount($url);
+            }
+
+            return [$row['title'], $row['body'], $row['full_url'], $row['id']];
+        }
+
+        return null;
+    }
+
+    private function cacheTableExists(): bool
+    {
+        $stmt = $this->pdo->prepare("SHOW TABLES LIKE 'cache'");
+        $stmt->execute();
+
+        return $stmt->rowCount() >= 1;
+    }
+
     private function createCacheTable()
     {
         $stmt = $this->pdo->prepare("CREATE TABLE IF NOT EXISTS `cache` (
@@ -83,14 +91,6 @@ class DBHandler
         $stmt->execute();
     }
 
-    private function cacheTableExists(): bool
-    {
-        $stmt = $this->pdo->prepare("SHOW TABLES LIKE 'cache'");
-        $stmt->execute();
-
-        return $stmt->rowCount() >= 1;
-    }
-
     private function createLogTable()
     {
         $stmt = $this->pdo->prepare('CREATE TABLE IF NOT EXISTS `log` (
@@ -103,17 +103,17 @@ class DBHandler
         $stmt->execute();
     }
 
+    private function increaseCacheCount($url)
+    {
+        $stmt = $this->pdo->prepare('UPDATE cache SET nr_readings = nr_readings + 1 WHERE url = :url');
+        $stmt->execute(['url' => $url]);
+    }
+
     private function logTableExists(): bool
     {
         $stmt = $this->pdo->prepare("SHOW TABLES LIKE 'log'");
         $stmt->execute();
 
         return $stmt->rowCount() >= 1;
-    }
-
-    private function increaseCacheCount($url)
-    {
-        $stmt = $this->pdo->prepare('UPDATE cache SET nr_readings = nr_readings + 1 WHERE url = :url');
-        $stmt->execute(['url' => $url]);
     }
 }
