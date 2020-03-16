@@ -8,6 +8,7 @@
 /storage
 backstop_data
 deployer.log
+deployer.md
 Homestead.json
 Homestead.yaml
 hosts.yml
