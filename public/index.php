@@ -79,7 +79,7 @@ if ($hasURL) {
         $db = new DBHandler();
         list($title, $body, $urlFromDB) = $db->read($articlePermalinkURL);
 
-        if (!$title) {
+        if (!$body) {
             // no cache, let's fetch the article
 
             $fetchSuccessful = false;
@@ -114,10 +114,14 @@ if ($hasURL) {
                             $title = $p->title;
                             $body = $p->body;
 
-                            // save to db (non-prettified)
-                            $db->cache($articlePermalinkURL, $title, $body, $url, $UA);
+                            if ($body) {
+                                // save to db (non-prettified)
+                                $db->cache($articlePermalinkURL, $title, $body, $url, $UA);
 
-                            break;
+                                break;
+                            } else {
+                                $db->log($url, 'Empty body from Readability', $UA);
+                            }
                         } else {
                             $db->log($url, 'Unable to parse with Readability', $UA);
                         }
@@ -128,7 +132,7 @@ if ($hasURL) {
                     }
                 }
 
-                if ($title && $body) {
+                if ($body) {
                     // content found, bail!
                     $fetchSuccessful = true;
                     break;
@@ -154,11 +158,15 @@ if ($hasURL) {
             $url = $urlFromDB;
         }
 
-        if ($title && $body) {
+        if ($body) {
             $excerpt = Str::words(trim(preg_replace('/\s+/', ' ', strip_tags($body))), 100);
 
             // prettify for display
             $body = Parser::prettify($body, $url);
+
+            if (!$title) {
+                $title = $url;
+            }
 
             $url = htmlentities($url, ENT_SUBSTITUTE);
             echo $blade->run('article', compact('title', 'body', 'excerpt', 'url', 'articlePermalinkURL', 'permalink', 'permalinkWithoutScheme', 'currentVersion'));
