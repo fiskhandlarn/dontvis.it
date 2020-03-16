@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.9 - 2020-03-16
+
+* Show latest, top and random URLs
+* Lower timeout per fetch
+* Fix paths for scraped images (both `picture` and `img`)
+* Added more URL validation
+
 ## 1.0.8 - 2020-02-27
 
 * Added brute force protection
