@@ -235,7 +235,6 @@ class Parser
 
         $tagsAndAttributes = [
             'img'  => 'src',
-            'form' => 'action',
             'a'    => 'href',
             'source' => 'srcset',
         ];
@@ -380,7 +379,6 @@ class Parser
                 '<figcaption>',
                 '<figure>',
                 '<footer>',
-                '<form>',
                 '<h1>',
                 '<h2>',
                 '<h3>',
