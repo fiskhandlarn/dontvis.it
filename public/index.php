@@ -156,7 +156,8 @@ if ($hasURL) {
             echo $blade->run('article', compact('title', 'body', 'excerpt', 'url', 'articlePermalinkURL', 'permalink', 'permalinkWithoutScheme', 'currentVersion'));
         } else {
             $url = htmlentities($url, ENT_SUBSTITUTE);
-            echo $blade->run('article-notfound', ['title' => $url] + compact('articlePermalinkURL', 'url', 'currentVersion'));
+            $randomURLs = $db->randomURLs(1);
+            echo $blade->run('article-notfound', ['title' => $url, 'randomURL' => count($randomURLs) ? array_pop($randomURLs) : false] + compact('articlePermalinkURL', 'url', 'currentVersion'));
         }
     } else {
         $fh->prevent($_SERVER['REMOTE_ADDR']);
@@ -165,5 +166,9 @@ if ($hasURL) {
         echo $blade->run('404', ['title' => $url, 'articlePermalinkURL' => false] + compact('currentVersion'));
     }
 } else {
-    echo $blade->run('index', ['articlePermalinkURL' => false] + compact('currentVersion'));
+    $db = new DBHandler();
+    $topURLs = $db->topURLs();
+    $latestURLs = $db->latestURLs();
+
+    echo $blade->run('index', ['articlePermalinkURL' => false] + compact('currentVersion', 'topURLs', 'latestURLs'));
 }

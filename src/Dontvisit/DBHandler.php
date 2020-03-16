@@ -52,6 +52,22 @@ class DBHandler
         $stmt->execute();
     }
 
+    public function latestURLs(int $limit = 5): array
+    {
+        $ret = [];
+        $stmt = $this->pdo->prepare('SELECT url, title FROM cache ORDER BY timestamp DESC LIMIT :limit');
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT); // https://stackoverflow.com/a/11738633/1109380
+        $stmt->execute();
+        foreach ($stmt as $row) {
+            $ret []= [
+                'url' => $row['url'],
+                'title' => $row['title'],
+            ];
+        }
+
+        return $ret;
+    }
+
     public function log($url, $file_get_contents_error, $userAgent)
     {
         $stmt = $this->pdo->prepare('INSERT INTO log (url, file_get_contents_error, user_agent) VALUES (:url, :file_get_contents_error, :user_agent)');
@@ -74,6 +90,47 @@ class DBHandler
         }
 
         return null;
+    }
+
+    public function randomURLs(int $limit = 5): array
+    {
+        $ret = [];
+        // https://stackoverflow.com/a/4329447/1109380
+        $stmt = $this->pdo->prepare('SELECT url, title
+  FROM cache AS r1 JOIN
+       (SELECT CEIL(RAND() *
+                     (SELECT MAX(id)
+                        FROM cache)) AS id)
+        AS r2
+ WHERE r1.id >= r2.id
+ ORDER BY r1.id ASC
+ LIMIT :limit');
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT); // https://stackoverflow.com/a/11738633/1109380
+        $stmt->execute();
+        foreach ($stmt as $row) {
+            $ret []= [
+                'url' => $row['url'],
+                'title' => $row['title'],
+            ];
+        }
+
+        return $ret;
+    }
+
+    public function topURLs(int $limit = 5): array
+    {
+        $ret = [];
+        $stmt = $this->pdo->prepare('SELECT url, title FROM cache ORDER BY nr_readings DESC, timestamp DESC LIMIT :limit');
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT); // https://stackoverflow.com/a/11738633/1109380
+        $stmt->execute();
+        foreach ($stmt as $row) {
+            $ret []= [
+                'url' => $row['url'],
+                'title' => $row['title'],
+            ];
+        }
+
+        return $ret;
     }
 
     /*********************************************************************************

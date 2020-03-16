@@ -30,7 +30,8 @@
             <dt>Does it work with any website?</dt><dd>Certainly not.</dd>
             <dt>Do we track you?</dt><dd>Only through Google Analytics (and only if you approve).</dd>
             <dt>Is it open source?</dt><dd><a href="{{ env('GITHUB_URL') }}">Yes.</a></dd>
-           </dl>
+          </dl>
+
           <p>Enjoy literally not feeding the trolls!</p>
 
           <h2>Usage</h2>
@@ -39,6 +40,12 @@
 
           <p class="manual-usage">Or just put <span class="thisurl">{{ env('SITE_URL') }}</span> in front of <span class="thaturl">http://</span>, like this:<br />
             <span class="thisurl">{{ env('SITE_URL') }}</span><span class="thaturl">http://idiot.blog.tro/ll</span></p>
+
+          <h2>Top 5 URLs not visited</h2>
+          @include('partials.urllist', ['list' => $topURLs])
+
+          <h2>5 latest URLs not visited</h2>
+          @include('partials.urllist', ['list' => $latestURLs])
         </div>
       </div>
     </div>
