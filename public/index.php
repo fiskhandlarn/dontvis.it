@@ -139,7 +139,15 @@ if ($hasURL) {
             ini_set('default_socket_timeout', (string)$timeout);
 
             if (!$fetchSuccessful) {
-                bugsnag_error('unsuccessful_fetch', null, compact('url') + ['last_fetch_errors' => $p->fetchErrors], 'info');
+                // don't notify if full URL is filename-like
+                $fullURL = "http://" . preg_replace('#^https?://#', '', $url);
+                $parsedURL = parse_url($fullURL);
+                if (
+                    strlen(trim($parsedURL['path'] ?? '', '/')) !== 0 || // URL has domain and path
+                    strpos($parsedURL['host'] ?? '', 'www') === 0 // URL begins with www and is probably not a filename
+                ) {
+                    bugsnag_error('unsuccessful_fetch', null, compact('url') + ['last_fetch_errors' => $p->fetchErrors], 'info');
+                }
             }
         } else {
             // use the URL that was successful when fetched
