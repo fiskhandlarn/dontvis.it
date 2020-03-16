@@ -1,5 +1,7 @@
 # dontvis.it
 
+![dontvis.it](https://user-images.githubusercontent.com/680264/75673749-f8088300-5c83-11ea-95c0-820e9f0883f3.png)
+
 [dontvis.it](https://dontvis.it) is a tool to escape linkbaits, trolls, idiots and asshats.
 
 [![Build Status](https://badgen.net/travis/fiskhandlarn/dontvis.it/master)](https://travis-ci.com/fiskhandlarn/dontvis.it)
