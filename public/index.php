@@ -86,16 +86,12 @@ if ($hasURL) {
             $lastErrorMessage = '';
 
             // User agent switcheroo
-            $userAgents = [];
-
-            // DN seems to restrict content if crawled from Google
-            if (stripos($url, 'dn.se') === false) {
-                $userAgents[] = "User-Agent: Mozilla/5.0 (compatible, Googlebot/2.1, +http://www.google.com/bot.html)\r\n";
-            }
-
-            $userAgents[] = "Mozilla/5.0 (compatible, Yahoo! Slurp, http://help.yahoo.com/help/us/ysearch/slurp)\r\n";
-            $userAgents[] = "Mozilla/5.0 (compatible, bingbot/2.0, +http://www.bing.com/bingbot.htm)\r\n";
-            $userAgents[] = "Baiduspider+(+http://www.baidu.com/search/spider.htm)  \r\n";
+            $userAgents = [
+                'Mozilla/5.0 (compatible, Googlebot/2.1, +http://www.google.com/bot.html)',
+                'Mozilla/5.0 (compatible, Yahoo! Slurp, http://help.yahoo.com/help/us/ysearch/slurp)',
+                'Mozilla/5.0 (compatible, bingbot/2.0, +http://www.bing.com/bingbot.htm)',
+                'Baiduspider+(+http://www.baidu.com/search/spider.htm)',
+            ];
 
             // divide the timeout so that we can make all the requests
             $timeout = ini_get('default_socket_timeout');

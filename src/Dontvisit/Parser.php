@@ -54,9 +54,9 @@ class Parser
 
         // Create a stream
         $opts = [
-            'http'=> [
+            'http' => [
                 'method' => 'GET',
-                'header' => $UAString,
+                'header'  => 'User-agent: ' . $UAString . "\r\n",
             ],
         ];
 
