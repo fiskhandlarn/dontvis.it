@@ -432,7 +432,6 @@ class Parser
                 '<mark>',
                 '<math>',
                 '<menu>',
-                '<meta>',
                 '<meter>',
                 '<nav>',
                 '<noscript>',
