@@ -70,6 +70,20 @@ class Parser
         $this->html = file_get_contents($this->url, false, $context);
         restore_error_handler();
 
+        // check for redirects
+        // https://stackoverflow.com/a/37588381/1109380
+        if ((bool) $this->html && isset($http_response_header)) {
+            $pattern = "/^Location:\s*(.*)$/i";
+            $location_headers = preg_grep($pattern, $http_response_header);
+            if (!empty($location_headers) &&
+                preg_match($pattern, array_values($location_headers)[0], $matches)) {
+                if (isset($matches[1]) ) {
+                    // update url to wanted redirect (which file_get_contents() already has followed when fetching)
+                    $this->url = $matches[1];
+                }
+            }
+        }
+
         return (bool) $this->html;
     }
 
@@ -152,6 +166,12 @@ class Parser
 
         return false;
     }
+
+    public function url(): string
+    {
+        return $this->url;
+    }
+
 
     /*********************************************************************************
      *    ___      _           __                   __  __           __

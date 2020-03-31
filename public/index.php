@@ -115,6 +115,9 @@ if ($hasURL) {
                             $body = $p->body;
 
                             if ($body) {
+                                // save potentially new url from followed redirect (see Parser::fetch())
+                                $url = $p->url();
+
                                 // save to db (non-prettified)
                                 $db->cache($articlePermalinkURL, $title, $body, $url, $UA);
 
