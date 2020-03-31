@@ -124,7 +124,7 @@ $ make down
 * Rehost images on [Imgur](https://imgur.com/)
 
 ## Built with:
-- [PHP-Readability](https://bitbucket.org/Dither/php-readability/src/master/) 1.7.2
+- [andreskrey/readability.php](https://github.com/andreskrey/readability.php)
 - [Bootstrap](https://getbootstrap.com/) 4.4.1
 
 ## Thanks to
