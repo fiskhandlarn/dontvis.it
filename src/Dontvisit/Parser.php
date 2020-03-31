@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Dontvisit;
 
+use andreskrey\Readability\Configuration;
+use andreskrey\Readability\ParseException;
+use andreskrey\Readability\Readability;
 use DOMDocument;
 use DOMXPath;
 use Error;
-use Readability\Readability;
 
 class Parser
 {
@@ -140,39 +142,22 @@ class Parser
 
     public function readabilitify(): bool
     {
-        if (!$this->url) {
-            throw new Error('URL not set.');
-
-            return false;
-        }
-
         if (!$this->html) {
             throw new Error('HTML not set.');
 
             return false;
         }
 
-        // give it to Readability
-        $readability = new Readability($this->html, $this->url);
+        $readability = new Readability(new Configuration(['SummonCthulhu' => true]));
+        try {
+            $readability->parse($this->html);
 
-        // print debug output?
-        // useful to compare against Arc90's original JS version -
-        // simply click the bookmarklet with FireBug's
-        // console window open
-        $readability->debug = false;
-
-        // convert links to footnotes?
-        //$readability->convertLinksToFootnotes = true;
-
-        // process it
-        $result = $readability->init();
-
-        // does it look like we found what we wanted?
-        if ($result) {
-            $this->title = $readability->getTitle()->textContent;
-            $this->content = $readability->getContent()->innerHTML;
+            $this->title = $readability->getTitle();
+            $this->content = $readability->getContent();
 
             return true;
+        } catch (ParseException $e) {
+            //echo sprintf('Error processing text: %s', $e->getMessage());
         }
 
         return false;
