@@ -22,7 +22,8 @@
     "eftec/bladeone": "^3.33",
     "illuminate/support": "^6.15",
     "vlucas/phpdotenv": "^3.3",
-    "metarush/firewall": "^1.1"
+    "metarush/firewall": "^1.1",
+    "j0k3r/php-readability": "^1.2"
   },
   "require-dev": {
     "deployer/deployer": "^6.7",
@@ -34,9 +35,7 @@
       "Dontvisit\\": "src/Dontvisit/"
     },
     "files": [
-      "src/helpers.php",
-      "src/JSLikeHTMLElement.php",
-      "src/Readability.php"
+      "src/helpers.php"
     ]
   },
   "autoload-dev": {
