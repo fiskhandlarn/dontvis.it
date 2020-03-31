@@ -79,7 +79,16 @@ class Parser
                 preg_match($pattern, array_values($location_headers)[0], $matches)) {
                 if (isset($matches[1]) ) {
                     // update url to wanted redirect (which file_get_contents() already has followed when fetching)
-                    $this->url = $matches[1];
+                    $newURL = $matches[1];
+                    $newURLParts = parse_url($newURL);
+
+                    if(!isset($newURLParts['scheme']) || !isset($newURLParts['host'])) {
+                        // redirected url seems to be relative, use domain from old url
+                        $urlParts = parse_url($this->url);
+                        $newURL = $domain = $urlParts['scheme'].'://'.$urlParts['host'].'/' . ltrim($newURL, '/');
+                    }
+
+                    $this->url = $newURL;
                 }
             }
         }
