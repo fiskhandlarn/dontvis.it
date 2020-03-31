@@ -121,6 +121,8 @@ class Parser
 
         $html = $this->tidyClean($html);
 
+        $html = $this->removeAds($html);
+        $html = $this->removeCookieBar($html);
         $html = $this->replaceDataAttributes($html);
         $html = $this->removeAttributes($html);
 
@@ -310,6 +312,22 @@ class Parser
         return $dom->saveHTML();
     }
 
+    private function removeAds(string $html): string
+    {
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true); // https://stackoverflow.com/a/6090728/1109380
+        $dom->loadHTML($html);
+        libxml_clear_errors();
+        $xpath = new DOMXPath($dom);
+        // https://stackoverflow.com/a/25524349/1109380
+        foreach($xpath->query('//div[contains(attribute::id, "rich-media-ads")]') as $e ) {
+            $e->parentNode->removeChild($e);
+        }
+        $html = $dom->saveHTML();
+
+        return $html;
+    }
+
     private function removeAttributes(string $html): string
     {
         // remove all attributes except some
@@ -324,6 +342,22 @@ class Parser
             if (!in_array($node->nodeName, ['xlink:href', 'rel', 'src', 'srcset', 'srcSet', 'sizes', 'href', 'media', 'sizes', 'value', 'content', 'dir', 'lang', 'xml:lang'])) {
                 $node->parentNode->removeAttribute($node->nodeName);
             }
+        }
+        $html = $dom->saveHTML();
+
+        return $html;
+    }
+
+    private function removeCookieBar(string $html): string
+    {
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true); // https://stackoverflow.com/a/6090728/1109380
+        $dom->loadHTML($html);
+        libxml_clear_errors();
+        $xpath = new DOMXPath($dom);
+        // https://stackoverflow.com/a/25524349/1109380
+        foreach($xpath->query('//div[contains(attribute::class, "gdpr") or contains(attribute::class, "cookie")]') as $e ) {
+            $e->parentNode->removeChild($e);
         }
         $html = $dom->saveHTML();
 
